@@ -27,7 +27,7 @@ class Step1():
         self.setEnvLabel.place(x=510, y=125)
 
         def thispcfun():
-            Step2(root=self.root, onthis=True, parent=self.parent).draw()
+            Step2(root=self.root, onthis=True, parent=self.step1_frame).draw()
 
         self.thisPcBut = Button(self.step1_frame, bg="white", activebackground="white", bd=0,
                                image=self.thisPcPng, command=thispcfun)
@@ -35,7 +35,7 @@ class Step1():
         self.thisPcBut.place(x=648, y=400)
 
         def remotefun():
-            Step2(root=self.root, onthis=False, parent=self.parent).draw()
+            Step2(root=self.root, onthis=False, parent=self.step1_frame).draw()
 
         self.remotePcBut = Button(self.step1_frame, bg="white", activebackground="white", bd=0,
                                 image=self.remotePcPng, command=remotefun)

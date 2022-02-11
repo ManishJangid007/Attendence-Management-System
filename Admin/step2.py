@@ -110,7 +110,7 @@ class Step2():
                                               justify="center", font=(self.font, 10, 'normal'))
                     self.errorMessage.grid(row=2, column=1, pady=2)
                 else:
-                    Step3(self.root, self.parent).draw()
+                    Step3(self.root, self.step2_frame).draw()
             else:
                 self.errorMessage = Label(content_frame, bd=0, bg="white", fg="red", text="*Cannot Find The Server", justify="center", font=(self.font, 10, 'normal'))
                 self.errorMessage.grid(row=2, column=1, pady=2)

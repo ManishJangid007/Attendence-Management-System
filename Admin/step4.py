@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from Admin.step5 import Step5
 
 class Step4():
     def __init__(self, root, parent):
@@ -38,8 +39,9 @@ class Step4():
 
         def next_step():
             self.destroy()
+            Step5(self.root).draw()
 
-        self.root.after(2000, next_step)
+        self.root.after(5000, next_step)
 
     def destroy(self):
         self.step4_frame.destroy()

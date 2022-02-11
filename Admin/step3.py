@@ -36,7 +36,7 @@ class Step3():
         self.backButt.place(x=20, y=15)
 
         def create():
-            Step4(root=self.root, parent=self.parent).draw()
+            Step4(root=self.root, parent=self.step3_frame).draw()
 
         self.createData = Button(self.step3_frame, bg="white", activebackground="white", bd=0,
                                image=self.createDataPng, command=create)
