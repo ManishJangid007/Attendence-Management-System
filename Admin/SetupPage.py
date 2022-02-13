@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import ImageTk, Image
 from step1 import *
 from step2 import *
+from Admin.Connection import *
+from Admin.LoginPage import *
 
 class SetupPage():
     def __init__(self, root):
@@ -38,7 +40,7 @@ class SetupPage():
                                 bg=self.backgroundColor, font=(self.font, 32, "normal"))
         self.portalLabel.place(x=475, y=150)
 
-        self.message0Label = Label(self.setup_page_frame, fg=self.textColor, text="We Could not Found Server,", bd=0,
+        self.message0Label = Label(self.setup_page_frame, fg=self.textColor, text="We Could not Found Database,", bd=0,
                                  bg="white", font=(self.font, 20, "normal"))
         self.message0Label.place(x=630, y=480)
 
@@ -52,6 +54,11 @@ class SetupPage():
                                    bg="white", font=(self.font, 20, "normal"))
         self.message1Label.place(x=630, y=560)
 
+        self.errorMessage = Label(self.setup_page_frame, fg="red",
+                                   text="", bd=0,
+                                   bg="white", font=(self.font, 10, "normal"))
+        self.errorMessage.place(x=650, y=610)
+
         def start_setup():
             Step1(root=self.root, parent=self.setup_page_frame).draw()
 
@@ -60,7 +67,14 @@ class SetupPage():
         self.initialBut.place(x=930, y=523)
 
         def reconnect():
-            pass
+            if Connection().check():
+                if Connection().check_database():
+                    self.destroy()
+                    LoginPage(self.root).draw()
+                else:
+                    self.errorMessage.config(text="*We Could not Found Database")
+            else:
+                self.errorMessage.config(text="*We Could not Found Server")
 
         self.reconnectBut = Button(self.setup_page_frame, bg="white", activebackground="white", bd=0,
                                  image=self.reconnectButPng, command=reconnect)

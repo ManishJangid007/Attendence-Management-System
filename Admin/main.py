@@ -1,5 +1,7 @@
 from SetupPage import *
 from tkinter import *
+from Admin.LoginPage import LoginPage
+from Admin.Connection import *
 
 root = Tk()
 root.title("Attendence Manager")
@@ -7,6 +9,9 @@ root.title("Attendence Manager")
 root.geometry("1080x650")
 root.resizable(False, False)
 
-SetupPage(root).draw()
+if Connection().check_database():
+    LoginPage(root).draw()
+else:
+    SetupPage(root).draw()
 
 root.mainloop()
