@@ -63,20 +63,24 @@ class LoginPage():
         self.passEntry.place(x=123, y=411)
 
         def logfun():
-            if Connection().check():
-                try:
-                    self.errorLabel.destroy()
-                except:
-                    pass
-                userName = self.unEntry.get()
-                password = self.passEntry.get()
-                if len(userName) > 0 and len(password) > 0:
-                    self.login_page_frame.destroy()
+            conn = Connection()
+            if conn.check():
+                if conn.check_database():
+                    try:
+                        self.errorLabel.destroy()
+                    except:
+                        pass
+                    userName = self.unEntry.get()
+                    password = self.passEntry.get()
+                    if len(userName) > 0 and len(password) > 0:
+                        self.login_page_frame.destroy()
+                    else:
+                        self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
+                                                text="*Invalid username & password", bd=0, bg="white",
+                                                font=(self.font, 10, "normal"))
+                        self.errorLabel.place(x=122, y=455)
                 else:
-                    self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
-                                            text="*Invalid username & password", bd=0, bg="white",
-                                            font=(self.font, 10, "normal"))
-                    self.errorLabel.place(x=122, y=455)
+                    ErrorPage(root=self.root, message="Database Not Found", parameterOption=True).draw()
             else:
                 ErrorPage(root=self.root, message="You're Disconnected from Server", parameterOption=True).draw()
 

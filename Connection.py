@@ -44,6 +44,19 @@ class Connection():
         except:
             self.conn = False
 
+        try:
+            self.mydb1 = mysql.connector.connect(
+                # Database Configuration
+                # Change Database Name According to Your Need
+                database="test",
+                host=data[1],
+                user=data[2],
+                password=data[3]
+            )
+            self.connDatabase = True
+        except:
+            self.connDatabase = False
+
     def cursor(self):
         return self.mydb.cursor()
 
@@ -52,6 +65,12 @@ class Connection():
             return True
         else:
             return False
+    def check_database(self):
+        if self.connDatabase:
+            return True
+        else:
+            return False
+
 
 
 

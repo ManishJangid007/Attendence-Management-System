@@ -33,8 +33,10 @@ class ErrorPage():
         self.messageLabel.place(x=440, y=90)
 
         def retryfun():
-            if Connection().check():
-                self.destroy()
+            conn = Connection()
+            if conn.check():
+                if conn.check_database():
+                    self.destroy()
 
         def ccpfun():
             ParaPage(root=self.root, parent=self.error_page_frame).draw()
