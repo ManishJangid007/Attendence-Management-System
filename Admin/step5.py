@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from Admin.LoginPage import LoginPage
 
 class Step5():
     def __init__(self, root):
@@ -97,6 +98,7 @@ class Step5():
 
         def skip():
             self.destroy()
+            LoginPage(self.root).draw()
 
         self.skipBut = Button(self.step5_frame, bg="white", activebackground="white", bd=0,
                                image=self.skipButPng, command=skip)
@@ -115,8 +117,7 @@ class Step5():
                         if len(password) >= 8:
                             if len(password) <= 18:
                                 if password == cpassword:
-                                    # Do Something with data
-                                    pass
+                                    LoginPage(self.root).draw()
                                 else:
                                     self.errorMessage.config(text="*Password could not match")
                             else:
