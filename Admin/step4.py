@@ -39,6 +39,7 @@ class Step4():
 
         def next_step():
             self.destroy()
+            # Setup Your Database Here
             Step5(self.root).draw()
 
         self.root.after(5000, next_step)

@@ -58,7 +58,7 @@ class Connection():
             self.connDatabase = False
 
     def cursor(self):
-        return self.mydb.cursor()
+        return self.mydb1.cursor()
 
     def check(self):
         if self.conn:
