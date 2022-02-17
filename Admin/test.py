@@ -1,43 +1,20 @@
-from tkinter import *
+import mysql.connector
 
-ws = Tk()
-ws.title('PythonGuides')
-
-frame = Frame(
-    ws,
-    width=500,
-    height=400
+try:
+    mydb = mysql.connector.connect(
+        # Database Configuration
+        # 192.168.137.1
+        database="",
+        host="localhost",
+        user="root",
+        password=""
     )
-frame.pack(expand=True, fill=BOTH)
+    conn = True
+except Exception as e:
+    print(e)
+    conn = False
 
-canvas=Canvas(
-    frame,
-    bg='#4A7A8C',
-    width=500,
-    height=400,
-    scrollregion=(0,0,700,700)
-    )
-
-vertibar=Scrollbar(
-    frame,
-    orient=VERTICAL
-    )
-vertibar.pack(side=RIGHT,fill=Y)
-vertibar.config(command=canvas.yview)
-
-horibar=Scrollbar(
-    frame,
-    orient=HORIZONTAL
-    )
-horibar.pack(side=BOTTOM,fill=X)
-horibar.config(command=canvas.xview)
-
-canvas.config(width=500,height=400)
-
-canvas.config(
-    xscrollcommand=horibar.set,
-    yscrollcommand=vertibar.set
-    )
-canvas.pack(expand=True,side=LEFT,fill=BOTH)
-
-ws.mainloop()
+if conn:
+    print("connected")
+else:
+    print("try again")

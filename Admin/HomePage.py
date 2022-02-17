@@ -1,12 +1,13 @@
+from Admin.AttendenceMain.YesterdayReport import *
 from tkinter import *
-from PIL import ImageTk, Image
+from PIL import ImageTk
 
 class HomePage():
     def __init__(self, root, username):
         self.username = username
         self.root = root
-        self.backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/background.png"))
-        self.settingsPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/buttons/settings.png"))
+        self.backgroundPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/background.png"))
+        self.settingsPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/buttons/settings.png"))
         self.orangePrimColor = "#FF8C64"
         self.bluePrimColor = "#87A0C4"
         self.ligBluePrimColor = "#F2F8FF"
@@ -21,6 +22,9 @@ class HomePage():
         self.home_page_frame = Frame(self.root, bg="white", width=1080, height=650)
         self.home_page_frame.place(x=0, y=0)
 
+        # main panels Objects
+        self.yesterdayReportObj = YesterdayReport(self.home_page_frame)
+
         self.background = Label(self.home_page_frame, bg="white", bd=0, image=self.backgroundPng)
         self.background.photo = self.backgroundPng
         self.background.place(x=12, y=5)
@@ -30,9 +34,6 @@ class HomePage():
 
         self.attendance_side_panel()
 
-        self.mainPanel = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
-        self.mainPanel.place(x=323, y=103)
-
         userHeading = Label(self.menu_bar, text=f"@{self.username}", bg=self.orangePrimColor, bd=0, fg=self.primaryTextColor, font=(self.font, 25, 'normal'))
         userHeading.place(x=8 , y=5)
 
@@ -41,6 +42,7 @@ class HomePage():
             self.attendence.config(fg=self.menuActive)
             self.destroy_all_side_panel()
             self.attendance_side_panel()
+            self.destroy_all_main_panel()
 
         self.attendence = Label(self.menu_bar, text="Attendance", bg=self.orangePrimColor, bd=0, fg=self.menuActive, font=(self.font, 20, 'normal'))
         self.attendence.place(x=450, y=11)
@@ -51,7 +53,7 @@ class HomePage():
             self.teacher.config(fg=self.menuActive)
             self.destroy_all_side_panel()
             self.teacher_side_panel()
-
+            self.destroy_all_main_panel()
 
         self.teacher = Label(self.menu_bar, text="Teacher", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -63,6 +65,7 @@ class HomePage():
             self.student.config(fg=self.menuActive)
             self.destroy_all_side_panel()
             self.student_side_panel()
+            self.destroy_all_main_panel()
 
         self.student = Label(self.menu_bar, text="Student", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -74,6 +77,7 @@ class HomePage():
             self.courses.config(fg=self.menuActive)
             self.destroy_all_side_panel()
             self.courses_side_panel()
+            self.destroy_all_main_panel()
 
         self.courses = Label(self.menu_bar, text="Courses", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -84,6 +88,7 @@ class HomePage():
             self.deselect_menu()
             self.destroy_all_side_panel()
             self.settings_side_panel()
+            self.destroy_all_main_panel()
 
         self.settingsButton = Button(self.menu_bar, bg=self.orangePrimColor, activebackground=self.orangePrimColor, bd=0, image=self.settingsPng, command=settingsFun)
         self.settingsButton.photo = self.settingsPng
@@ -98,13 +103,22 @@ class HomePage():
         self.teacher.config(fg=self.menuNonActive)
         self.courses.config(fg=self.menuNonActive)
 
+
+
+        # <!----Side Panels Sarting from Here---!>
+
+
+
+
     # this is "ATTENDANCE'S" side panel
 
     def attendance_side_panel(self):
         self.attSidePanel = Frame(self.home_page_frame, bg=self.bluePrimColor, width=275, height=524)
         self.attSidePanel.place(x=21, y=103)
 
-        searchPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/buttons/search.png"))
+        searchPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/buttons/search.png"))
+
+        self.yesterdayReportObj.draw()
 
         def deselect():
             try:
@@ -117,6 +131,7 @@ class HomePage():
         def todayReportFun():
             deselect()
             self.todayReport.config(fg=self.sidePanelActive)
+            self.yesterdayReportObj.destroy()
 
         self.todayReport = Label(self.attSidePanel, text="Today's Report", bg=self.bluePrimColor, bd=0,
                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
@@ -126,6 +141,8 @@ class HomePage():
         def yesterdayReportFun():
             deselect()
             self.yesterdayReport.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.yesterdayReportObj.draw()
 
         self.yesterdayReport = Label(self.attSidePanel, text="Yesterday's Report", bg=self.bluePrimColor, bd=0,
                              fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
@@ -135,6 +152,7 @@ class HomePage():
         def searchFun():
             deselect()
             self.search.config(fg=self.sidePanelActive)
+            self.yesterdayReportObj.destroy()
 
         searchIcon = Label(self.attSidePanel, bd=0, bg=self.bluePrimColor, image=searchPng)
         searchIcon.photo = searchPng
@@ -196,7 +214,6 @@ class HomePage():
     # this is "STUDENT'S" side panel
 
     def student_side_panel(self):
-
         self.studentSidePanel = Frame(self.home_page_frame, bg=self.bluePrimColor, width=275, height=524)
         self.studentSidePanel.place(x=21, y=103)
 
@@ -242,7 +259,6 @@ class HomePage():
 
 
     def courses_side_panel(self):
-
         self.coursesSidePanel = Frame(self.home_page_frame, bg=self.bluePrimColor, width=275, height=524)
         self.coursesSidePanel.place(x=21, y=103)
 
@@ -350,9 +366,24 @@ class HomePage():
     def destroy_all_side_panel(self):
         try:
             self.destroy_attendance_side_panel()
+            print("1")
             self.destroy_teacher_side_panel()
+            print("2")
             self.destroy_student_side_panel()
+            print("3")
             self.destroy_courses_side_panel()
+            print("4")
             self.destroy_settings_side_panel_frame()
+            print("all")
         except:
             pass
+
+    def destroy_all_main_panel(self):
+        self.yesterdayReportObj.destroy()
+
+
+
+    # <!-----All Main Panels Are Here-----!>
+
+
+
