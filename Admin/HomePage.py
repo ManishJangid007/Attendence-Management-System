@@ -1,6 +1,9 @@
-from Admin.AttendenceMain.YesterdayReport import *
 from tkinter import *
-from PIL import ImageTk
+import tkinter as tk
+from tkinter import ttk
+import datetime
+from datetime import timedelta
+from PIL import ImageTk, Image
 
 class HomePage():
     def __init__(self, root, username):
@@ -22,9 +25,6 @@ class HomePage():
         self.home_page_frame = Frame(self.root, bg="white", width=1080, height=650)
         self.home_page_frame.place(x=0, y=0)
 
-        # main panels Objects
-        self.yesterdayReportObj = YesterdayReport(self.home_page_frame)
-
         self.background = Label(self.home_page_frame, bg="white", bd=0, image=self.backgroundPng)
         self.background.photo = self.backgroundPng
         self.background.place(x=12, y=5)
@@ -41,8 +41,9 @@ class HomePage():
             self.deselect_menu()
             self.attendence.config(fg=self.menuActive)
             self.destroy_all_side_panel()
-            self.attendance_side_panel()
             self.destroy_all_main_panel()
+            self.attendance_side_panel()
+
 
         self.attendence = Label(self.menu_bar, text="Attendance", bg=self.orangePrimColor, bd=0, fg=self.menuActive, font=(self.font, 20, 'normal'))
         self.attendence.place(x=450, y=11)
@@ -52,8 +53,9 @@ class HomePage():
             self.deselect_menu()
             self.teacher.config(fg=self.menuActive)
             self.destroy_all_side_panel()
-            self.teacher_side_panel()
             self.destroy_all_main_panel()
+            self.teacher_side_panel()
+
 
         self.teacher = Label(self.menu_bar, text="Teacher", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -64,8 +66,9 @@ class HomePage():
             self.deselect_menu()
             self.student.config(fg=self.menuActive)
             self.destroy_all_side_panel()
-            self.student_side_panel()
             self.destroy_all_main_panel()
+            self.student_side_panel()
+
 
         self.student = Label(self.menu_bar, text="Student", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -76,8 +79,9 @@ class HomePage():
             self.deselect_menu()
             self.courses.config(fg=self.menuActive)
             self.destroy_all_side_panel()
-            self.courses_side_panel()
             self.destroy_all_main_panel()
+            self.courses_side_panel()
+
 
         self.courses = Label(self.menu_bar, text="Courses", bg=self.orangePrimColor, bd=0,
                              fg=self.menuNonActive, font=(self.font, 20, 'normal'))
@@ -87,8 +91,9 @@ class HomePage():
         def settingsFun():
             self.deselect_menu()
             self.destroy_all_side_panel()
-            self.settings_side_panel()
             self.destroy_all_main_panel()
+            self.settings_side_panel()
+
 
         self.settingsButton = Button(self.menu_bar, bg=self.orangePrimColor, activebackground=self.orangePrimColor, bd=0, image=self.settingsPng, command=settingsFun)
         self.settingsButton.photo = self.settingsPng
@@ -118,7 +123,7 @@ class HomePage():
 
         searchPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/buttons/search.png"))
 
-        self.yesterdayReportObj.draw()
+        self.yesterday_report_main_panel()
 
         def deselect():
             try:
@@ -131,7 +136,8 @@ class HomePage():
         def todayReportFun():
             deselect()
             self.todayReport.config(fg=self.sidePanelActive)
-            self.yesterdayReportObj.destroy()
+            self.destroy_all_main_panel()
+            self.todays_report_main_panel()
 
         self.todayReport = Label(self.attSidePanel, text="Today's Report", bg=self.bluePrimColor, bd=0,
                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
@@ -142,7 +148,7 @@ class HomePage():
             deselect()
             self.yesterdayReport.config(fg=self.sidePanelActive)
             self.destroy_all_main_panel()
-            self.yesterdayReportObj.draw()
+            self.yesterday_report_main_panel()
 
         self.yesterdayReport = Label(self.attSidePanel, text="Yesterday's Report", bg=self.bluePrimColor, bd=0,
                              fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
@@ -152,7 +158,7 @@ class HomePage():
         def searchFun():
             deselect()
             self.search.config(fg=self.sidePanelActive)
-            self.yesterdayReportObj.destroy()
+            self.destroy_all_main_panel()
 
         searchIcon = Label(self.attSidePanel, bd=0, bg=self.bluePrimColor, image=searchPng)
         searchIcon.photo = searchPng
@@ -366,20 +372,25 @@ class HomePage():
     def destroy_all_side_panel(self):
         try:
             self.destroy_attendance_side_panel()
-            print("1")
+        except:
+            pass
+        try:
             self.destroy_teacher_side_panel()
-            print("2")
+        except:
+            pass
+        try:
             self.destroy_student_side_panel()
-            print("3")
+        except:
+            pass
+        try:
             self.destroy_courses_side_panel()
-            print("4")
+        except:
+            pass
+        try:
             self.destroy_settings_side_panel_frame()
-            print("all")
         except:
             pass
 
-    def destroy_all_main_panel(self):
-        self.yesterdayReportObj.destroy()
 
 
 
@@ -387,3 +398,169 @@ class HomePage():
 
 
 
+
+    def yesterday_report_main_panel(self):
+
+        textColor = "#0F4189"
+        horizontalDivider = ImageTk.PhotoImage(file=("Assets/horizontalDivider.png"))
+
+        rawData = [["BCA", 2002, 3000, 5002],
+                   ["BBA", 2002, 3000, 5002],
+                   ["MBA", 2002, 3000, 5002],
+                   ["MCA", 2002, 3000, 5002],
+                   ["PGDCA", 2002, 3000, 5002]]
+
+        self.yesterday_main_panel = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.yesterday_main_panel.place(x=323, y=103)
+
+        canvas = tk.Canvas(self.yesterday_main_panel, bg=self.ligBluePrimColor, bd=0, width=730, height=524,
+                           highlightthickness=0)
+
+        content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=524)
+        # content_frame = ttk.Frame(canvas)
+
+        self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+        self.scrollbar.grid(ipady=300, padx=1060)
+
+        content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+        canvas.create_window((0, 0), window=content_frame, anchor="nw")
+        canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        canvas.place(x=0, y=0)
+
+        self.date = Label(content_frame, text=f"Date:-{datetime.date.today() - timedelta(days=1)}",
+                          bg=self.ligBluePrimColor, bd=0, font=(self.font, 15, 'normal'), justify="center")
+        self.date.grid(row=0, columnspan=5, padx=300, pady=10)
+
+        row = 0
+
+        for data in rawData:
+            Label(content_frame, text=data[0], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 25, 'bold'),
+                  justify="center").grid(row=row + 1, columnspan=5, padx=200, pady=20)
+
+            Label(content_frame, text="Present", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'),
+                  justify="center").grid(row=row + 2, column=0, pady=12, padx=70)
+
+            Label(content_frame, text=data[1], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=0)
+
+            Label(content_frame, text="Absent", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'),
+                  justify="center").grid(row=row + 2, column=1, padx=70)
+
+            Label(content_frame, text=data[2], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=1)
+
+            Label(content_frame, text="Total", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 2, column=2, padx=70)
+
+            Label(content_frame, text=data[3], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=2)
+
+            horizontalbar = Label(content_frame, bg=self.ligBluePrimColor, bd=0, image=horizontalDivider)
+            horizontalbar.photo = horizontalDivider
+            horizontalbar.grid(row=row + 4, columnspan=5, pady=40)
+
+            row += 4
+
+    def destroy_yesterday_report_main_panel(self):
+        self.scrollbar.destroy()
+        self.yesterday_main_panel.destroy()
+
+    def todays_report_main_panel(self):
+        textColor = "#0F4189"
+        horizontalDivider = ImageTk.PhotoImage(file=("Assets/horizontalDivider.png"))
+        refreshButPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/todaypanel/refreshbutton.png"))
+
+        rawData = [["BCA", 0, 0, 0],
+                   ["BBA", 0, 0, 0],
+                   ["MBA", 0, 0, 0],
+                   ["MCA", 0, 0, 0],
+                   ["PGDCA", 0, 0, 0]]
+
+        self.todays_main_panel = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.todays_main_panel.place(x=323, y=103)
+
+        message = Label(self.todays_main_panel, text="Students : 100/1000",
+                       bg=self.ligBluePrimColor, bd=0, font=(self.font, 15, 'normal'), justify="center")
+        message.place(x=290, y=7)
+
+        def refresh():
+            self.destroy_todays_report_main_panel()
+            self.todays_report_main_panel()
+
+        refreshBut = Button(self.todays_main_panel, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,image=refreshButPng, command=refresh)
+        refreshBut.photo = refreshButPng
+        refreshBut.place(x=650, y=5)
+
+        canvas = tk.Canvas(self.todays_main_panel, bg=self.ligBluePrimColor, bd=0, width=730, height=485,
+                           highlightthickness=0)
+
+        content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=485)
+        # content_frame = ttk.Frame(canvas)
+
+        self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+        self.scrollbar.grid(ipady=300, padx=1060)
+
+        content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+        canvas.create_window((0, 0), window=content_frame, anchor="nw")
+        canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        canvas.place(x=0, y=40)
+
+        row = 0
+
+        date = Label(content_frame, text=f"Date:-{datetime.date.today()}",
+                     bg=self.ligBluePrimColor, bd=0, font=(self.font, 15, 'normal'), justify="center")
+        date.grid(row=row, columnspan=5, padx=300, pady=10)
+
+        for data in rawData:
+            Label(content_frame, text=data[0], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 25, 'bold'),
+                  justify="center").grid(row=row + 1, columnspan=5, padx=200, pady=20)
+
+            Label(content_frame, text="Present", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'),
+                  justify="center").grid(row=row + 2, column=0, pady=12, padx=70)
+
+            Label(content_frame, text=data[1], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=0)
+
+            Label(content_frame, text="Absent", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'),
+                  justify="center").grid(row=row + 2, column=1, padx=70)
+
+            Label(content_frame, text=data[2], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=1)
+
+            Label(content_frame, text="Total", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 2, column=2, padx=70)
+
+            Label(content_frame, text=data[3], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=2)
+
+            horizontalbar = Label(content_frame, bg=self.ligBluePrimColor, bd=0, image=horizontalDivider)
+            horizontalbar.photo = horizontalDivider
+            horizontalbar.grid(row=row + 4, columnspan=5, pady=40)
+
+            row += 4
+
+
+    def destroy_todays_report_main_panel(self):
+        self.scrollbar.destroy()
+        self.todays_main_panel.destroy()
+
+
+    def destroy_all_main_panel(self):
+        try:
+            self.destroy_yesterday_report_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_todays_report_main_panel()
+        except:
+            pass
