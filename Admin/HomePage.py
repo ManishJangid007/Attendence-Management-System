@@ -4,6 +4,7 @@ from tkinter import ttk
 import datetime
 from datetime import timedelta
 from PIL import ImageTk, Image
+from daysOnMonth import daysOfMonth
 
 class HomePage():
     def __init__(self, root, username):
@@ -123,7 +124,7 @@ class HomePage():
 
         searchPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/buttons/search.png"))
 
-        self.yesterday_report_main_panel()
+        self.search_main_panel()
 
         def deselect():
             try:
@@ -133,6 +134,21 @@ class HomePage():
             except:
                 pass
 
+        def searchFun():
+            deselect()
+            self.search.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.search_main_panel()
+
+        searchIcon = Label(self.attSidePanel, bd=0, bg=self.bluePrimColor, image=searchPng)
+        searchIcon.photo = searchPng
+        searchIcon.place(x=18, y=24)
+
+        self.search = Label(self.attSidePanel, text="Search", bg=self.bluePrimColor, bd=0,
+                             fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
+        self.search.place(x=40, y=15)
+        self.search.bind("<Button-1>", lambda e: searchFun())
+
         def todayReportFun():
             deselect()
             self.todayReport.config(fg=self.sidePanelActive)
@@ -141,7 +157,7 @@ class HomePage():
 
         self.todayReport = Label(self.attSidePanel, text="Today's Report", bg=self.bluePrimColor, bd=0,
                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.todayReport.place(x=20, y=15)
+        self.todayReport.place(x=20, y=75)
         self.todayReport.bind("<Button-1>", lambda e: todayReportFun())
 
         def yesterdayReportFun():
@@ -151,23 +167,10 @@ class HomePage():
             self.yesterday_report_main_panel()
 
         self.yesterdayReport = Label(self.attSidePanel, text="Yesterday's Report", bg=self.bluePrimColor, bd=0,
-                             fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
-        self.yesterdayReport.place(x=20, y=75)
+                             fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
+        self.yesterdayReport.place(x=20, y=135)
         self.yesterdayReport.bind("<Button-1>", lambda e: yesterdayReportFun())
 
-        def searchFun():
-            deselect()
-            self.search.config(fg=self.sidePanelActive)
-            self.destroy_all_main_panel()
-
-        searchIcon = Label(self.attSidePanel, bd=0, bg=self.bluePrimColor, image=searchPng)
-        searchIcon.photo = searchPng
-        searchIcon.place(x=18, y=145)
-
-        self.search = Label(self.attSidePanel, text="Search", bg=self.bluePrimColor, bd=0,
-                             fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.search.place(x=40, y=135)
-        self.search.bind("<Button-1>", lambda e: searchFun())
 
     def destroy_attendance_side_panel(self):
         self.attSidePanel.destroy()
@@ -554,6 +557,161 @@ class HomePage():
         self.scrollbar.destroy()
         self.todays_main_panel.destroy()
 
+    def search_main_panel(self):
+        self.search_main_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.search_main_frame.place(x=323, y=103)
+
+        secondaryTextColor = "#474545"
+
+        rawDate = str(datetime.date.today())
+        date = rawDate.split("-")
+
+        backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/background.png"))
+        searchPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/buttons/search.png"))
+
+
+        background = Label(self.search_main_frame, bg=self.ligBluePrimColor, bd=0, image=backgroundPng)
+        background.photo = backgroundPng
+        background.place(x=22, y=70)
+
+        attLabel = Label(self.search_main_frame, text="Attendance", fg=self.orangePrimColor, bg=self.ligBluePrimColor, bd=0, font=(self.font, 30, "normal"))
+        attLabel.place(x=180, y=7)
+
+        mangeLabel = Label(self.search_main_frame, text="Manager", fg=secondaryTextColor, bg=self.ligBluePrimColor,
+                         bd=0, font=(self.font, 30, "normal"))
+        mangeLabel.place(x=400, y=7)
+
+        dayLabel = Label(self.search_main_frame, text="Day :", fg="white", bg=self.bluePrimColor,
+                           bd=0, font=(self.font, 25, "normal"))
+        dayLabel.place(x=50, y=75)
+
+        dayEntry = Entry(self.search_main_frame, fg=secondaryTextColor, bg=self.ligBluePrimColor, width=7, bd=0, font=(self.font, 15, "normal"), justify="center")
+        dayEntry.place(x=135, y=85)
+
+        monthLabel = Label(self.search_main_frame, text="Month :", fg="white", bg=self.bluePrimColor,
+                         bd=0, font=(self.font, 25, "normal"))
+        monthLabel.place(x=228, y=75)
+
+        monthEntry = Entry(self.search_main_frame, fg=secondaryTextColor, bg=self.ligBluePrimColor, width=7, bd=0,
+                         font=(self.font, 15, "normal"), justify="center")
+        monthEntry.place(x=347, y=85)
+
+        yearLabel = Label(self.search_main_frame, text="Year :", fg="white", bg=self.bluePrimColor,
+                           bd=0, font=(self.font, 25, "normal"))
+        yearLabel.place(x=440, y=75)
+
+        yearEntry = Entry(self.search_main_frame, fg=secondaryTextColor, bg=self.ligBluePrimColor, width=7, bd=0,
+                           font=(self.font, 15, "normal"), justify="center")
+        yearEntry.place(x=535, y=85)
+
+        currentYear = int(date[0])
+        currentDay = int(date[2])
+        currentMonth = int(date[1])
+
+        dayEntry.insert(0, int(date[2]))
+        monthEntry.insert(0, int(date[1]))
+        yearEntry.insert(0, int(date[0]))
+
+        messageLabel =  Label(self.search_main_frame, text="Search Attendance for Specific Date :)", fg=secondaryTextColor, bg=self.ligBluePrimColor,
+                         bd=0, font=(self.font, 12, "normal"))
+        messageLabel.place(x=230, y=140)
+
+        def step1_panel(parent, day, month, year):
+            step1 = Frame(parent, bg=self.ligBluePrimColor, width=730, height=524)
+            step1.place(x=0, y=0)
+
+            backButtPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/buttons/back.png"))
+
+            dateLabel = Label(step1, text=f"Search result of {day}-{month}-{year}", fg="black", bg=self.ligBluePrimColor,
+                         bd=0, font=(self.font, 12, "normal"))
+            dateLabel.place(x=300, y=15)
+
+            selectLabel = Label(step1, text="Select a", fg=secondaryTextColor, bg=self.ligBluePrimColor,
+                         bd=0, font=(self.font, 25, "normal"))
+            selectLabel.place(x=280, y=50)
+
+            courseLabel = Label(step1, text="Course", fg=self.orangePrimColor, bg=self.ligBluePrimColor,
+                                bd=0, font=(self.font, 25, "normal"))
+            courseLabel.place(x=410, y=50)
+
+            rawDataC = ["BCA", "BBA", "PGDCA", "MCA", "MBA", "Fashion Desining", "Interior Desining", "BA", "BCOM", "BSC"]
+
+            canvas = tk.Canvas(step1, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
+                               highlightthickness=0)
+
+            content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=420)
+            # content_frame = ttk.Frame(canvas)
+
+            self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+            self.scrollbar.grid(ipady=300, padx=1060)
+
+            content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+            canvas.create_window((0, 0), window=content_frame, anchor="nw")
+            canvas.configure(yscrollcommand=self.scrollbar.set)
+
+            canvas.place(x=0, y=100)
+
+            def step2(parent, day, month, year, course):
+                print(course)
+
+            row = 0
+            for data in rawDataC:
+                Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor, font=(self.font, 20, "bold")).grid(row=row, column=0, padx=280, pady=10)
+                # .bind("<Button-1>", lambda e: step2(step1, day, month, year, data))
+                row += 1
+
+            def back1():
+                self.scrollbar.destroy()
+                step1.destroy()
+
+            backButt = Button(step1, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor, image=backButtPng, command=back1)
+            backButt.photo = backButtPng
+            backButt.place(x=10, y=10)
+
+        def search(day, month, year):
+            messageLabel.config(fg=secondaryTextColor, text="Search Attendance for Specific Date :)")
+            if year <= currentYear:
+                if year == currentYear:
+                    if month <= currentMonth:
+                        if month <= 12 and month >= 1:
+                            if day >= 1 and day <= daysOfMonth(month, year):
+                                if month == currentMonth:
+                                    if day <= currentDay:
+                                        step1_panel(self.search_main_frame, day, month, year)
+                                    else:
+                                        messageLabel.config(fg="red", text="*Enter valid date (day)")
+                                else:
+                                    if day >= 1 and day <= daysOfMonth(month, year):
+                                        step1_panel(self.search_main_frame, day, month, year)
+                                    else:
+                                        messageLabel.config(fg="red", text="*Enter valid date (day)")
+                            else:
+                                messageLabel.config(fg="red", text="*Enter valid date (day)")
+                        else:
+                            messageLabel.config(fg="red", text="*There are only 12 months in a year")
+                    else:
+                        messageLabel.config(fg="red", text="*Month is not Valid")
+                else:
+                    if month <= 12 and month >= 1:
+                        if day >= 1 and day <= daysOfMonth(month, year):
+                            step1_panel(self.search_main_frame, day, month, year)
+                        else:
+                            messageLabel.config(fg="red", text="*Enter valid date (day)")
+                    else:
+                        messageLabel.config(fg="red", text="*There are only 12 months in a year")
+            else:
+                messageLabel.config(fg="red", text="*enter correct year!")
+
+        searchButt = Button(self.search_main_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=searchPng, command=lambda: search(int(dayEntry.get()), int(monthEntry.get()), int(yearEntry.get())))
+        searchButt.photo = searchPng
+        searchButt.place(x=645, y=85)
+
+
+    def destroy_search_main_panel(self):
+        self.scrollbar.destroy()
+        self.search_main_frame.destroy()
+
 
     def destroy_all_main_panel(self):
         try:
@@ -562,5 +720,9 @@ class HomePage():
             pass
         try:
             self.destroy_todays_report_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_search_main_panel()
         except:
             pass
