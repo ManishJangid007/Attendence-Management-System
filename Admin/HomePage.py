@@ -5,6 +5,7 @@ import datetime
 from datetime import timedelta
 from PIL import ImageTk, Image
 from daysOnMonth import daysOfMonth
+from searchPanelFrames.step1 import SearchStep1
 
 class HomePage():
     def __init__(self, root, username):
@@ -616,58 +617,173 @@ class HomePage():
                          bd=0, font=(self.font, 12, "normal"))
         messageLabel.place(x=230, y=140)
 
-        def step1_panel(parent, day, month, year):
-            step1 = Frame(parent, bg=self.ligBluePrimColor, width=730, height=524)
-            step1.place(x=0, y=0)
-
-            backButtPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/buttons/back.png"))
-
-            dateLabel = Label(step1, text=f"Search result of {day}-{month}-{year}", fg="black", bg=self.ligBluePrimColor,
-                         bd=0, font=(self.font, 12, "normal"))
-            dateLabel.place(x=300, y=15)
-
-            selectLabel = Label(step1, text="Select a", fg=secondaryTextColor, bg=self.ligBluePrimColor,
-                         bd=0, font=(self.font, 25, "normal"))
-            selectLabel.place(x=280, y=50)
-
-            courseLabel = Label(step1, text="Course", fg=self.orangePrimColor, bg=self.ligBluePrimColor,
-                                bd=0, font=(self.font, 25, "normal"))
-            courseLabel.place(x=410, y=50)
-
-            rawDataC = ["BCA", "BBA", "PGDCA", "MCA", "MBA", "Fashion Desining", "Interior Desining", "BA", "BCOM", "BSC"]
-
-            canvas = tk.Canvas(step1, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
-                               highlightthickness=0)
-
-            content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=420)
-            # content_frame = ttk.Frame(canvas)
-
-            self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
-            self.scrollbar.grid(ipady=300, padx=1060)
-
-            content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-
-            canvas.create_window((0, 0), window=content_frame, anchor="nw")
-            canvas.configure(yscrollcommand=self.scrollbar.set)
-
-            canvas.place(x=0, y=100)
-
-            def step2(parent, day, month, year, course):
-                print(course)
-
-            row = 0
-            for data in rawDataC:
-                Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor, font=(self.font, 20, "bold")).grid(row=row, column=0, padx=280, pady=10)
-                # .bind("<Button-1>", lambda e: step2(step1, day, month, year, data))
-                row += 1
-
-            def back1():
-                self.scrollbar.destroy()
-                step1.destroy()
-
-            backButt = Button(step1, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor, image=backButtPng, command=back1)
-            backButt.photo = backButtPng
-            backButt.place(x=10, y=10)
+        # def step1_panel(parent, day, month, year):
+        #     step1 = Frame(parent, bg=self.ligBluePrimColor, width=730, height=524)
+        #     step1.place(x=0, y=0)
+        #
+        #     backButtPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/buttons/back.png"))
+        #
+        #     dateLabel = Label(step1, text=f"Search result of {day}-{month}-{year}", fg="black", bg=self.ligBluePrimColor,
+        #                  bd=0, font=(self.font, 12, "normal"))
+        #     dateLabel.place(x=300, y=15)
+        #
+        #     selectLabel = Label(step1, text="Select a", fg=secondaryTextColor, bg=self.ligBluePrimColor,
+        #                  bd=0, font=(self.font, 25, "normal"))
+        #     selectLabel.place(x=280, y=50)
+        #
+        #     courseLabel = Label(step1, text="Course", fg=self.orangePrimColor, bg=self.ligBluePrimColor,
+        #                         bd=0, font=(self.font, 25, "normal"))
+        #     courseLabel.place(x=410, y=50)
+        #
+        #     rawDataC = ["BCA", "BBA", "PGDCA", "MCA", "MBA", "Fashion Desining", "Interior Desining", "BA", "BCOM", "BSC"]
+        #     rawDataCourse = [["BCA", 3], ["BBA", 3], ["PGDCA", 2], ["MBA", 2], ["Fashion Designing", 1], ["Interior Designing", 1], ["BA", 3], ["BCOM", 3], ["BSC", 3]]
+        #
+        #     canvas = tk.Canvas(step1, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
+        #                        highlightthickness=0)
+        #
+        #     content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=420)
+        #     # content_frame = ttk.Frame(canvas)
+        #
+        #     self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+        #     self.scrollbar.grid(ipady=300, padx=1060)
+        #
+        #     content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        #
+        #     canvas.create_window((0, 0), window=content_frame, anchor="nw")
+        #     canvas.configure(yscrollcommand=self.scrollbar.set)
+        #
+        #     canvas.place(x=0, y=100)
+        #
+        #     def step2_panel(parent, day, month, year, course):
+        #
+        #         step2 = Frame(parent, bg=self.ligBluePrimColor, width=730, height=524)
+        #         step2.place(x=0, y=0)
+        #
+        #         dateLabel = Label(step2, text=f"Search result of {day}-{month}-{year}", fg="black",
+        #                           bg=self.ligBluePrimColor,
+        #                           bd=0, font=(self.font, 12, "normal"))
+        #         dateLabel.place(x=300, y=15)
+        #
+        #         canvas = tk.Canvas(step2, bg=self.ligBluePrimColor, bd=0, width=730, height=470,
+        #                            highlightthickness=0)
+        #
+        #         content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=470)
+        #         # content_frame = ttk.Frame(canvas)
+        #
+        #         self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+        #         self.scrollbar.grid(ipady=300, padx=1060)
+        #
+        #         content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        #
+        #         canvas.create_window((0, 0), window=content_frame, anchor="nw")
+        #         canvas.configure(yscrollcommand=self.scrollbar.set)
+        #
+        #         canvas.place(x=0, y=50)
+        #
+        #         detail = Label(content_frame, bg=self.ligBluePrimColor, text=course[0], fg="black", bd=0, font=(self.font, 20, 'normal'))
+        #         detail.grid(row=0, column=0, padx=300)
+        #
+        #         def step3_panel(parent, day, month, year, course, courseYear, eff):
+        #             self.scrollbar.destroy()
+        #             step3 = Frame(parent, bg=self.ligBluePrimColor, width=730, height=524)
+        #             step3.place(x=0, y=0)
+        #
+        #             dateLabel = Label(step3, text=f"Search result of {day}-{month}-{year}", fg="black",
+        #                               bg=self.ligBluePrimColor,
+        #                               bd=0, font=(self.font, 12, "normal"))
+        #             dateLabel.place(x=300, y=15)
+        #
+        #             rawData = ["C++", "Java", "Java Script", "C", "Computer Graphics", "DBMS", "Python"]
+        #
+        #             canvas = tk.Canvas(step3, bg=self.ligBluePrimColor, bd=0, width=730, height=470,
+        #                                highlightthickness=0)
+        #
+        #             content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=470)
+        #             # content_frame = ttk.Frame(canvas)
+        #
+        #             self.scrollbar = ttk.Scrollbar(self.home_page_frame, orient=VERTICAL, command=canvas.yview)
+        #             self.scrollbar.grid(ipady=300, padx=1060)
+        #
+        #             content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+        #
+        #             canvas.create_window((0, 0), window=content_frame, anchor="nw")
+        #             canvas.configure(yscrollcommand=self.scrollbar.set)
+        #
+        #             canvas.place(x=0, y=50)
+        #
+        #             detail = Label(content_frame, bg=self.ligBluePrimColor, text=f"{course} {courseYear}{eff} Year", fg="black", bd=0,
+        #                            font=(self.font, 20, 'normal'))
+        #             detail.grid(row=0, column=0, padx=300)
+        #
+        #             def drawButton(data, row):
+        #                 l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
+        #                   font=(self.font, 20, "bold"))
+        #                 l.grid(row=row, column=0, padx=280, pady=20)
+        #
+        #             row = 1
+        #             for data in rawData:
+        #                 drawButton(data, row)
+        #                 row += 1
+        #
+        #             def back3():
+        #                 self.scrollbar.destroy()
+        #                 step3.destroy()
+        #                 # parent1.destroy()
+        #
+        #             backButt = Button(step3, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+        #                               image=backButtPng, command=back3)
+        #             backButt.photo = backButtPng
+        #             backButt.place(x=10, y=10)
+        #
+        #         def drawButton(data, row):
+        #             eff = ""
+        #             if data == 1:
+        #                 eff = "st"
+        #             elif data == 2:
+        #                 eff = "nd"
+        #             elif data == 3:
+        #                 eff = "rd"
+        #             elif data >= 4:
+        #                 eff = "th"
+        #
+        #             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"{data}{eff}", fg=self.primaryTextColor,
+        #                   font=(self.font, 20, "bold"))
+        #             l.grid(row=row, column=0, padx=280, pady=20)
+        #             l.bind("<Button-1>", lambda e: step3_panel(step1, day, month, year, course[0], data, eff))
+        #
+        #         row = 1
+        #         for i in range(1, course[1]+1):
+        #             drawButton(i, row)
+        #             row += 1
+        #
+        #         def back2():
+        #             self.scrollbar.destroy()
+        #             step2.destroy()
+        #             parent.destroy()
+        #             step1_panel(self.search_main_frame, day, month, year)
+        #
+        #         backButt = Button(step1, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+        #                           image=backButtPng, command=back2)
+        #         backButt.photo = backButtPng
+        #         backButt.place(x=10, y=10)
+        #
+        #     def drawButton(data, row):
+        #         l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data[0], fg=self.primaryTextColor, font=(self.font, 20, "bold"))
+        #         l.grid(row=row, column=0, padx=280, pady=10)
+        #         l.bind("<Button-1>", lambda e: step2_panel(step1, day, month, year, data))
+        #
+        #     row = 0
+        #     for data in rawDataCourse:
+        #         drawButton(data, row)
+        #         row += 1
+        #
+        #     def back1():
+        #         self.scrollbar.destroy()
+        #         step1.destroy()
+        #
+        #     backButt = Button(step1, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor, image=backButtPng, command=back1)
+        #     backButt.photo = backButtPng
+        #     backButt.place(x=10, y=10)
 
         def search(day, month, year):
             messageLabel.config(fg=secondaryTextColor, text="Search Attendance for Specific Date :)")
@@ -678,12 +794,13 @@ class HomePage():
                             if day >= 1 and day <= daysOfMonth(month, year):
                                 if month == currentMonth:
                                     if day <= currentDay:
-                                        step1_panel(self.search_main_frame, day, month, year)
+                                        SearchStep1(parent=self.search_main_frame, grandParent=self.home_page_frame, day=day, month=month, year=year).draw()
                                     else:
                                         messageLabel.config(fg="red", text="*Enter valid date (day)")
                                 else:
                                     if day >= 1 and day <= daysOfMonth(month, year):
-                                        step1_panel(self.search_main_frame, day, month, year)
+                                        SearchStep1(parent=self.search_main_frame, grandParent=self.home_page_frame,
+                                                    day=day, month=month, year=year).draw()
                                     else:
                                         messageLabel.config(fg="red", text="*Enter valid date (day)")
                             else:
@@ -695,7 +812,8 @@ class HomePage():
                 else:
                     if month <= 12 and month >= 1:
                         if day >= 1 and day <= daysOfMonth(month, year):
-                            step1_panel(self.search_main_frame, day, month, year)
+                            SearchStep1(parent=self.search_main_frame, grandParent=self.home_page_frame,
+                                        day=day, month=month, year=year).draw()
                         else:
                             messageLabel.config(fg="red", text="*Enter valid date (day)")
                     else:
@@ -709,8 +827,8 @@ class HomePage():
 
 
     def destroy_search_main_panel(self):
-        self.scrollbar.destroy()
         self.search_main_frame.destroy()
+        # self.scrollbar.destroy()
 
 
     def destroy_all_main_panel(self):
