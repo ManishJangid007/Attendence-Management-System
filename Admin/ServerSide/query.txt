@@ -1,0 +1,4 @@
+INSERT INTO attendance(date, student_id, present, absent, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, "YES", "No", ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss;
+
+INSERT INTO attendance(date, student_id, present, absent, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, "YES", "No", ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss WHERE s.course_id=%s, s.year=%;
+
