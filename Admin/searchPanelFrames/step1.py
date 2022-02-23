@@ -5,12 +5,12 @@ from Admin.searchPanelFrames.step2 import SearchStep2
 from Admin.Scrollbar import scrollbar
 
 class SearchStep1():
-    def __init__(self, parent, grandParent, day, month, year):
+    def __init__(self, parent, day, month, year):
         self.day = day
         self.month = month
         self.year = year
         self.parent = parent
-        self.grandParent = grandParent
+        #self.grandParent = grandParent
         self.font = "Bahnschrift"
         self.ligBluePrimColor = "#F2F8FF"
         self.secondaryTextColor = "#474545"
@@ -60,7 +60,7 @@ class SearchStep1():
         def drawButton(data, row):
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data[0], fg=self.primaryTextColor, font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, padx=280, pady=10)
-            l.bind("<Button-1>", lambda e: SearchStep2(parent=self.parent, grandParent=self.grandParent, parentScroll=self.scrol, day=self.day, month=self.month, year=self.year, course=data).draw())
+            l.bind("<Button-1>", lambda e: SearchStep2(parent=self.parent, parentScroll=self.scrol, day=self.day, month=self.month, year=self.year, course=data).draw())
 
         row = 0
         for data in rawDataCourse:

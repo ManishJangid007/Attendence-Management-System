@@ -3,12 +3,13 @@ from tkinter import ttk
 import tkinter as tk
 from PIL import ImageTk, Image
 from Admin.searchPanelFrames.step3 import SearchStep3
+from Admin.Scrollbar import scrollbar
 
 class SearchStep2():
-    def __init__(self, parent, grandParent, parentScroll, day, month, year, course):
+    def __init__(self, parent, parentScroll, day, month, year, course):
         # self.parentScroll = parentScroll
         self.parent = parent
-        self.grandParent = grandParent
+        # self.grandParent = grandParent
         self.day = day
         self.month = month
         self.year = year
@@ -35,13 +36,13 @@ class SearchStep2():
         content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=470)
             # content_frame = ttk.Frame(canvas)
 
-        self.scrollbar = ttk.Scrollbar(self.grandParent, orient=VERTICAL, command=canvas.yview)
-        self.scrollbar.grid(ipady=300, padx=1060)
+        scrol = scrollbar(canvas, canvas, height=210)
+        scrol.draw()
 
         content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
         canvas.create_window((0, 0), window=content_frame, anchor="nw")
-        canvas.configure(yscrollcommand=self.scrollbar.set)
+        canvas.configure(yscrollcommand=scrol.get().set)
 
         canvas.place(x=0, y=50)
 
@@ -62,7 +63,7 @@ class SearchStep2():
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"{data}{eff}", fg=self.primaryTextColor,
                       font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, padx=280, pady=20)
-            l.bind("<Button-1>", lambda e: SearchStep3(self.parent, self.grandParent, self.day, self.month, self.year, self.course[0], data, eff).draw())
+            l.bind("<Button-1>", lambda e: SearchStep3(self.parent, self.day, self.month, self.year, self.course[0], data, eff).draw())
 
         row = 1
         for i in range(1, self.course[1]+1):
@@ -70,7 +71,6 @@ class SearchStep2():
             row += 1
 
         def back2():
-            self.scrollbar.destroy()
             self.destroy()
             # self.parentScroll.redraw()
             # self.parentScroll.redraw()

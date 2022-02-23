@@ -2,11 +2,12 @@ from tkinter import *
 import tkinter as tk
 from Admin.Scrollbar import scrollbar
 from PIL import ImageTk, Image
+from Admin.searchPanelFrames.step4 import SearchStep4
 
 class SearchStep3():
-    def __init__(self, parent, grandParent, day, month, year, course, courseYear, eff):
+    def __init__(self, parent, day, month, year, course, courseYear, eff):
         self.parent = parent
-        self.grandParent = grandParent
+        # self.grandParent = grandParent
         self.day = day
         self.month = month
         self.year = year
@@ -57,6 +58,7 @@ class SearchStep3():
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
                           font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, padx=280, pady=20)
+            l.bind("<Button-1>", lambda e: SearchStep4(parent=self.parent, day=self.day, month=self.month, year=self.year, course=self.course, courseYear=self.courseYear, eff=self.eff, subject=data).draw())
 
         row = 1
         for data in rawData:
