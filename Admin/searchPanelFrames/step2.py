@@ -47,7 +47,7 @@ class SearchStep2():
         canvas.place(x=0, y=50)
 
         detail = Label(content_frame, bg=self.ligBluePrimColor, text=self.course[0], fg="black", bd=0, font=(self.font, 20, 'normal'))
-        detail.grid(row=0, column=0, padx=300)
+        detail.grid(row=0, column=0, padx=280)
 
         def drawButton(data, row):
             eff = ""

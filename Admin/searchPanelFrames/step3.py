@@ -52,7 +52,7 @@ class SearchStep3():
 
         detail = Label(content_frame, bg=self.ligBluePrimColor, text=f"{self.course} {self.courseYear}{self.eff} Year", fg="black", bd=0,
                                    font=(self.font, 20, 'normal'))
-        detail.grid(row=0, column=0, padx=300)
+        detail.grid(row=0, column=0, padx=280)
 
         def drawButton(data, row):
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,

@@ -16,6 +16,9 @@ class SearchStep4():
         self.ligBluePrimColor = "#F2F8FF"
         self.font = "Bahnschrift"
         self.primaryTextColor = "#0F4189"
+        self.bluePrimColor = "#87A0C4"
+        self.tilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/tile.png"))
+        self.profilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/searchpanel/buttons/profile.png"))
 
     def draw(self):
         self.step4 = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
@@ -45,8 +48,38 @@ class SearchStep4():
 
         detail = Label(content_frame, bg=self.ligBluePrimColor, text=f"{self.course} {self.courseYear}{self.eff} Year\n{self.subject}",
                        fg="black", bd=0,
-                       font=(self.font, 20, 'normal'))
-        detail.grid(row=0, column=0, padx=300)
+                       font=(self.font, 20, 'normal'), justify="left")
+        detail.grid(row=0, columnspan=3, padx=100)
+
+        def drawTile(row, aryaid, name):
+            t = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.tilePng, justify="left")
+            t.photo = self.tilePng
+            t.grid(row=row, columnspan=3, pady=10, padx=50)
+
+            l1 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=aryaid, fg=self.primaryTextColor,
+                          font=(self.font, 20, "normal"))
+            l1.grid(row=row, column=0)
+
+            l2 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=name, fg=self.primaryTextColor,
+                          font=(self.font, 20, "normal"))
+            l2.grid(row=row, column=1)
+
+            def profile(id):
+                print(id)
+
+            b = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.profilePng, command=lambda:profile(aryaid))
+            b.photo = self.profilePng
+            b.grid(row=row, column=2, padx=5)
+
+        row = 1
+        for i in range(1, 101):
+            id = f"AryaId{i}"
+            name = f"Name{i}"
+            drawTile(row, id, name)
+            row += 1
+
+        drawTile(1, "AryaId", "Name")
+        drawTile(2, "AryaId", "Name")
 
         def back4():
             self.destroy()
