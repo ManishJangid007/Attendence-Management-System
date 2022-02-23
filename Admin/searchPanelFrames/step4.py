@@ -33,7 +33,7 @@ class SearchStep4():
 
         content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=470)
 
-        scrol = scrollbar(canvas, canvas)
+        scrol = scrollbar(canvas, canvas, height=210)
         scrol.draw()
 
         content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
