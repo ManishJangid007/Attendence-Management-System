@@ -16,8 +16,10 @@ if conn.check():
     if conn.check_database():
         LoginPage(root).draw()
     else:
+        LoginPage(root).draw()
         ErrorPage(root=root, message="Database Not Found")
 else:
+    LoginPage(root).draw()
     ErrorPage(root, parameterOption=True).draw()
 
 root.mainloop()

@@ -48,7 +48,7 @@ class SearchStep4():
 
         detail = Label(content_frame, bg=self.ligBluePrimColor, text=f"{self.course} {self.courseYear}{self.eff} Year\n{self.subject}",
                        fg="black", bd=0,
-                       font=(self.font, 20, 'normal'), justify="left")
+                       font=(self.font, 20, 'normal'), justify="center")
         detail.grid(row=0, columnspan=3, padx=100)
 
         def drawTile(row, aryaid, name):
