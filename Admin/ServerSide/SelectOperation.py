@@ -43,6 +43,16 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def getCourseName(self, course_id):
+        try:
+            query = "SELECT name FROM Courses WHERE course_id = %s"
+            value = [course_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except Exception as e:
+            print(e)
+
     def showSubjectTable(self):
         try:
             self.cur.execute("SELECT * FROM Subjects")
@@ -88,10 +98,10 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getCourseStudentId(self, course_id, year):
+    def getCourseStudentId(self, course_id):
         try:
-            query = "SELECT student_id FROM Students WHERE course_id = %s AND year = %s"
-            value = [course_id, year]
+            query = "SELECT student_id FROM Students WHERE course_id = %s"
+            value = [course_id]
             self.cur.execute(query, value)
             self.data = self.cur.fetchall()
             return self.data
@@ -115,19 +125,24 @@ class SelectOperation():
 
             except Exception as e:
                 print(e)
-
+        data = []
         for i in range(1, int(''.join(map(str, self.getCourseCount())))+1):
-            for j in range(1, int(''.join(map(str, self.getSubjectCount(i))))+1):
-                # print(i, "\t", j)
-                count = 0
-                total_student = 0
-                for s_id in self.getCourseStudentId(i, j):
-                    total_student += 1
-                    if returnPresent(s_id[0]):
-                        count += 1
-                print(count, total_student)
+            temp = []
+            present = 0
+            total_student = 0
+            temp.append(self.getCourseName(i))
+            for s_id in self.getCourseStudentId(i):
+                total_student += 1
+                if returnPresent(s_id[0]):
+                    present += 1
+            absent = total_student - present
+            temp.append(present)
+            temp.append(absent)
+            temp.append(total_student)
+            data.append(temp)
 
-        return count, total_student
+        data.pop(0)
+        return data
 
     # def yesterdayReportData(self, date):
     #     result = []

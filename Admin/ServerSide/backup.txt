@@ -16,6 +16,11 @@
             except Exception as e:
                 print(e)
 
+
+
+
+
+
         count = 0
         total_student = 0
         for s_id in self.getStudentId():
@@ -24,3 +29,17 @@
                 count += 1
 
         return count, total_student
+
+
+                for i in range(1, int(''.join(map(str, self.getCourseCount())))+1):
+            for j in range(1, int(''.join(map(str, self.getSubjectCount(i))))+1):
+                # print(i, "\t", j)
+                present = 0
+                total_student = 0
+                for s_id in self.getCourseStudentId(i, j):
+                    total_student += 1
+                    if returnPresent(s_id[0]):
+                        present += 1
+                print(present, total_student)
+
+        return present, total_student

@@ -60,10 +60,9 @@ select = SelectOperation()
 # for x in data:
 #     print(x)
 
-data = select.getStudentId()
-a, d = select.currentAttendance()
-print(a)
-print(d)
+data = select.currentAttendance()
+print(data)
+
 
 # select.yesterdayReportData("ggh")
 update = UpdateOperation()
@@ -71,7 +70,7 @@ update = UpdateOperation()
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
-#
+
 # if update.presentOfStudent("aryaid202", 10):
 #     print("updated attendance")
 # else:
