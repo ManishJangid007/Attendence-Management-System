@@ -98,8 +98,6 @@ class UpdateOperation():
             self.msg = False
         return self.msg
 
-
-
     # def holidayPresent(self, date, course_id):
     #     try:
     #         query = "UPDATE "
