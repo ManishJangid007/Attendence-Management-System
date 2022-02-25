@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import ImageTk, Image
-from Admin.searchPanelFrames.step2 import SearchStep2
+from Admin.attendancePanelFrame.searchPanelFrames.step2 import SearchStep2
 from Admin.Scrollbar import scrollbar
 
 class SearchStep1():

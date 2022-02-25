@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from Admin.Scrollbar import scrollbar
 from PIL import ImageTk, Image
-from Admin.searchPanelFrames.step4 import SearchStep4
+from Admin.attendancePanelFrame.searchPanelFrames.step4 import SearchStep4
 
 class SearchStep3():
     def __init__(self, parent, day, month, year, course, courseYear, eff):
