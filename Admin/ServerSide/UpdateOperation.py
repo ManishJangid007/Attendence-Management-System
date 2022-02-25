@@ -7,20 +7,29 @@ class UpdateOperation():
         self.get = SelectOperation()
         self.conn = connect.connect()
         self.cur = self.conn.cursor()
+        self.data = []
         self.msg = None
 
     def deleteAdmin(self, admin_id):
         try:
-            query = "DELETE FROM Admins where admin_id = %s"
+            query = "SELECT status from Admins where admin_id = %s"
             value = [admin_id]
             self.cur.execute(query, value)
-            self.msg = True
-            self.conn.commit()
+            self.data = self.cur.fetchall()
+            if self.data[0][0].upper() == "HIGH":
+                self.msg = False
+            else:
+                query = "DELETE FROM Admins where admin_id = %s"
+                value = [admin_id]
+                self.cur.execute(query, value)
+                self.msg = True
+                self.conn.commit()
+            return self.msg
+
         except Exception as e:
             print(e)
             self.msg = False
             self.conn.rollback()
-        return self.msg
 
     def deleteTeacher(self, teacher_id):
         try:
