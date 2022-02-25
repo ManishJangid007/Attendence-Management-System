@@ -9,7 +9,7 @@ obj = Connection()
 cur = obj.setupConnection().cursor()
 con = obj.setupConnection()
 
-# run = InitialSetup()
+run = InitialSetup()
 # if run.setup():
 #     print("Database is created successful")
 # else:
@@ -46,7 +46,7 @@ insert = InsertOperations()
 #     else:
 #         print("Students record doesn't inserted")
 
-# if insert.insertAttendance(3, "1", 8, 10):
+# if insert.insertAttendance(3, "1", 9, 11):
 #     print("Attendance record inserted successful")
 # else:
 #     print("Attendance record doesn't inserted")
@@ -59,14 +59,23 @@ select = SelectOperation()
 # data = select.getStudentId()
 # for x in data:
 #     print(x)
-
-data = select.currentAttendance()
-print(data)
-
-
+# print("Today's report")
+# data = select.todayAttendance()
+# print(data)
+# print("Yesterday's Report")
+# data = select.yesterdayAttendance()
+# print(data)
+# data = select.searchAttendance("2022-02-22", 2, "3", 8)
+# print(data)
+# data = select.getStudentBasicInfo()
+# print(data)
+# data = select.getTeacherBasicInfo()
+# for i in data:
+#     print(select.getTeacherProfile(i[2]))
 # select.yesterdayReportData("ggh")
 update = UpdateOperation()
-# if update.absentOfStudent("aryaid202", 10):
+print(update.deleteAdmin(1))
+# if update.absentOfStudent("aryaid202", 11):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
