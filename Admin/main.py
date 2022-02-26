@@ -1,7 +1,7 @@
-from SetupPage import *
+from Admin.setupPages.SetupPage import *
 from tkinter import *
 from Admin.LoginPage import LoginPage
-from Admin.Connection import *
+from Admin.ServerSide.Connection import *
 from Admin.HomePage import *
 
 root = Tk()

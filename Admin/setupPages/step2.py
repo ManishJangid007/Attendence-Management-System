@@ -1,9 +1,9 @@
 from tkinter import ttk
 import tkinter as tk
-from Admin.step3 import Step3
+from Admin.setupPages.step3 import Step3
 from tkinter import *
 from PIL import ImageTk, Image
-from Connection import *
+from Admin.ServerSide.Connection import *
 
 class Step2():
     def __init__(self, root, onthis, parent):

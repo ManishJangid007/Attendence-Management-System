@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.step2 import Step2
+from Admin.setupPages.step2 import Step2
 
 class Step1():
     def __init__(self, root, parent):

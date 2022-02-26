@@ -6,6 +6,7 @@ from Admin.attendancePanelFrame.searchPage import SearchPage
 from Admin.attendancePanelFrame.todayReportPage import TodayReportPage
 from Admin.attendancePanelFrame.yesterdayReportPage import YesterdayReportPage
 from Admin.studentPanelFrame.addStudentPage import AddStudentPage
+from Admin.studentPanelFrame.studentListPage import StudentListPage
 
 class HomePage():
     def __init__(self, root, username):
@@ -242,6 +243,7 @@ class HomePage():
             deselect()
             self.studentList.config(fg=self.sidePanelActive)
             self.destroy_all_main_panel()
+            self.student_list_main_panel()
 
         self.studentList = Label(self.studentSidePanel, text="Student's List", bg=self.bluePrimColor, bd=0,
                                  fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
@@ -446,6 +448,15 @@ class HomePage():
     def destroy_add_student_main_panel(self):
         self.add_student_frame.destroy()
 
+    def student_list_main_panel(self):
+        self.student_list_frame = Frame(self.home_page_frame, bg="red", width=730, height=524)
+        self.student_list_frame.place(x=323, y=103)
+
+        StudentListPage(self.student_list_frame).draw()
+
+    def destroy_student_list_main_panel(self):
+        self.student_list_frame.destroy()
+
     def destroy_all_main_panel(self):
         try:
             self.destroy_yesterday_report_main_panel()
@@ -469,5 +480,9 @@ class HomePage():
             pass
         try:
             self.destroy_add_student_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_student_list_main_panel()
         except:
             pass

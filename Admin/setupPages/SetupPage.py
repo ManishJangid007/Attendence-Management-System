@@ -1,8 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from step1 import *
-from step2 import *
-from Admin.Connection import *
+from Admin.setupPages.step1 import *
+from Admin.setupPages.step2 import *
+from Admin.ServerSide.Connection import *
 from Admin.LoginPage import *
 
 class SetupPage():
