@@ -32,7 +32,8 @@ class StudentListPage():
                    ["B.Com", 3],
                    ["M.Com", 2],
                    ["B.Tech", 3],
-                   ["M.Tech", 5]]
+                   ["M.Tech", 5],
+                   ["Hotel Management", 3]]
 
         courseLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg="white", text="Course :",
                             font=(self.font, 25, 'normal'))
@@ -143,7 +144,7 @@ class StudentListPage():
         for d in rawData:
             drawCourse(row, col, d, initial)
             initial += 1
-            if col == 4:
+            if col == 3:
                 row += 1
                 col = 0
             col += 1

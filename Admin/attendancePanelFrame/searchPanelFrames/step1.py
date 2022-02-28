@@ -42,10 +42,6 @@ class SearchStep1():
                                highlightthickness=0)
 
         content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=420)
-            # content_frame = ttk.Frame(canvas)
-
-        # self.scrollbar = ttk.Scrollbar(self.grandParent, orient=VERTICAL, command=canvas.yview)
-        # self.scrollbar.grid(ipady=300, padx=1060)
 
         self.scrol = scrollbar(canvas, canvas)
         self.scrol.draw()
