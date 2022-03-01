@@ -7,6 +7,9 @@ from Admin.attendancePanelFrame.todayReportPage import TodayReportPage
 from Admin.attendancePanelFrame.yesterdayReportPage import YesterdayReportPage
 from Admin.studentPanelFrame.addStudentPage import AddStudentPage
 from Admin.studentPanelFrame.studentListPage import StudentListPage
+from Admin.coursesPanelFrame.courseListPage import CourseListPage
+from Admin.coursesPanelFrame.addSubjectPage import AddSubjectPage
+from Admin.coursesPanelFrame.addCoursePage import AddCoursePage
 
 class HomePage():
     def __init__(self, root, username):
@@ -260,41 +263,48 @@ class HomePage():
         self.coursesSidePanel = Frame(self.home_page_frame, bg=self.bluePrimColor, width=275, height=524)
         self.coursesSidePanel.place(x=21, y=103)
 
+        self.course_list_main_panel()
+
         def deselect():
             try:
                 self.addCourses.config(fg=self.sidePanelNonActive)
-                self.removeCourses.config(fg=self.sidePanelNonActive)
+                self.addSubject.config(fg=self.sidePanelNonActive)
                 self.coursesList.config(fg=self.sidePanelNonActive)
             except:
                 pass
 
-        def addCoursesFun():
-                deselect()
-                self.addCourses.config(fg=self.sidePanelActive)
-
-        self.addCourses = Label(self.coursesSidePanel, text="Add Course", bg=self.bluePrimColor, bd=0,
-                                    fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
-        self.addCourses.place(x=20, y=15)
-        self.addCourses.bind("<Button-1>", lambda e: addCoursesFun())
-
-
-        def removeCoursesFun():
-            deselect()
-            self.removeCourses.config(fg=self.sidePanelActive)
-
-        self.removeCourses = Label(self.coursesSidePanel, text="Remove Course", bg=self.bluePrimColor, bd=0,
-                                   fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.removeCourses.place(x=20, y=75)
-        self.removeCourses.bind("<Button-1>", lambda e: removeCoursesFun())
-
         def coursesListFun():
             deselect()
             self.coursesList.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.course_list_main_panel()
 
         self.coursesList = Label(self.coursesSidePanel, text="Courses List", bg=self.bluePrimColor, bd=0,
-                                 fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.coursesList.place(x=20, y=135)
+                                 fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
+        self.coursesList.place(x=20, y=15)
         self.coursesList.bind("<Button-1>", lambda e: coursesListFun())
+
+        def addSubjectFun():
+            deselect()
+            self.addSubject.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.add_subject_main_panel()
+
+        self.addSubject = Label(self.coursesSidePanel, text="Add Subject", bg=self.bluePrimColor, bd=0,
+                                   fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
+        self.addSubject.place(x=20, y=75)
+        self.addSubject.bind("<Button-1>", lambda e: addSubjectFun())
+
+        def addCoursesFun():
+            deselect()
+            self.addCourses.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.add_course_main_panel()
+
+        self.addCourses = Label(self.coursesSidePanel, text="Add Course", bg=self.bluePrimColor, bd=0,
+                                    fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
+        self.addCourses.place(x=20, y=135)
+        self.addCourses.bind("<Button-1>", lambda e: addCoursesFun())
 
     def destroy_courses_side_panel(self):
         self.coursesSidePanel.destroy()
@@ -435,9 +445,10 @@ class HomePage():
 
         TeacherListPage(self.teacher_list_frame).draw()
 
-
     def destroy_teacher_list_main_panel(self):
         self.teacher_list_frame.destroy()
+
+        # <!---------Student Main Panels----------!>
 
     def add_student_main_panel(self):
         self.add_student_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
@@ -456,6 +467,35 @@ class HomePage():
 
     def destroy_student_list_main_panel(self):
         self.student_list_frame.destroy()
+
+        # <!---------Courses Main Panels----------!>
+
+    def course_list_main_panel(self):
+        self.course_list_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.course_list_frame.place(x=323, y=103)
+
+        CourseListPage(self.course_list_frame).draw()
+
+    def destroy_course_list_main_panel(self):
+        self.course_list_frame.destroy()
+
+    def add_subject_main_panel(self):
+        self.add_subject_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.add_subject_frame.place(x=323, y=103)
+
+        AddSubjectPage(self.add_subject_frame).draw()
+
+    def destroy_add_subject_main_panel(self):
+        self.add_subject_frame.destroy()
+
+    def add_course_main_panel(self):
+        self.add_course_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.add_course_frame.place(x=323, y=103)
+
+        AddCoursePage(self.add_course_frame).draw()
+
+    def destroy_add_course_main_panel(self):
+        self.add_course_frame.destroy()
 
     def destroy_all_main_panel(self):
         try:
@@ -484,5 +524,17 @@ class HomePage():
             pass
         try:
             self.destroy_student_list_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_course_list_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_add_subject_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_add_course_main_panel()
         except:
             pass
