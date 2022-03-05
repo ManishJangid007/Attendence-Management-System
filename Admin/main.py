@@ -1,8 +1,8 @@
-from Admin.setupPages.SetupPage import *
+from setupPages import SetupPage
 from tkinter import *
-from Admin.LoginPage import LoginPage
-from Admin.ServerSide.Connection import *
-from Admin.HomePage import *
+from LoginPage import LoginPage
+from ServerSide.Connection import *
+from HomePage import *
 
 root = Tk()
 root.title("Attendence Manager")

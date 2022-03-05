@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import ImageTk, Image
-from Admin.Scrollbar import scrollbar
+from Scrollbar import scrollbar
 
 class SearchStep4():
     def __init__(self, parent, day, month, year, course, courseYear, eff, subject):

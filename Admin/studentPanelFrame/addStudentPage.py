@@ -1,7 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 import datetime
-from Admin.daysOnMonth import daysOfMonth
+from daysOnMonth import daysOfMonth
 
 class AddStudentPage():
     def __init__(self, parent):

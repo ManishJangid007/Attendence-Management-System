@@ -1,9 +1,9 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.setupPages.step1 import *
-from Admin.setupPages.step2 import *
-from Admin.ServerSide.Connection import *
-from Admin.LoginPage import *
+from setupPages.step1 import *
+from setupPages.step2 import *
+from ServerSide.Connection import *
+from LoginPage import *
 
 class SetupPage():
     def __init__(self, root):

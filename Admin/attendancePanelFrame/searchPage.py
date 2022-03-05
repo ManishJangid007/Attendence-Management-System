@@ -1,8 +1,8 @@
-from Admin.attendancePanelFrame.searchPanelFrames.step1 import SearchStep1
+from attendancePanelFrame.searchPanelFrames.step1 import SearchStep1
 import datetime
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.daysOnMonth import daysOfMonth
+from daysOnMonth import daysOfMonth
 
 class SearchPage():
     def __init__(self, parent):

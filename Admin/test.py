@@ -5,7 +5,7 @@ try:
         # Database Configuration
         # 192.168.137.1
         # database="amsx505",
-        host="localhost",
+        host="192.168.137.1",
         user="root",
         password=""
     )

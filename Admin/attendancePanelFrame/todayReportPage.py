@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from PIL import ImageTk
-from Admin.Scrollbar import scrollbar
+from Scrollbar import scrollbar
 import datetime
 
 class TodayReportPage():

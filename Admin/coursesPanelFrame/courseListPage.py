@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter as tk
-from Admin.Scrollbar import scrollbar
+from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 
 class CourseListPage():

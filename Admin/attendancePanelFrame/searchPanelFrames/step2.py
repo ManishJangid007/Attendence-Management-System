@@ -2,8 +2,8 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 from PIL import ImageTk, Image
-from Admin.attendancePanelFrame.searchPanelFrames.step3 import SearchStep3
-from Admin.Scrollbar import scrollbar
+from attendancePanelFrame.searchPanelFrames.step3 import SearchStep3
+from Scrollbar import scrollbar
 
 class SearchStep2():
     def __init__(self, parent, parentScroll, day, month, year, course):

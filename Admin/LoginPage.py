@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.ServerSide.Connection import *
+from ServerSide.Connection import *
 from ErrorPage import *
 
 class LoginPage():

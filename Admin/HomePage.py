@@ -1,15 +1,18 @@
 from tkinter import *
 from PIL import ImageTk
-from Admin.teacherPanelFrame.addTeacherPage import AddTeacherPage
-from Admin.teacherPanelFrame.teacherListPage import TeacherListPage
-from Admin.attendancePanelFrame.searchPage import SearchPage
-from Admin.attendancePanelFrame.todayReportPage import TodayReportPage
-from Admin.attendancePanelFrame.yesterdayReportPage import YesterdayReportPage
-from Admin.studentPanelFrame.addStudentPage import AddStudentPage
-from Admin.studentPanelFrame.studentListPage import StudentListPage
-from Admin.coursesPanelFrame.courseListPage import CourseListPage
-from Admin.coursesPanelFrame.addSubjectPage import AddSubjectPage
-from Admin.coursesPanelFrame.addCoursePage import AddCoursePage
+from teacherPanelFrame.addTeacherPage import AddTeacherPage
+from teacherPanelFrame.teacherListPage import TeacherListPage
+from attendancePanelFrame.searchPage import SearchPage
+from attendancePanelFrame.todayReportPage import TodayReportPage
+from attendancePanelFrame.yesterdayReportPage import YesterdayReportPage
+from studentPanelFrame.addStudentPage import AddStudentPage
+from studentPanelFrame.studentListPage import StudentListPage
+from coursesPanelFrame.courseListPage import CourseListPage
+from coursesPanelFrame.addSubjectPage import AddSubjectPage
+from coursesPanelFrame.addCoursePage import AddCoursePage
+from settingsPanelFrame.addAdminPage import AddAdminPage
+from settingsPanelFrame.accountPage import AccountPage
+from settingsPanelFrame.adminsPage import AdminsPage
 
 class HomePage():
     def __init__(self, root, username):
@@ -318,47 +321,46 @@ class HomePage():
         def deselect():
             try:
                 self.addAdmin.config(fg=self.sidePanelNonActive)
-                self.removeAdmin.config(fg=self.sidePanelNonActive)
-                self.changePassword.config(fg=self.sidePanelNonActive)
-                self.changeUsername.config(fg=self.sidePanelNonActive)
+                self.admin.config(fg=self.sidePanelNonActive)
+                self.account.config(fg=self.sidePanelNonActive)
             except:
                 pass
+
+        self.account_main_panel()
+
+        def accountFun():
+            deselect()
+            self.account.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.account_main_panel()
+
+        self.account = Label(self.settingsSidePanel, text="Account", bg=self.bluePrimColor, bd=0,
+                              fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
+        self.account.place(x=20, y=15)
+        self.account.bind("<Button-1>", lambda e: accountFun())
+
+        def adminFun():
+            deselect()
+            self.admin.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.admins_main_panel()
+
+        self.admin = Label(self.settingsSidePanel, text="Admin's", bg=self.bluePrimColor, bd=0,
+                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
+        self.admin.place(x=20, y=75)
+        self.admin.bind("<Button-1>", lambda e: adminFun())
 
         def addAdminFun():
             deselect()
             self.addAdmin.config(fg=self.sidePanelActive)
+            self.destroy_all_main_panel()
+            self.add_admin_main_panel()
 
         self.addAdmin = Label(self.settingsSidePanel, text="Add Admin", bg=self.bluePrimColor, bd=0,
-                                fg=self.sidePanelActive, font=(self.font, 20, 'normal'))
-        self.addAdmin.place(x=20, y=15)
+                                fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
+        self.addAdmin.place(x=20, y=135)
         self.addAdmin.bind("<Button-1>", lambda e: addAdminFun())
 
-        def removeAdminFun():
-            deselect()
-            self.removeAdmin.config(fg=self.sidePanelActive)
-
-        self.removeAdmin = Label(self.settingsSidePanel, text="Remove Admin", bg=self.bluePrimColor, bd=0,
-                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.removeAdmin.place(x=20, y=75)
-        self.removeAdmin.bind("<Button-1>", lambda e: removeAdminFun())
-
-        def changePasswordFun():
-            deselect()
-            self.changePassword.config(fg=self.sidePanelActive)
-
-        self.changePassword = Label(self.settingsSidePanel, text="Change Password", bg=self.bluePrimColor, bd=0,
-                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.changePassword.place(x=20, y=135)
-        self.changePassword.bind("<Button-1>", lambda e: changePasswordFun())
-
-        def changeUsernameFun():
-            deselect()
-            self.changeUsername.config(fg=self.sidePanelActive)
-
-        self.changeUsername = Label(self.settingsSidePanel, text="Change Username", bg=self.bluePrimColor, bd=0,
-                              fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
-        self.changeUsername.place(x=20, y=195)
-        self.changeUsername.bind("<Button-1>", lambda e: changeUsernameFun())
 
         def logoutFun():
             self.destroy()
@@ -497,6 +499,35 @@ class HomePage():
     def destroy_add_course_main_panel(self):
         self.add_course_frame.destroy()
 
+        # <!---------Settings Main Panels----------!>
+
+    def add_admin_main_panel(self):
+        self.add_admin_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.add_admin_frame.place(x=323, y=103)
+
+        AddAdminPage(self.add_admin_frame).draw()
+
+    def destroy_add_admin_main_panel(self):
+        self.add_admin_frame.destroy()
+
+    def account_main_panel(self):
+        self.account_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.account_frame.place(x=323, y=103)
+
+        AccountPage(self.account_frame).draw()
+
+    def destroy_account_main_panel(self):
+        self.account_frame.destroy()
+
+    def admins_main_panel(self):
+        self.admins_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
+        self.admins_frame.place(x=323, y=103)
+
+        AdminsPage(self.admins_frame).draw()
+
+    def destroy_admins_main_panel(self):
+        self.admins_frame.destroy()
+
     def destroy_all_main_panel(self):
         try:
             self.destroy_yesterday_report_main_panel()
@@ -538,3 +569,16 @@ class HomePage():
             self.destroy_add_course_main_panel()
         except:
             pass
+        try:
+            self.destroy_add_admin_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_account_main_panel()
+        except:
+            pass
+        try:
+            self.destroy_admins_main_panel()
+        except:
+            pass
+

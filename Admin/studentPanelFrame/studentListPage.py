@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.studentPanelFrame.searchResult import SearchResultPage
+from studentPanelFrame.searchResult import SearchResultPage
 
 class StudentListPage():
     def __init__(self, parent):

@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Admin.Scrollbar import scrollbar
+from Scrollbar import scrollbar
 import tkinter as tk
 import datetime
 
