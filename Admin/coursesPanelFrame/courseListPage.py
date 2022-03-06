@@ -2,9 +2,11 @@ from tkinter import *
 import tkinter as tk
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
+from discriptivePages.courseDiscriptionPage import CourseDisPage
 
 class CourseListPage():
-    def __init__(self, parent):
+    def __init__(self, parent, grand_parent):
+        self.grand_parent = grand_parent
         self.parent = parent
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
@@ -43,8 +45,8 @@ class CourseListPage():
         canvas.place(x=0, y=0)
         # course, year
 
-        def view(course):
-            print(course)
+        def view(course, year):
+            CourseDisPage(self.grand_parent, course, year).draw()
 
         def drawCard(row, col, course, year):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)
@@ -57,7 +59,7 @@ class CourseListPage():
             l2 = Label(content_frame, bd=0, bg=self.bluePrimColor, wraplength=200, fg="white", text=f"{year} Year", font=(self.font, 20, 'normal'))
             l2.grid(row=row+1, column=col)
 
-            b = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.viewButPng, command=lambda : view(course))
+            b = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.viewButPng, command=lambda : view(course, year))
             b.photo = self.viewButPng
             b.grid(row=row+2, column=col, pady=5)
 

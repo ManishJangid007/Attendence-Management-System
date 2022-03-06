@@ -476,7 +476,7 @@ class HomePage():
         self.course_list_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.course_list_frame.place(x=323, y=103)
 
-        CourseListPage(self.course_list_frame).draw()
+        CourseListPage(self.course_list_frame, self.root).draw()
 
     def destroy_course_list_main_panel(self):
         self.course_list_frame.destroy()
