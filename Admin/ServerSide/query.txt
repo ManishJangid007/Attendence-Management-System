@@ -1,4 +1,22 @@
 INSERT INTO attendance(date, student_id, present, absent, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, "YES", "No", ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss;
 
-INSERT INTO attendance(date, student_id, present, absent, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, "YES", "No", ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss WHERE s.course_id=%s, s.year=%;
+INSERT INTO attendance(date, student_id, present, absent, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, "YES", "No", ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss WHERE s.course_id=%s, s.year=
 
+
+
+from datetime import datetime
+
+birthday = datetime(1988, 2, 19, 12, 0, 0)
+diff = datetime.now() - birthday
+print diff
+
+
+IF(NOT EXISTS(SELECT 1 FROM dbo.MyTable))
+BEGIN
+  RAISERROR('MyError',16,10);
+END;
+
+searchAttendance function check = checked
+ToralPresentCount else part write after date table is created.
+
+CREATE TABLE 2022-03-05 as SELECT student_id, present, absent, year, subject_id, course_id, teacher_id FROM Attendance where date = '2022-03-05'

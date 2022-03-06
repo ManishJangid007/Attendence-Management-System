@@ -4,6 +4,7 @@ from InsertOperations import InsertOperations
 from SelectOperation import SelectOperation
 from UpdateOperation import UpdateOperation
 from RawData import RawData
+from EssentialFunction import EssentialFunction
 
 obj = Connection()
 cur = obj.setupConnection().cursor()
@@ -21,7 +22,7 @@ insert = InsertOperations()
 #     print("Admin record inserted successful")
 # else:
 #     print("Admin record doesn't insert")
-#
+
 # for i in raw.teacher_data:
 #     if insert.insertTeacher(i[0], i[1], i[2], i[3]):
 #         print("Teacher record inserted successful")
@@ -29,7 +30,7 @@ insert = InsertOperations()
 #         print("Teacher record doesn't insert")
 #
 # for i in raw.course_data:
-#     if insert.insertCourses(i[0]):
+#     if insert.insertCourses(i[0], i[1]):
 #         print("Course record inserted successful")
 #     else:
 #         print("Course record doesn't inserted")
@@ -52,20 +53,19 @@ insert = InsertOperations()
 #     print("Attendance record doesn't inserted")
 
 select = SelectOperation()
+# print(select.totalPresentCount("aryaid105"))
+
 # # data = select.showAdminTable()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
-#
-# data = select.getStudentId()
-# for x in data:
-#     print(x)
+
 # print("Today's report")
 # data = select.todayAttendance()
 # print(data)
 # print("Yesterday's Report")
 # data = select.yesterdayAttendance()
 # print(data)
-# data = select.searchAttendance("2022-02-22", 2, "3", 8)
+# data = select.searchAttendance("2022-02-22", 2, "3", 7)
 # print(data)
 # data = select.getStudentBasicInfo()
 # print(data)
@@ -73,14 +73,18 @@ select = SelectOperation()
 # for i in data:
 #     print(select.getTeacherProfile(i[2]))
 # select.yesterdayReportData("ggh")
+
 update = UpdateOperation()
-print(update.deleteAdmin(1))
+# if update.deleteAdmin(1):
+#     print("Admin is deleted")
+# else:
+#     print("Admin can't be deleted")
 # if update.absentOfStudent("aryaid202", 11):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
 
-# if update.presentOfStudent("aryaid202", 10):
+# if update.presentOfStudent("aryaid201", 11):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
@@ -90,3 +94,18 @@ print(update.deleteAdmin(1))
 #     print("deleted")
 # else:
 #     print("Doesn't deleted")
+
+
+# def createTable(name):
+#     try:
+#         query = "CREATE TABLE %s(roll_no int(50))"
+#         value = [name]
+#         cur.execute(query, value)
+#     except Exception as e:
+#         print(e)
+#
+# createTable("Google")
+
+backup = EssentialFunction()
+backup.BackupAttendance()
+

@@ -1,6 +1,7 @@
 from Connection import Connection
 from SelectOperation import SelectOperation
 
+
 class UpdateOperation():
     def __init__(self):
         connect = Connection()

@@ -11,13 +11,13 @@ class RawData():
                              ["Gabriela Mistral", "xyz@gmail.com", "abc@college", "12345"],
                              ["Hanan al-Hroub", "xyz@gmail.com", "abc@college", "12345"]]
 
-        self.course_data = [["BCA"],
-                            ["MCA"],
-                            ["BBA"],
-                            ["MBA"],
-                            ["MSC"],
-                            ["B.COM"],
-                            ["M.COM"]]
+        self.course_data = [["BCA", 3],
+                            ["MCA", 2],
+                            ["BBA", 3],
+                            ["MBA", 2],
+                            ["MSC", 2],
+                            ["B.COM", 3],
+                            ["M.COM", 2]]
 
         self.subject_data = [["C Programming Language", "1", 2, 2],
                              ["FOC", "1", 2, 3],

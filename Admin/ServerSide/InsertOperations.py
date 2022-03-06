@@ -34,10 +34,10 @@ class InsertOperations():
             self.msg = False
         return self.msg
 
-    def insertCourses(self, name):
+    def insertCourses(self, name, course_duration):
         try:
-            query = "INSERT INTO Courses(name) values (%s)"
-            value = [name]
+            query = "INSERT INTO Courses(name, course_duration) values (%s, %s)"
+            value = [name, course_duration]
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True
@@ -74,6 +74,7 @@ class InsertOperations():
         return self.msg
 
     def insertAttendance(self, course_id, year, teacher_id, subject_id):
+
         try:
             query = "INSERT INTO attendance(date, student_id, present, absent, year, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, 'Null', 'Null', s.year, ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss WHERE s.course_id = %s AND s.year=%s AND ss.teacher_id = %s AND ss.subject_id = %s"
             value = [course_id, year, teacher_id, subject_id]

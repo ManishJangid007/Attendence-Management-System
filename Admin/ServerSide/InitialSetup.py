@@ -19,7 +19,7 @@ class InitialSetup():
             self.cur.execute(
                 "CREATE TABLE Teachers(teacher_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), email varchar(255), user_name varchar(255), password varchar(255))")
             self.cur.execute(
-                "CREATE TABLE Courses(course_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255))")
+                "CREATE TABLE Courses(course_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), course_duration int(50))")
             self.cur.execute(
                 "CREATE TABLE Subjects(subject_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), year varchar(100), course_id int(50), teacher_id int(50), FOREIGN KEY (course_id) REFERENCES Courses(course_id), FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id))")
             self.cur.execute(
@@ -34,8 +34,7 @@ class InitialSetup():
             self.initialRecords()
 
             return True
-        except Exception as e:
-            print(e)
+        except:
             return False
 
     def initialRecords(self):
@@ -46,4 +45,3 @@ class InitialSetup():
         self.cur.execute(
             "INSERT INTO Subjects(name, year, course_id, teacher_id) values ('ALL', 0, 1, 1)")
         self.con.commit()
-

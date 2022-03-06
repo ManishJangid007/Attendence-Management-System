@@ -1,4 +1,5 @@
 from Connection import Connection
+from datetime import date, timedelta
 
 
 class SelectOperation():
@@ -7,7 +8,7 @@ class SelectOperation():
             obj = Connection()
             self.cur = obj.connect().cursor()
             self.con = obj.connect()
-            self.data = None
+            self.data = []
             self.msg = ""
         except Exception as e:
             print(e)
@@ -73,6 +74,16 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def getSubjectName(self, subject_id):
+        try:
+            query = "SELECT name FROM Subjects WHERE subject_id = %s"
+            value = [subject_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except Exception as e:
+            print(e)
+
     def getSubjectCount(self, course_id):
         try:
             query = "SELECT COUNT(DISTINCT year) FROM subjects WHERE course_id = %s"
@@ -107,7 +118,7 @@ class SelectOperation():
             value = [student_id]
             self.cur.execute(query, value)
             data = self.cur.fetchone()
-            name = data[0][0]+" "+data[0][1]
+            name = data[0] + " " + data[1]
             return name
         except Exception as e:
             print(e)
@@ -117,17 +128,6 @@ class SelectOperation():
             self.cur.execute("SELECT * FROM Attendance")
             self.data = self.cur.fetchall()
             return self.data
-        except Exception as e:
-            print(e)
-
-    def getStudentId(self):
-        try:
-            self.cur.execute("SELECT student_id FROM Students")
-            self.data = self.cur.fetchall()
-            result = []
-            for d in self.data:
-                result.append(d)
-            return result
         except Exception as e:
             print(e)
 
@@ -158,8 +158,9 @@ class SelectOperation():
 
             except Exception as e:
                 print(e)
+
         data = []
-        for i in range(1, int(''.join(map(str, self.getCourseCount())))+1):
+        for i in range(1, int(''.join(map(str, self.getCourseCount()))) + 1):
             temp = []
             present = 0
             total_student = 0
@@ -180,7 +181,7 @@ class SelectOperation():
     def yesterdayAttendance(self):
         def returnPresent(student_id):
             try:
-                query = "SELECT * FROM attendance WHERE student_id = %s"
+                query = "SELECT * FROM attendance WHERE student_id = %s AND date = DATE_SUB(CURDATE(), INTERVAL 1 DAY)"
                 value = [student_id]
                 self.cur.execute(query, value)
                 data = self.cur.fetchall()
@@ -191,8 +192,9 @@ class SelectOperation():
                         pass
             except Exception as e:
                 print(e)
+
         data = []
-        for i in range(1, int(''.join(map(str, self.getCourseCount())))+1):
+        for i in range(1, int(''.join(map(str, self.getCourseCount()))) + 1):
             temp = []
             present = 0
             total_student = 0
@@ -223,18 +225,76 @@ class SelectOperation():
                 return data
             else:
                 try:
-                    query = "SELECT aryaid from %s where course_id = %s AND year = %s AND subject_id = %s"
+                    query = "SELECT student_id from %s where course_id = %s AND year = %s AND subject_id = %s"
                     value = [date, course_id, year, subject_id]
                     self.cur.execute(query, value)
-                    self.data = self.cur.fetchall()
-                    return self.data
+                    data = self.cur.fetchall()
+                    for i in range(0, len(data)):
+                        data[i] = list(data[i])
+                        data[i].append(self.getStudentName(data[i][0]))
+                    if data:
+                        return data
+                    else:
+                        self.msg = "Record Not Found"
+                        return self.msg
                 except:
                     pass
-
-            self.msg = "Record Not Found"
-            return self.msg
 
         except Exception as e:
             print(e)
 
+    def totalPresentCount(self, student_id):
+        try:
+            record = []
+            query = "SELECT course_id FROM Students WHERE student_id = %s"
+            value = [student_id]
+            self.cur.execute(query, value)
+            temp = self.cur.fetchone()
+            course_id = temp[0]
+            query = "SELECT year FROM Students WHERE student_id = %s"
+            value = [student_id]
+            self.cur.execute(query, value)
+            temp = self.cur.fetchone()
+            year = temp[0]
+            query = "SELECT subject_id FROM Subjects WHERE course_id = %s AND year = %s"
+            value = [course_id, year]
+            self.cur.execute(query, value)
+            subject_id = self.cur.fetchall()
 
+            def daterange(start_date, end_date):
+                for n in range(int((end_date - start_date).days)):
+                    yield start_date + timedelta(n)
+
+            start_date = date(date.today().year - 1, 6, 1)
+            end_date = date.today()
+            for subject in subject_id:
+                total_present = 0
+                row = []
+                row.append(self.getSubjectName(subject[0]))
+                for single_date in daterange(start_date, end_date):
+                    day = single_date.strftime("%Y-%m-%d")
+                    query = "SELECT present FROM Attendance WHERE student_id = %s AND date = %s AND course_id =  %s AND subject_id = %s AND year = %s"
+                    value = [student_id, day, course_id, subject[0], year]
+                    self.cur.execute(query, value)
+                    data = self.cur.fetchone()
+                    if data:
+                        if data[0].upper() == "YES":
+                            total_present += 1
+                    else:
+                        try:
+                            query = "SElECT present FROM %s WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s"
+                            value = [day, student_id, course_id, subject_id[0], year]
+                            self.cur.execute(query, value)
+                            # data = self.cur.fetchone()
+                            # if data:
+                            #     if data[0].upper() == "YES":
+                            #         total_present += 1
+                        except Exception as e:
+                            print(e)
+
+                row.append(total_present)
+                record.append(row)
+
+            return record
+        except Exception as e:
+            print(e)
