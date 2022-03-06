@@ -11,8 +11,21 @@ class CourseListPage():
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.font = "Bahnschrift"
-        self.viewButPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/coursepanel/buttons/view.png"))
-        self.cardPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/coursepanel/card.png"))
+        self.viewButPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/coursepanel/buttons/view.png"
+            )
+        )
+        self.cardPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/coursepanel/card.png"
+            )
+        )
+        self.deleteCoursePng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Discription_Pages_Assets/buttons/delete.png"
+            )
+        )
 
     def draw(self):
         rawData = [["BCA", 3],
@@ -29,7 +42,10 @@ class CourseListPage():
                    ["Hotel Management", 3],
                    ["Akajsbkjb Ajsdbhskjbv, aihsgfshjkdb", 4]]
 
-        canvas = tk.Canvas(self.parent, bg=self.ligBluePrimColor, bd=0, width=730, height=520,
+        self.frame = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
+        self.frame.place(x=0, y=0)
+
+        canvas = tk.Canvas(self.frame, bg=self.ligBluePrimColor, bd=0, width=730, height=520,
                            highlightthickness=0)
 
         content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=520)
@@ -48,20 +64,29 @@ class CourseListPage():
         def view(course, year):
             CourseDisPage(self.grand_parent, course, year).draw()
 
+        def deleteCourse(course):
+            print(course)
+            self.frame.destroy()
+            self.draw()
+
         def drawCard(row, col, course, year):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)
             c.photo = self.cardPng
-            c.grid(rowspan=3, row=row, column=col, padx=25, pady=5)
+            c.grid(rowspan=4, row=row, column=col, padx=25, pady=5)
 
             l1 = Label(content_frame, bd=0, bg=self.bluePrimColor, wraplength=200, fg="white", text=course, font=(self.font, 20, 'normal'))
-            l1.grid(row=row, column=col)
+            l1.grid(row=row, column=col, pady=5)
 
             l2 = Label(content_frame, bd=0, bg=self.bluePrimColor, wraplength=200, fg="white", text=f"{year} Year", font=(self.font, 20, 'normal'))
-            l2.grid(row=row+1, column=col)
+            l2.grid(row=row+1, column=col, pady=5)
 
             b = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.viewButPng, command=lambda : view(course, year))
             b.photo = self.viewButPng
-            b.grid(row=row+2, column=col, pady=5)
+            b.grid(row=row+2, column=col)
+
+            d = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.deleteCoursePng, command=lambda : deleteCourse(course))
+            d.photo = self.deleteCoursePng
+            d.grid(row=row+3, column=col, pady=10)
 
 
         row = 0
@@ -71,4 +96,5 @@ class CourseListPage():
             col += 1
             if col > 2:
                 col = 0
-                row += 3
+                row += 4
+

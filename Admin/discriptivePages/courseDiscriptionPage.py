@@ -25,7 +25,16 @@ class CourseDisPage():
                 "Assets/Discription_Pages_Assets/yeartile.png"
             )
         )
-        self.dividerPng = ImageTk.PhotoImage(Image.open("Assets/longHorizontalDivider.png"))
+        self.deletePng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Discription_Pages_Assets/buttons/delete.png"
+            )
+        )
+        self.dividerPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/longHorizontalDivider.png"
+            )
+        )
         self.orangePrimColor = "#FF8C64"
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
@@ -60,6 +69,11 @@ class CourseDisPage():
         def assignTeacher(course, year, subject):
             AssignTeacherPage(self.courseFrame, course, year, subject).draw()
 
+        def deleteSubject(subject):
+            print(subject)
+            self.destroy()
+            self.draw()
+
         def drawSubject(row, sn, subject, teacher, year):
             s = Label(content_frame, text=f"{sn}.", bd=0, bg="white", fg="black", font=(self.font, 20, 'normal'))
             s.grid(row=row, column=0, pady=10)
@@ -70,13 +84,17 @@ class CourseDisPage():
             l2 = Label(content_frame, text=teacher, bd=0, bg="white", fg="black", font=(self.font, 20, 'normal'))
             l2.grid(row=row, column=2, pady=10)
 
+            r = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.deletePng, command=lambda: deleteSubject(subject))
+            r.photo = self.deletePng
+            r.grid(row=row, column=3, pady=10)
+
             b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.assignTeacherPng, command= lambda : assignTeacher(self.course, year, subject))
             b.photo = self.assignTeacherPng
-            b.grid(row=row, column=3, pady=10, padx=20)
+            b.grid(row=row, column=4, pady=10, padx=40)
 
             d = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
             d.photo = self.dividerPng
-            d.grid(row=row + 1, pady=10, columnspan=4)
+            d.grid(row=row + 1, pady=10, columnspan=5)
 
         def drawYear(r, year):
             eff = ""
@@ -91,10 +109,10 @@ class CourseDisPage():
 
             t = Label(content_frame, bg="white", bd=0, image=self.tile)
             t.photo = self.tile
-            t.grid(row=r, columnspan=4)
+            t.grid(row=r, columnspan=5)
 
             l = Label(content_frame, text=f"{year}{eff} Year", bd=0, bg=self.textColor, fg="white", font=(self.font, 25, 'normal'))
-            l.grid(row=r, columnspan=4, padx=500, pady=10)
+            l.grid(row=r, columnspan=5, padx=500, pady=10)
 
             rawSubject = [["C++", "Rajkumar Sir"],
                           ["Java", "Prakash Sir"],
@@ -114,11 +132,9 @@ class CourseDisPage():
                 sn += 1
                 row+=2
 
-
         for i in range(1, self.year+1):
             drawYear(row, i)
             row+=1
-
 
         def close():
             self.destroy()

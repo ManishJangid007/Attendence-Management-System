@@ -14,6 +14,7 @@ class SearchResultPage():
         self.backButPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/buttons/back.png"))
         self.cardPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/card.png"))
         self.viewPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/buttons/view.png"))
+        self.deletePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/buttons/delete.png"))
         self.eff = "st"
         if year == 2:
             self.eff = "nd"
@@ -44,13 +45,18 @@ class SearchResultPage():
 
         canvas.place(x=0, y=50)
 
-        def drawCard(row, col, id, firstname, lastname):
+        def deleteStudent(id):
+            print(id)
+            self.searchResultFrame.destroy()
+            self.draw()
+
+        def drawCard(row, col, aid, firstname, lastname):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)
             c.photo = self.cardPng
-            c.grid(row=row, column=col, rowspan=4, padx=25, pady=10)
+            c.grid(row=row, column=col, rowspan=5, padx=25, pady=10)
 
-            id = Label(content_frame, bd=0, bg=self.bluePrimColor, fg="white", text=id, font=(self.font, 15, 'normal'))
-            id.grid(row=row, column=col)
+            id = Label(content_frame, bd=0, bg=self.bluePrimColor, fg="white", text=aid, font=(self.font, 15, 'normal'))
+            id.grid(row=row, column=col, pady=10)
 
             fn = Label(content_frame, bd=0, bg=self.bluePrimColor, fg="white", text=firstname, font=(self.font, 15, 'normal'))
             fn.grid(row=row+1, column=col)
@@ -63,6 +69,11 @@ class SearchResultPage():
             bt.photo = self.viewPng
             bt.grid(row=row+3, column=col)
 
+            d = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
+                       image=self.deletePng, command=lambda : deleteStudent(id=aid))
+            d.photo = self.deletePng
+            d.grid(row=row + 4, column=col, pady=15)
+
 
         row = 0
         col = 0
@@ -72,7 +83,7 @@ class SearchResultPage():
             if col > 2:
                 col = 0
             if col == 0:
-                row += 4
+                row += 5
 
         def back():
             self.destroy()

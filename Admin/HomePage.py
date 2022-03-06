@@ -445,7 +445,7 @@ class HomePage():
         self.teacher_list_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.teacher_list_frame.place(x=323, y=103)
 
-        TeacherListPage(self.teacher_list_frame).draw()
+        TeacherListPage(self.teacher_list_frame, self.root).draw()
 
     def destroy_teacher_list_main_panel(self):
         self.teacher_list_frame.destroy()

@@ -3,10 +3,12 @@ from PIL import ImageTk, Image
 from Scrollbar import scrollbar
 import tkinter as tk
 import datetime
+from discriptivePages.teacherDescriptionPage import TeacherDisPage
 
 class TeacherListPage():
-    def __init__(self, parent):
+    def __init__(self, parent, grandParent):
         self.parent = parent
+        self.grandParent = grandParent
         self.tilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/teacherpanel/tile.png"))
         self.profilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/teacherpanel/buttons/profile.png"))
         self.ligBluePrimColor = "#F2F8FF"
@@ -33,6 +35,9 @@ class TeacherListPage():
                      font=(self.font, 12, 'normal'))
         date.grid(row=0, columnspan=3, padx=100)
 
+        def view(username):
+            TeacherDisPage(self.grandParent, username).draw()
+
         def drawTile(row, username, name):
             tile = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.tilePng)
             tile.photo = self.tilePng
@@ -47,7 +52,7 @@ class TeacherListPage():
             l2.grid(row=row, column=1)
 
             b2 = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
-                        image=self.profilePng)
+                        image=self.profilePng, command=lambda : view(username))
             b2.photo = self.profilePng
             b2.grid(row=row, column=2, padx=30, sticky="e")
 
