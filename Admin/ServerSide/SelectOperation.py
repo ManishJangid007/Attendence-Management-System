@@ -225,8 +225,12 @@ class SelectOperation():
                 return data
             else:
                 try:
-                    query = "SELECT student_id from %s where course_id = %s AND year = %s AND subject_id = %s"
-                    value = [date, course_id, year, subject_id]
+                    delete = '-'
+                    for c in delete:
+                        date = date.replace(c, '')
+                    date = 'd' + date
+                    query = "SELECT student_id from {date} where course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'".format(date=date)
+                    value = [course_id, year, subject_id]
                     self.cur.execute(query, value)
                     data = self.cur.fetchall()
                     for i in range(0, len(data)):
@@ -273,6 +277,7 @@ class SelectOperation():
                 row.append(self.getSubjectName(subject[0]))
                 for single_date in daterange(start_date, end_date):
                     day = single_date.strftime("%Y-%m-%d")
+                    print(day)
                     query = "SELECT present FROM Attendance WHERE student_id = %s AND date = %s AND course_id =  %s AND subject_id = %s AND year = %s"
                     value = [student_id, day, course_id, subject[0], year]
                     self.cur.execute(query, value)
@@ -282,13 +287,18 @@ class SelectOperation():
                             total_present += 1
                     else:
                         try:
-                            query = "SElECT present FROM %s WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s"
-                            value = [day, student_id, course_id, subject_id[0], year]
+                            delete = '-'
+                            for c in delete:
+                                day = day.replace(c, '')
+                            day = 'd' + day
+                            print(day)
+                            query = "SElECT present FROM {day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
+                            value = [student_id, course_id, subject[0], year]
                             self.cur.execute(query, value)
-                            # data = self.cur.fetchone()
-                            # if data:
-                            #     if data[0].upper() == "YES":
-                            #         total_present += 1
+                            data = self.cur.fetchone()
+                            if data:
+                                if data[0].upper() == "YES":
+                                    total_present += 1
                         except Exception as e:
                             print(e)
 

@@ -47,13 +47,13 @@ insert = InsertOperations()
 #     else:
 #         print("Students record doesn't inserted")
 
-# if insert.insertAttendance(3, "1", 9, 11):
+# if insert.insertAttendance(4, "1", 10, 12):
 #     print("Attendance record inserted successful")
 # else:
 #     print("Attendance record doesn't inserted")
 
 select = SelectOperation()
-# print(select.totalPresentCount("aryaid105"))
+# print(select.totalPresentCount("aryaid101"))
 
 # # data = select.showAdminTable()
 # # for x in data:
@@ -65,7 +65,7 @@ select = SelectOperation()
 # print("Yesterday's Report")
 # data = select.yesterdayAttendance()
 # print(data)
-# data = select.searchAttendance("2022-02-22", 2, "3", 7)
+# data = select.searchAttendance("2022-03-04", 2, "1", 2)
 # print(data)
 # data = select.getStudentBasicInfo()
 # print(data)
@@ -79,12 +79,13 @@ update = UpdateOperation()
 #     print("Admin is deleted")
 # else:
 #     print("Admin can't be deleted")
-# if update.absentOfStudent("aryaid202", 11):
+
+# if update.absentOfStudent("aryaid103", 4):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
 
-# if update.presentOfStudent("aryaid201", 11):
+# if update.presentOfStudent("aryaid302", 12):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
@@ -107,5 +108,8 @@ update = UpdateOperation()
 # createTable("Google")
 
 backup = EssentialFunction()
-backup.BackupAttendance()
+# if backup.backupAttendance():
+#     print("Backup Table is created Successfully")
+# else:
+#     print("Table isn't created")
 
