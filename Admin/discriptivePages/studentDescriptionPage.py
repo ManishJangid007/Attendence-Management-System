@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from Scrollbar import scrollbar
 from tkinter import messagebox
+from discriptivePages.editStudentPage import EditStudentPage
 
 class StudentDesPage():
     def __init__(self, parent, aryaId):
@@ -33,6 +34,11 @@ class StudentDesPage():
                 "Assets/Discription_Pages_Assets/buttons/edit.png"
             )
         )
+        self.generateReportPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Discription_Pages_Assets/buttons/genreport.png"
+            )
+        )
         self.dividerPng = ImageTk.PhotoImage(
             Image.open(
                 "Assets/horizontalDivider.png"
@@ -42,9 +48,9 @@ class StudentDesPage():
         self.studentFrame = Frame(self.parent, bd=0, bg="white", height=650, width=1080)
         self.studentFrame.place(x=0, y=0)
 
-        usernameLabel = Label(self.studentFrame, bd=0, bg="white", text=self.aryaId, fg=self.orangePrimColor,
+        aryaIdLabel = Label(self.studentFrame, bd=0, bg="white", text=self.aryaId, fg=self.orangePrimColor,
                               font=(self.font, 30, 'normal'))
-        usernameLabel.place(x=80, y=9)
+        aryaIdLabel.place(x=80, y=9)
 
         canvas = tk.Canvas(self.studentFrame, bg="white", bd=0, width=1080, height=580,
                            highlightthickness=0)
@@ -119,7 +125,7 @@ class StudentDesPage():
         divider5.photo = self.dividerPng
         divider5.grid(row=11, column=0, padx=350)
 
-        emailLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Phone No. : {rawData[7]}",
+        emailLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Email : {rawData[7]}",
                            font=(self.font, 25, 'normal'), justify="right")
         emailLabel.grid(row=12, column=0, pady=20)
 
@@ -141,6 +147,17 @@ class StudentDesPage():
                            font=(self.font, 25, 'normal'), justify="right")
         courseLabel.grid(row=14, column=0, pady=20)
 
+        divider6 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
+        divider6.photo = self.dividerPng
+        divider6.grid(row=15, column=0, padx=350)
+
+        def generateReport(id):
+            print(id)
+
+        generateReportBut = Button(content_frame, bd=0, bg="white", image=self.generateReportPng, command=lambda : generateReport(self.aryaId))
+        generateReportBut.photo = self.generateReportPng
+        generateReportBut.grid(row=16, column=0, pady=20)
+
         def deleteProfile(aid):
             # it returns true and false
             if messagebox.askyesno(title="Warning !", message=f"Are you sure,\n you want to delete student = '{aid}'"):
@@ -152,7 +169,7 @@ class StudentDesPage():
         deleteProBut.place(x=920, y=20)
 
         def edit(id):
-            print(id)
+            EditStudentPage(self.studentFrame, id).draw()
 
         editBut = Button(self.studentFrame, bd=0, bg="white", activebackground="white", image=self.editPng, command=lambda :edit(self.aryaId))
         editBut.photo = self.editPng
