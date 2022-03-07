@@ -423,7 +423,7 @@ class HomePage():
         self.search_main_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.search_main_frame.place(x=323, y=103)
 
-        SearchPage(self.search_main_frame).draw()
+        SearchPage(self.search_main_frame, self.root).draw()
 
     def destroy_search_main_panel(self):
         self.search_main_frame.destroy()
@@ -465,7 +465,7 @@ class HomePage():
         self.student_list_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.student_list_frame.place(x=323, y=103)
 
-        StudentListPage(self.student_list_frame).draw()
+        StudentListPage(self.student_list_frame, self.root).draw()
 
     def destroy_student_list_main_panel(self):
         self.student_list_frame.destroy()

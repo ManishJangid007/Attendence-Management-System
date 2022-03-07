@@ -2,10 +2,12 @@ from tkinter import *
 import tkinter as tk
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
+from discriptivePages.studentDescriptionPage import StudentDesPage
 
 class SearchResultPage():
-    def __init__(self, parent, course, year):
+    def __init__(self, parent, grandParent, course, year):
         self.parent = parent
+        self.grandParent = grandParent
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.font = "Bahnschrift"
@@ -50,6 +52,9 @@ class SearchResultPage():
             self.searchResultFrame.destroy()
             self.draw()
 
+        def view(id):
+            StudentDesPage(self.grandParent, id).draw()
+
         def drawCard(row, col, aid, firstname, lastname):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)
             c.photo = self.cardPng
@@ -65,7 +70,7 @@ class SearchResultPage():
                        font=(self.font, 15, 'normal'))
             ln.grid(row=row + 2, column=col)
 
-            bt = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.viewPng)
+            bt = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.viewPng, command=lambda:view(aid))
             bt.photo = self.viewPng
             bt.grid(row=row+3, column=col)
 
@@ -77,7 +82,7 @@ class SearchResultPage():
 
         row = 0
         col = 0
-        for i in range(0, 101):
+        for i in range(0, 10):
             drawCard(row, col, f"aryaid{i}", "firstname", "lastname")
             col += 1
             if col > 2:

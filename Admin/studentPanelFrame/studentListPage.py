@@ -3,8 +3,9 @@ from PIL import ImageTk, Image
 from studentPanelFrame.searchResult import SearchResultPage
 
 class StudentListPage():
-    def __init__(self, parent):
+    def __init__(self, parent, grandParent):
         self.parent = parent
+        self.grandParent = grandParent
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.menuActive = "#000000"
@@ -149,9 +150,9 @@ class StudentListPage():
                 col = 0
             col += 1
 
-        def search(parent, course, year):
-            SearchResultPage(parent, course, year).draw()
+        def search(parent, grandParent,course, year):
+            SearchResultPage(parent, self.grandParent, course, year).draw()
 
-        searchBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.searchButPng, command=lambda : search(self.parent, courseEntry.get(), int(yearEntry.get())))
+        searchBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.searchButPng, command=lambda : search(self.parent, self.grandParent,courseEntry.get(), int(yearEntry.get())))
         searchBut.photo = self.searchButPng
         searchBut.place(x=620, y=48)

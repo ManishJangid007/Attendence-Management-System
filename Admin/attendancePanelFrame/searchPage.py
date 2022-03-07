@@ -5,8 +5,9 @@ from PIL import ImageTk, Image
 from daysOnMonth import daysOfMonth
 
 class SearchPage():
-    def __init__(self, parent):
+    def __init__(self, parent, grandParent):
         self.parent = parent
+        self.grandParent = grandParent
         self.font = "Bahnschrift"
         self.bluePrimColor = "#87A0C4"
         self.ligBluePrimColor = "#F2F8FF"
@@ -60,9 +61,9 @@ class SearchPage():
         currentDay = int(date[2])
         currentMonth = int(date[1])
 
-        dayEntry.insert(0, int(date[2]))
-        monthEntry.insert(0, int(date[1]))
-        yearEntry.insert(0, int(date[0]))
+        dayEntry.insert(0, str(date[2]))
+        monthEntry.insert(0, str(date[1]))
+        yearEntry.insert(0, str(date[0]))
 
         messageLabel = Label(self.parent, text="Search Attendance for Specific Date :)",
                              fg=secondaryTextColor, bg=self.ligBluePrimColor,
@@ -78,13 +79,13 @@ class SearchPage():
                             if day >= 1 and day <= daysOfMonth(month, year):
                                 if month == currentMonth:
                                     if day <= currentDay:
-                                        SearchStep1(parent=self.parent, day=day, month=month,
+                                        SearchStep1(parent=self.parent, grandParent=self.grandParent,day=day, month=month,
                                                     year=year).draw()
                                     else:
                                         messageLabel.config(fg="red", text="*Enter valid date (day)")
                                 else:
                                     if day >= 1 and day <= daysOfMonth(month, year):
-                                        SearchStep1(parent=self.parent,
+                                        SearchStep1(parent=self.parent, grandParent=self.grandParent,
                                                     day=day, month=month, year=year).draw()
                                     else:
                                         messageLabel.config(fg="red", text="*Enter valid date (day)")
@@ -97,7 +98,7 @@ class SearchPage():
                 else:
                     if month <= 12 and month >= 1:
                         if day >= 1 and day <= daysOfMonth(month, year):
-                            SearchStep1(parent=self.parent,
+                            SearchStep1(parent=self.parent, grandParent=self.grandParent,
                                         day=day, month=month, year=year).draw()
                         else:
                             messageLabel.config(fg="red", text="*Enter valid date (day)")

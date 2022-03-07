@@ -6,10 +6,9 @@ from attendancePanelFrame.searchPanelFrames.step3 import SearchStep3
 from Scrollbar import scrollbar
 
 class SearchStep2():
-    def __init__(self, parent, parentScroll, day, month, year, course):
-        # self.parentScroll = parentScroll
+    def __init__(self, parent, grandParent, day, month, year, course):
         self.parent = parent
-        # self.grandParent = grandParent
+        self.grandParent = grandParent
         self.day = day
         self.month = month
         self.year = year
@@ -17,7 +16,6 @@ class SearchStep2():
         self.ligBluePrimColor = "#F2F8FF"
         self.font = "Bahnschrift"
         self.primaryTextColor = "#0F4189"
-        # self.parentScroll.destroy()
 
     def draw(self):
         self.step2 = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
@@ -63,7 +61,7 @@ class SearchStep2():
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"{data}{eff}", fg=self.primaryTextColor,
                       font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, padx=280, pady=20)
-            l.bind("<Button-1>", lambda e: SearchStep3(self.parent, self.day, self.month, self.year, self.course[0], data, eff).draw())
+            l.bind("<Button-1>", lambda e: SearchStep3(self.parent, self.grandParent, self.day, self.month, self.year, self.course[0], data, eff).draw())
 
         row = 1
         for i in range(1, self.course[1]+1):

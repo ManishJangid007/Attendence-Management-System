@@ -37,7 +37,7 @@ class AssignTeacherPage():
         self.assignTFrame = Frame(self.parent, bd=0, bg="white", width=1080, height=650)
         self.assignTFrame.place(x=0, y=0)
 
-        headingLabel = Label(self.assignTFrame, text=f"{self.course} {self.year}{self.eff}", bg="white", fg=self.orangePrimColor,
+        headingLabel = Label(self.assignTFrame, text=f"{self.course} {self.year}{self.eff} Year", bg="white", fg=self.orangePrimColor,
                             font=(self.font, 30, 'normal'))
         headingLabel.place(x=80, y=8)
 

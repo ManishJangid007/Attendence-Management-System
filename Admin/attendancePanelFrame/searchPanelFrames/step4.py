@@ -2,10 +2,12 @@ from tkinter import *
 import tkinter as tk
 from PIL import ImageTk, Image
 from Scrollbar import scrollbar
+from discriptivePages.studentDescriptionPage import StudentDesPage
 
 class SearchStep4():
-    def __init__(self, parent, day, month, year, course, courseYear, eff, subject):
+    def __init__(self, parent, grandParent, day, month, year, course, courseYear, eff, subject):
         self.parent = parent
+        self.grandParent = grandParent
         self.day = day
         self.month = month
         self.year = year
@@ -65,7 +67,7 @@ class SearchStep4():
             l2.grid(row=row, column=1)
 
             def profile(id):
-                print(id)
+                StudentDesPage(self.grandParent, id).draw()
 
             b = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.profilePng, command=lambda:profile(aryaid))
             b.photo = self.profilePng
