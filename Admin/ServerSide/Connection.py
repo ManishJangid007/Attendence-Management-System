@@ -8,7 +8,7 @@ class LocalConnection():
 
     def setup(self):
         self.cur.execute('''CREATE TABLE conn_data (conn_id real, ip text, user text, password text)''')
-        self.cur.execute("INSERT INTO conn_data VALUES (1, '127.0.0.1', 'root', '12345')")
+        self.cur.execute("INSERT INTO conn_data VALUES (1, '127.0.0.1', 'root', '')")
         self.conn.commit()
 
     def set_parameters(self, ip, user, password):

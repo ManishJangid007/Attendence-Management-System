@@ -1,4 +1,4 @@
-from Admin.ServerSide.Connection import Connection
+from ServerSide.Connection import Connection
 
 class InitialSetup():
     def __init__(self):

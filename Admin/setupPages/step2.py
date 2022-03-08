@@ -4,6 +4,7 @@ from setupPages.step3 import Step3
 from tkinter import *
 from PIL import ImageTk, Image
 from ServerSide.Connection import *
+from ChangeParaPage import ParaPage
 
 class Step2():
     def __init__(self, root, onthis, parent):
@@ -16,6 +17,7 @@ class Step2():
         self.backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/Step2/background.png"))
         self.backButPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/Step2/Button/back.png"))
         self.startButPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/Step2/Button/start.png"))
+        self.setConButPng = ImageTk.PhotoImage(file=("Assets/Setup_Page_Assets/Buttons/configureconn.png"))
 
     def draw(self):
         self.step2_frame = Frame(self.root, bg="white", width=1080, height=650)
@@ -115,10 +117,16 @@ class Step2():
                 self.errorMessage = Label(content_frame, bd=0, bg="white", fg="red", text="*Cannot Find The Server", justify="center", font=(self.font, 10, 'normal'))
                 self.errorMessage.grid(row=2, column=1, pady=2)
 
+        self.setConBut = Button(content_frame, bg="white", activebackground="white", bd=0,
+                                image=self.setConButPng,
+                                command=lambda: ParaPage(self.root, content_frame, destroy_Parent=False).draw())
+        self.setConBut.photo = self.setConButPng
+        self.setConBut.grid(row=3, column=1, padx=5)
+
         startBut = Button(content_frame, bg="white", activebackground="white", bd=0,
                                  image=self.startButPng, command=startSetup)
         # startBut.photo = self.startButPng
-        startBut.grid(row=3, column=1, padx=5)
+        startBut.grid(row=4, column=1, padx=5)
 
     def destroy(self):
         self.step2_frame.destroy()

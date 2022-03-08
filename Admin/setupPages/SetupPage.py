@@ -1,21 +1,22 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from setupPages.step1 import *
-from setupPages.step2 import *
 from ServerSide.Connection import *
 from LoginPage import *
+from ChangeParaPage import ParaPage
 
 class SetupPage():
     def __init__(self, root):
         self.root = root
-        self.backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/background.png"))
+        self.backgroundPng = ImageTk.PhotoImage(file=("Assets/Setup_Page_Assets/background.png"))
         self.primaryColor = "#ff793f"
         self.textColor = "#333030"
         self.secondaryColor = "#3615f6"
         self.backgroundColor = "#f2f8ff"
         self.font = "Bahnschrift"
-        self.initialButPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/Buttons/initial.png"))
-        self.reconnectButPng = ImageTk.PhotoImage(Image.open("Assets/Setup_Page_Assets/Buttons/reconnect.png"))
+        self.initialButPng = ImageTk.PhotoImage(file=("Assets/Setup_Page_Assets/Buttons/initial.png"))
+        self.reconnectButPng = ImageTk.PhotoImage(file=("Assets/Setup_Page_Assets/Buttons/reconnect.png"))
+        self.setConButPng = ImageTk.PhotoImage(file=("Assets/Setup_Page_Assets/Buttons/configureconn.png"))
 
     def draw(self):
         self.setup_page_frame = Frame(self.root, bg="white", width=1080, height=650)
@@ -80,6 +81,11 @@ class SetupPage():
                                  image=self.reconnectButPng, command=reconnect)
         self.reconnectBut.photo = self.reconnectButPng
         self.reconnectBut.place(x=745, y=563)
+
+        self.setConBut = Button(self.setup_page_frame, bg="white", activebackground="white", bd=0,
+                                   image=self.setConButPng, command=lambda :ParaPage(self.root, self.setup_page_frame, destroy_Parent=False).draw())
+        self.setConBut.photo = self.setConButPng
+        self.setConBut.place(x=850, y=563)
 
     def destroy(self):
         self.setup_page_frame.destroy()

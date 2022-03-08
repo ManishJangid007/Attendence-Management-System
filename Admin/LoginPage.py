@@ -1,13 +1,14 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from ServerSide.Connection import *
+from HomePage import HomePage
 from ErrorPage import *
 
 class LoginPage():
     def __init__(self, root):
         self.root = root
-        self.backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Login_Page_Assets/background.png"))
-        self.loginButtonPng = ImageTk.PhotoImage(Image.open("Assets/Login_Page_Assets/Button/login.png"))
+        self.backgroundPng = ImageTk.PhotoImage(file=("Assets/Login_Page_Assets/background.png"))
+        self.loginButtonPng = ImageTk.PhotoImage(file=("Assets/Login_Page_Assets/Button/login.png"))
         self.font = "Bahnschrift"
         self.primaryColor = "#ff793f"
         self.textBoxColor = "#87a0c4"
@@ -73,7 +74,7 @@ class LoginPage():
                     userName = self.unEntry.get()
                     password = self.passEntry.get()
                     if len(userName) > 0 and len(password) > 0:
-                        self.login_page_frame.destroy()
+                        HomePage(self.root, userName)
                     else:
                         self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
                                                 text="*Invalid username & password", bd=0, bg="white",

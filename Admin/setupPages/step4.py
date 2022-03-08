@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from setupPages.step5 import Step5
+from ServerSide.InitialSetup import InitialSetup
 
 class Step4():
     def __init__(self, root, parent):
@@ -38,9 +39,12 @@ class Step4():
         self.h5.place(x=780, y=600)
 
         def next_step():
+            setup = InitialSetup()
+            setup.setup()
+            setup.initialRecords()
             self.destroy()
-            # Setup Your Database Here
             Step5(self.root).draw()
+
 
         self.root.after(5000, next_step)
 
