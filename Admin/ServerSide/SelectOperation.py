@@ -13,11 +13,24 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def showAdminTable(self):
+    def showAdmins(self):
         try:
             self.cur.execute("SELECT * FROM Admins")
             self.data = self.cur.fetchall()
             return self.data
+        except Exception as e:
+            print(e)
+
+    def verifyAdmin(self, username, password):
+        try:
+            query = "SELECT * FROM Admins where user_name = %s AND password = %s"
+            value = [username, password]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            if data:
+                return True
+            else:
+                return False
         except Exception as e:
             print(e)
 

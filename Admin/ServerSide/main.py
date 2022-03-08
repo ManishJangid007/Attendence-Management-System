@@ -7,8 +7,13 @@ from RawData import RawData
 from EssentialFunction import EssentialFunction
 
 obj = Connection()
-# conn = obj.connect()
-# cur = conn.cursor()
+conn = obj.connect()
+cur = conn.cursor()
+
+# cur.execute("SHOW TABLES")
+# data = cur.fetchall()
+# for i in range(0, len(data)):
+#     print(data[i][0])
 
 run = InitialSetup()
 # if run.setup():
@@ -53,7 +58,7 @@ insert = InsertOperations()
 #     print("Attendance record doesn't inserted")
 
 select = SelectOperation()
-print(select.totalPresentCount("aryaid501"))
+# print(select.totalPresentCount("aryaid501"))
 
 # # data = select.showAdminTable()
 # # for x in data:
@@ -73,6 +78,8 @@ print(select.totalPresentCount("aryaid501"))
 # for i in data:
 #     print(select.getTeacherProfile(i[2]))
 # select.yesterdayReportData("ggh")
+
+# print(select.verifyAdmin("admin@aryabhatta", "12345"))
 
 update = UpdateOperation()
 # if update.deleteAdmin(1):

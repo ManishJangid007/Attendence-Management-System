@@ -42,7 +42,9 @@ class InitialSetup():
 
     def initialRecords(self):
         self.cur.execute(
-            "INSERT INTO Teachers(name, email, user_name, password) values ('ALL', 'aicte@gmail.com', 'aryabhatta@ajmer', '12345')")
+            "INSERT INTO Admins(user_name, password, status) VALUES ('admin@root', 'admin@123', 'H')")
+        self.cur.execute(
+            "INSERT INTO Teachers(name, email, user_name, password) VALUES ('ALL', 'aicte@gmail.com', 'aryabhatta@ajmer', '12345')")
         self.cur.execute(
             "INSERT INTO Courses(name) values ('ALL')")
         self.cur.execute(
