@@ -19,7 +19,7 @@ class EssentialFunction():
                     for c in delete:
                         backup_table = backup_table.replace(c, '')
                     backup_table = 'd' + backup_table
-                    query = "CREATE TABLE {backup_table} AS SELECT student_id, present, absent, year, subject_id, course_id, teacher_id FROM Attendance where date = %s".format(backup_table=backup_table)
+                    query = "CREATE TABLE backupamsx505.{backup_table} AS SELECT student_id, present, absent, year, subject_id, course_id, teacher_id FROM Attendance where date = %s".format(backup_table=backup_table)
                     value = [table_name[i][0]]
                     self.cur.execute(query, value)
                     query = "DELETE FROM Attendance WHERE date = %s"

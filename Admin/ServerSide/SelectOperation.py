@@ -229,7 +229,7 @@ class SelectOperation():
                     for c in delete:
                         date = date.replace(c, '')
                     date = 'd' + date
-                    query = "SELECT student_id from {date} where course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'".format(date=date)
+                    query = "SELECT student_id from backupamsx505.{date} where course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'".format(date=date)
                     value = [course_id, year, subject_id]
                     self.cur.execute(query, value)
                     data = self.cur.fetchall()
@@ -292,7 +292,7 @@ class SelectOperation():
                                 day = day.replace(c, '')
                             day = 'd' + day
                             print(day)
-                            query = "SElECT present FROM {day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
+                            query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
                             value = [student_id, course_id, subject[0], year]
                             self.cur.execute(query, value)
                             data = self.cur.fetchone()

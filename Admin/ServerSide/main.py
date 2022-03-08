@@ -7,8 +7,8 @@ from RawData import RawData
 from EssentialFunction import EssentialFunction
 
 obj = Connection()
-cur = obj.setupConnection().cursor()
-con = obj.setupConnection()
+cur = obj.connect().cursor()
+con = obj.connect()
 
 run = InitialSetup()
 # if run.setup():

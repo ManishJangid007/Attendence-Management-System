@@ -60,10 +60,10 @@ class InsertOperations():
             self.con.rollback()
         return self.msg
 
-    def insertStudents(self, student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, category, year, session, course_id, added_by):
+    def insertStudents(self, student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, year, session, course_id, added_by):
         try:
-            query = "INSERT INTO Students(student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, category, year, session, course_id, added_by) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            value = [student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, category, year, session, course_id, added_by]
+            query = "INSERT INTO Students(student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, year, session, course_id, added_by) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+            value = [student_id, f_name, l_name, father_name, mother_name, gender, dob, age, phone_number, email, year, session, course_id, added_by]
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True
