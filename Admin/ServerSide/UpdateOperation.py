@@ -11,6 +11,16 @@ class UpdateOperation():
         self.data = []
         self.msg = None
 
+    def updateAdminH(self, user_name, password):
+        try:
+            query = "UPDATE Admins set user_name = %s, password = %s WHERE admin_id = 1"
+            value = [user_name, password]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return True
+        except:
+            return False
+
     def deleteAdmin(self, admin_id):
         try:
             query = "SELECT status from Admins where admin_id = %s"
