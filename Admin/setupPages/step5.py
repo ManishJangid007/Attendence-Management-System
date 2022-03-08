@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from LoginPage import LoginPage
+from ServerSide.UpdateOperation import UpdateOperation
 
 class Step5():
     def __init__(self, root):
@@ -117,6 +118,7 @@ class Step5():
                         if len(password) >= 8:
                             if len(password) <= 18:
                                 if password == cpassword:
+                                    UpdateOperation().updateAdminH(username, password)
                                     LoginPage(self.root).draw()
                                 else:
                                     self.errorMessage.config(text="*Password could not match")

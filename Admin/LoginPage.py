@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 from ServerSide.Connection import *
 from HomePage import HomePage
 from ErrorPage import *
+from ServerSide.SelectOperation import SelectOperation
 
 class LoginPage():
     def __init__(self, root):
@@ -73,8 +74,10 @@ class LoginPage():
                         pass
                     userName = self.unEntry.get()
                     password = self.passEntry.get()
-                    if len(userName) > 0 and len(password) > 0:
-                        HomePage(self.root, userName)
+                    if SelectOperation().verifyAdmin(userName, password):
+                        self.unEntry.delete(0, END)
+                        self.passEntry.delete(0, END)
+                        HomePage(self.root, userName).draw()
                     else:
                         self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
                                                 text="*Invalid username & password", bd=0, bg="white",

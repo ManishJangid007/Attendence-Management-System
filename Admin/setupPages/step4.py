@@ -41,7 +41,6 @@ class Step4():
         def next_step():
             setup = InitialSetup()
             setup.setup()
-            setup.initialRecords()
             self.destroy()
             Step5(self.root).draw()
 
