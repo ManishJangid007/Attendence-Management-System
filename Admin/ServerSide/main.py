@@ -7,8 +7,8 @@ from RawData import RawData
 from EssentialFunction import EssentialFunction
 
 obj = Connection()
-cur = obj.connect().cursor()
-con = obj.connect()
+# conn = obj.connect()
+# cur = conn.cursor()
 
 run = InitialSetup()
 # if run.setup():
@@ -22,7 +22,7 @@ insert = InsertOperations()
 #     print("Admin record inserted successful")
 # else:
 #     print("Admin record doesn't insert")
-
+#
 # for i in raw.teacher_data:
 #     if insert.insertTeacher(i[0], i[1], i[2], i[3]):
 #         print("Teacher record inserted successful")
@@ -34,26 +34,26 @@ insert = InsertOperations()
 #         print("Course record inserted successful")
 #     else:
 #         print("Course record doesn't inserted")
-#
+
 # for i in raw.subject_data:
 #     if insert.insertSubjects(i[0], i[1], i[2], i[3]):
 #         print("Subject record inserted successful")
 #     else:
 #         print("Subject record doesn't inserted")
-#
+
 # for i in raw.student_data:
-#     if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11], i[12], i[13], i[14]):
+#     if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11], i[12], i[13]):
 #         print("Students record inserted successful")
 #     else:
 #         print("Students record doesn't inserted")
 
-# if insert.insertAttendance(4, "1", 10, 12):
+# if insert.insertAttendance(6, "1", 7, 16):
 #     print("Attendance record inserted successful")
 # else:
 #     print("Attendance record doesn't inserted")
 
 select = SelectOperation()
-# print(select.totalPresentCount("aryaid101"))
+print(select.totalPresentCount("aryaid501"))
 
 # # data = select.showAdminTable()
 # # for x in data:
@@ -85,7 +85,7 @@ update = UpdateOperation()
 # else:
 #     print("update doesn't performed")
 
-# if update.presentOfStudent("aryaid302", 12):
+# if update.presentOfStudent("aryaid501", 16):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")

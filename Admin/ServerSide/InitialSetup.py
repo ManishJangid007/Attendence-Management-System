@@ -3,17 +3,16 @@ from Connection import Connection
 
 class InitialSetup():
     def __init__(self):
-        self.obj = Connection()
-        self.cur = self.obj.setupConnection().cursor()
-        self.con = self.obj.setupConnection()
+        obj = Connection()
+        self.con = obj.setupConnection()
+        self.cur = obj.setupConnection().cursor()
 
     def setup(self):
         try:
             # creating tables.......
+
             self.cur.execute(
                 "CREATE DATABASE amsx505")
-            self.cur.execute(
-                "CREATE DATABASE backupamsx505")
             self.cur.execute(
                 "USE amsx505")
             self.cur.execute(
@@ -32,6 +31,8 @@ class InitialSetup():
                 "CREATE TABLE Holiday_Weekly(day varchar(255) NOT NULL PRIMARY KEY)")
             self.cur.execute(
                 "CREATE TABLE Holiday_Occasionally(holiday_id int AUTO_INCREMENT PRIMARY KEY, occasion varchar(255), holiday_from varchar(255), holiday_to varchar(255))")
+            self.cur.execute(
+                "CREATE DATABASE backupamsx505")
 
             self.initialRecords()
 
