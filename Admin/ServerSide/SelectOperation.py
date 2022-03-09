@@ -63,9 +63,9 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def showCourseTable(self):
+    def getCourse(self):
         try:
-            self.cur.execute("SELECT * FROM Courses")
+            self.cur.execute("SELECT name, course_duration FROM Courses")
             self.data = self.cur.fetchall()
             return self.data
         except Exception as e:
