@@ -5,6 +5,7 @@ from SelectOperation import SelectOperation
 from UpdateOperation import UpdateOperation
 from RawData import RawData
 from EssentialFunction import EssentialFunction
+from DuplicateVerification import DuplicateVerification
 
 obj = Connection()
 conn = obj.connect()
@@ -79,6 +80,7 @@ select = SelectOperation()
 # print(data)
 
 # data = select.getTeacherBasicInfo()
+print(select.getTeacherProfile(100))
 
 # for i in data:
 #     print(select.getTeacherProfile(i[2]))
@@ -121,10 +123,12 @@ update = UpdateOperation()
 #
 # createTable("Google")
 
-update.removeTeacherFromSubject(2)
+# update.deleteTeacher(7)
 backup = EssentialFunction()
 # if backup.backupAttendance():
 #     print("Backup Table is created Successfully")
 # else:
 #     print("Table isn't created")
 
+dv = DuplicateVerification()
+# print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
