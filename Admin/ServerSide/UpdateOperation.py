@@ -74,8 +74,12 @@ class UpdateOperation():
 
     def deleteCourse(self, course_id):
         try:
-            query = "DELETE FROM Courses where course_id = %s"
+            query = "DELETE FROM Subjects WHERE course_id = %s"
             value = [course_id]
+            self.cur.execute(query, value)
+            query = "UPDATE Attendance SET subject_id = NULL, course_id = NULL WHERE course_id = %s"
+            self.cur.execute(query, value)
+            query = "DELETE FROM Courses where course_id = %s"
             self.cur.execute(query, value)
             self.msg = True
             self.conn.commit()
