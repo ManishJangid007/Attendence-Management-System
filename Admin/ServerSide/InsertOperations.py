@@ -1,5 +1,5 @@
 from Connection import Connection
-
+from SelectOperation import SelectOperation
 
 class InsertOperations():
     def __init__(self):
@@ -47,10 +47,11 @@ class InsertOperations():
             self.con.rollback()
         return self.msg
 
-    def insertSubjects(self, name, year, course_id, teacher_id):
+    def insertSubjects(self, subject_name, year, course_name):
         try:
-            query = "INSERT INTO Subjects(name, year, course_id, teacher_id) values (%s, %s, %s, %s)"
-            value = [name, year, course_id, teacher_id]
+            course_id = SelectOperation().getCourseId(course_name)
+            query = "INSERT INTO Subjects(name, year, course_id, teacher_id) values (%s, %s, %s, NULL)"
+            value = [subject_name, year, course_id]
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True
