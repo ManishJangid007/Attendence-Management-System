@@ -21,10 +21,10 @@ class InsertOperations():
             self.con.rollback()
         return self.msg
 
-    def insertTeacher(self, name, user_name, password, email="Null"):
+    def insertTeacher(self, name, user_name, password, phone_no, email="Null"):
         try:
-            query = "INSERT INTO Teachers(name, email, user_name, password) values (%s, %s, %s, %s)"
-            value = (name, email, user_name, password)
+            query = "INSERT INTO Teachers(name, phone_no, email, user_name, password) values (%s, %s, %s, %s, %s)"
+            value = (name, phone_no, email, user_name, password)
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True
