@@ -27,13 +27,13 @@ insert = InsertOperations()
 #     print("Admin record inserted successful")
 # else:
 #     print("Admin record doesn't insert")
-#
+
 # for i in raw.teacher_data:
 #     if insert.insertTeacher(i[0], i[1], i[2], i[3]):
 #         print("Teacher record inserted successful")
 #     else:
 #         print("Teacher record doesn't insert")
-#
+
 # for i in raw.course_data:
 #     if insert.insertCourses(i[0], i[1]):
 #         print("Course record inserted successful")
@@ -58,7 +58,7 @@ insert = InsertOperations()
 #     print("Attendance record doesn't inserted")
 
 select = SelectOperation()
-# print(select.totalPresentCount("aryaid501"))
+# print(select.totalPresentCount("aryaid101"))
 
 # # data = select.showAdminTable()
 # # for x in data:
@@ -67,19 +67,26 @@ select = SelectOperation()
 # print("Today's report")
 # data = select.todayAttendance()
 # print(data)
+
 # print("Yesterday's Report")
 # data = select.yesterdayAttendance()
 # print(data)
+
 # data = select.searchAttendance("2022-03-04", 2, "1", 2)
 # print(data)
+
 # data = select.getStudentBasicInfo()
 # print(data)
+
 # data = select.getTeacherBasicInfo()
+
 # for i in data:
 #     print(select.getTeacherProfile(i[2]))
 # select.yesterdayReportData("ggh")
 
 # print(select.verifyAdmin("admin@aryabhatta", "12345"))
+
+print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
 # if update.deleteAdmin(1):
@@ -87,11 +94,11 @@ update = UpdateOperation()
 # else:
 #     print("Admin can't be deleted")
 
-# if update.absentOfStudent("aryaid103", 4):
+# if update.absentOfStudent("aryaid502", 16):
 #     print("updated attendance")
 # else:
 #     print("update doesn't performed")
-
+#
 # if update.presentOfStudent("aryaid501", 16):
 #     print("updated attendance")
 # else:
