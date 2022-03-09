@@ -1,5 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.InsertOperations import InsertOperations
+from tkinter import messagebox
 
 class AddSubjectPage():
     def __init__(self, parent):
@@ -44,18 +47,7 @@ class AddSubjectPage():
                           font=(self.font, 19, 'normal'))
         yearEntry.place(x=512, y=85)
 
-        rawData = [["BCA", 3],
-                   ["BBA", 3],
-                   ["MBA", 2],
-                   ["MCA", 2],
-                   ["PGDCA", 2],
-                   ["Fashion Designing", 1],
-                   ["Interior Designing", 4],
-                   ["B.Com", 3],
-                   ["M.Com", 2],
-                   ["B.Tech", 3],
-                   ["M.Tech", 5],
-                   ["Hotel Management", 3]]
+        rawData = SelectOperation().getCourse()
 
         cFrame = Frame(self.parent, bg=self.ligBluePrimColor, width=635, height=220)
         cFrame.place(x=50, y=150)
@@ -156,9 +148,10 @@ class AddSubjectPage():
             col += 1
 
         def add(course, year, subject):
-            print(course)
-            print(year)
-            print(subject)
+            if InsertOperations().insertSubjects(subject, year, course):
+                messagebox.showinfo(title="Success", message="Subject Added Successful")
+            else:
+                messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
         addBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
                         image=self.addPng, command=lambda : add(courseEntry.get(), int(yearEntry.get()), newSubjectEntry.get()))

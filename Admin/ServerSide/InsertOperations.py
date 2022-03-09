@@ -1,6 +1,6 @@
 
-from Connection import Connection
-from SelectOperation import SelectOperation
+from ServerSide.Connection import Connection
+from ServerSide.SelectOperation import SelectOperation
 from ServerSide.Connection import Connection
 
 class InsertOperations():

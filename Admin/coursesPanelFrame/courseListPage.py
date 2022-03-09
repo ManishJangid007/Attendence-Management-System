@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 from discriptivePages.courseDiscriptionPage import CourseDisPage
@@ -55,9 +56,14 @@ class CourseListPage():
             CourseDisPage(self.grand_parent, course, year).draw()
 
         def deleteCourse(cid):
-            UpdateOperation().deleteCourse(cid)
-            self.frame.destroy()
-            self.draw()
+            if messagebox.askyesno(title="Warning", message="This action can't be undone, are you sure"):
+                if UpdateOperation().deleteCourse(cid):
+                    self.frame.destroy()
+                    self.draw()
+                    messagebox.showinfo(title="Success", message="Course Deleted Successfully")
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
+
 
         def drawCard(row, col, course, year, cid):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)

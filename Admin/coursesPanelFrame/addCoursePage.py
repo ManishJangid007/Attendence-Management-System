@@ -1,5 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import messagebox
+from ServerSide.DuplicateVerification import DuplicateVerification
+from ServerSide.InsertOperations import InsertOperations
 
 class AddCoursePage():
     def __init__(self, parent):
@@ -35,6 +38,31 @@ class AddCoursePage():
                         font=(self.font, 16, 'normal'))
         yearLabel.place(x=388, y=308)
 
-        addBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.addPng)
+        def add():
+            course = cNEntry.get()
+            year = int(cDEntry.get())
+
+            validate = True
+
+            if DuplicateVerification().dublicateCourse(course) == False:
+                validate = False
+                messagebox.showerror(title="Duplicate Entry", message="Course Already Exist !")
+
+            if len(course) < 2 or len(course) > 25:
+                validate = False
+
+            if year < 1 or year > 6:
+                validate = False
+
+            if validate:
+                if InsertOperations().insertCourses(course, year):
+                    messagebox.showinfo(title="Success", message="Course Added Successfully")
+                    cNEntry.delete(0, END)
+                    cDEntry.delete(0, END)
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
+
+
+        addBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.addPng, command=add)
         addBut.photo = self.addPng
         addBut.place(x=330, y=370)
