@@ -80,7 +80,7 @@ select = SelectOperation()
 # print(data)
 
 # data = select.getTeacherBasicInfo()
-print(select.getTeacherProfile(100))
+# print(select.getTeacherProfile(100))
 
 # for i in data:
 #     print(select.getTeacherProfile(i[2]))
@@ -91,6 +91,7 @@ print(select.getTeacherProfile(100))
 # print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
+# update.deleteCourse(8)
 # if update.deleteAdmin(1):
 #     print("Admin is deleted")
 # else:
@@ -132,3 +133,4 @@ backup = EssentialFunction()
 
 dv = DuplicateVerification()
 # print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
+print(dv.dublicateCourse("BCAA"))
