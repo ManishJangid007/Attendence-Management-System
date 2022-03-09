@@ -2,8 +2,9 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 class EditTeacherPage():
-    def __init__(self, parent, username, name, email, phone):
+    def __init__(self, parent, tid, username, name, email, phone):
         self.parent = parent
+        self.tid = tid
         self.username = username
         self.name = name
         self.email = email
@@ -64,9 +65,13 @@ class EditTeacherPage():
         phoneEntry = Entry(self.editTeacherFrame, bd=0, bg=self.ligBluePrimColor, width=26, fg="black", font=(self.font, 22, 'normal'),
                            justify="center")
         phoneEntry.place(x=401.5, y=377)
-        phoneEntry.insert(0, self.phone)
+        phoneEntry.insert(0, str(self.phone))
 
-        updateBut = Button(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.updateInfoPng)
+        def updateInfo(id, name, email, phone):
+            pass
+
+
+        updateBut = Button(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.updateInfoPng, command=lambda :updateInfo(self.tid, nameEntry.get(), emailEntry.get(), phoneEntry.get()))
         updateBut.photo = self.updateInfoPng
         updateBut.place(x=540, y=485)
 

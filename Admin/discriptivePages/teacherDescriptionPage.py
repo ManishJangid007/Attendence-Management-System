@@ -153,10 +153,10 @@ class TeacherDisPage():
         deleteProBut.photo = self.deleteProfilePng
         deleteProBut.place(x=920, y=20)
 
-        def edit(username):
-            EditTeacherPage(self.teacherFrame, username, rawData[0], rawData[1], rawData[2]).draw()
+        def edit():
+            EditTeacherPage(self.teacherFrame, self.id, self.username, rawData[0], rawData[1], rawData[2]).draw()
 
-        editBut = Button(self.teacherFrame, bd=0, bg="white", activebackground="white", image=self.editPng, command=lambda :edit(self.username))
+        editBut = Button(self.teacherFrame, bd=0, bg="white", activebackground="white", image=self.editPng, command=edit)
         editBut.photo = self.editPng
         editBut.place(x=835, y=20)
 
