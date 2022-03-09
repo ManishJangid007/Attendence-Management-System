@@ -37,7 +37,7 @@ class TeacherListPage():
         date.grid(row=0, columnspan=3, padx=100)
 
         def view(id, username):
-            TeacherDisPage(self.grandParent, id, username).draw()
+            TeacherDisPage(self.grandParent, self.parent, id, username).draw()
 
         def drawTile(row, username, name, id):
             tile = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.tilePng)

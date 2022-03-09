@@ -5,10 +5,12 @@ from PIL import ImageTk, Image
 from tkinter import messagebox
 from discriptivePages.editTeacherPage import EditTeacherPage
 from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class TeacherDisPage():
-    def __init__(self, parent, id, username):
+    def __init__(self, parent, p2, id, username):
         self.parent = parent
+        self.p2 = p2
         self.username = username
         self.id = id
         self.closePng = ImageTk.PhotoImage(
@@ -104,8 +106,13 @@ class TeacherDisPage():
         rawSubject = SelectOperation().getTeacherSubjects(self.id)
 
         def un_assign(subject_id):
-            print(subject_id)
-            self.refresh()
+            if messagebox.askyesno(title="Warning !", message="Are you sure you want Un-assign this subject"):
+                if UpdateOperation().removeTeacherFromSubject(subject_id):
+                    self.refresh()
+                    messagebox.showinfo(title="Success", message="Subject Un-Assigned")
+                else:
+                    messagebox.showerror(title="Error Occurred !", message="Something Went Wrong !")
+
 
         def drawSubject(row, sn, subject_id, subject):
             s = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=f"{sn}.", font=(self.font, 20, 'normal'))
@@ -131,13 +138,18 @@ class TeacherDisPage():
                              font=(self.font, 25, 'normal'), justify="right")
             notLabel.grid(row=7, column=0, pady=20, columnspan=3)
 
-        def deleteProfile(username):
-            # it returns true and false
+        def deleteProfile(tid, username):
             if messagebox.askyesno(title="Warning !", message=f"Are you sure,\n you want to delete user = '{username}'"):
+                if UpdateOperation().deleteTeacher(tid):
+                    messagebox.showinfo(title="Success", message="Teacher Deleted Successfully !")
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
                 self.destroy()
+                from teacherPanelFrame.teacherListPage import TeacherListPage
+                TeacherListPage(self.p2, self.parent).draw()
 
         deleteProBut = Button(self.teacherFrame, bd=0, bg="white", activebackground="white", image=self.deleteProfilePng,
-                            command=lambda :deleteProfile(self.username))
+                            command=lambda :deleteProfile(self.id, self.username))
         deleteProBut.photo = self.deleteProfilePng
         deleteProBut.place(x=920, y=20)
 

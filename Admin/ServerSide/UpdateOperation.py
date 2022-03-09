@@ -83,7 +83,7 @@ class UpdateOperation():
 
     def removeTeacherFromSubject(self, subject_id):
         try:
-            query = "UPDATE Subjects set teacher_id = 'NULL' WHERE subject_id = %s"
+            query = "UPDATE Subjects set teacher_id = NULL WHERE subject_id = %s"
             value = [subject_id]
             self.cur.execute(query, value)
             self.conn.commit()
