@@ -36,7 +36,7 @@ class SelectOperation():
 
     def getTeacherProfile(self, teacher_id):
         try:
-            query = "SELECT name, email_id, phone_no  FROM Teachers WHERE teacher_id = %s"
+            query = "SELECT name, email, phone_no  FROM Teachers WHERE teacher_id = %s"
             value = [teacher_id]
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
@@ -319,7 +319,6 @@ class SelectOperation():
                             day = 'd' + day
                             self.cur.execute("USE backupamsx505")
                             for i in range(0, len(result)):
-                                print(day)
                                 if result[i][0] == day:
                                     query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
                                     value = [student_id, course_id, subject[0], year]
@@ -328,6 +327,7 @@ class SelectOperation():
                                     if data:
                                         if data[0].upper() == "YES":
                                             total_present += 1
+                                    break
                                 else:
                                     pass
                         except Exception as e:
