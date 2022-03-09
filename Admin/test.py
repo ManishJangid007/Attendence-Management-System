@@ -1,16 +1,20 @@
 import mysql.connector
+import socket
 
+mydb=""
+cur =""
 try:
+
     mydb = mysql.connector.connect(
-        # Database Configuration
-        # 192.168.137.1
-        # database="amsx505",
-        host="localhost",
-        user="root",
-        password=""
+        # host=socket.gethostbyname(socket.gethostname()),
+        host="192.168.137.1",
+        user="client",
+        password="amsx505@2022",
+        database="amsx505"
     )
-    print(mydb)
-    mydb.cursor()
+
+    print(mydb.get_server_info())
+    cur = mydb.cursor()
     conn = True
 except Exception as e:
     print(e)
@@ -20,3 +24,8 @@ if conn:
     print("connected")
 else:
     print("try again")
+
+
+cur.execute("SELECT * FROM Students")
+result = cur.fetchall()
+print(result)
