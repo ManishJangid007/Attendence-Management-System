@@ -65,8 +65,9 @@ class SelectOperation():
 
     def getCourse(self):
         try:
-            self.cur.execute("SELECT name, course_duration FROM Courses")
+            self.cur.execute("SELECT name, course_duration, course_id FROM Courses")
             self.data = self.cur.fetchall()
+            self.data.pop(0)
             return self.data
         except Exception as e:
             print(e)
