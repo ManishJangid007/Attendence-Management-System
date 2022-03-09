@@ -287,7 +287,8 @@ class SelectOperation():
                     for c in delete:
                         date = date.replace(c, '')
                     date = 'd' + date
-                    query = "SELECT student_id from backupamsx505.{date} where course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'".format(date=date)
+                    query = "SELECT student_id from backupamsx505.{date} where course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'".format(
+                        date=date)
                     value = [course_id, year, subject_id]
                     self.cur.execute(query, value)
                     data = self.cur.fetchall()
@@ -329,22 +330,22 @@ class SelectOperation():
 
             start_date = date(date.today().year - 1, 6, 1)
             end_date = date.today()
-
+            self.cur.execute("USE backupamsx505")
             self.cur.execute("SHOW TABLES")
             result = self.cur.fetchall()
             for subject in subject_id:
+                self.cur.execute("USE amsx505")
                 total_present = 0
                 row = []
                 row.append(self.getSubjectName(subject[0]))
                 for single_date in daterange(start_date, end_date):
-                    self.cur.execute("USE amsx505")
                     day = single_date.strftime("%Y-%m-%d")
                     query = "SELECT present FROM Attendance WHERE student_id = %s AND date = %s AND course_id =  %s AND subject_id = %s AND year = %s"
                     value = [student_id, day, course_id, subject[0], year]
                     self.cur.execute(query, value)
-                    data = self.cur.fetchone()
-                    if data:
-                        if data[0].upper() == "YES":
+                    self.data = self.cur.fetchone()
+                    if self.data:
+                        if self.data[0].upper() == "YES":
                             total_present += 1
                     else:
                         try:
@@ -352,19 +353,17 @@ class SelectOperation():
                             for c in delete:
                                 day = day.replace(c, '')
                             day = 'd' + day
-                            self.cur.execute("USE backupamsx505")
                             for i in range(0, len(result)):
                                 if result[i][0] == day:
-                                    query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
+                                    query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(
+                                        day=day)
                                     value = [student_id, course_id, subject[0], year]
                                     self.cur.execute(query, value)
                                     data = self.cur.fetchone()
                                     if data:
                                         if data[0].upper() == "YES":
                                             total_present += 1
-                                    break
-                                else:
-                                    pass
+                                            break
                         except Exception as e:
                             print(e)
 

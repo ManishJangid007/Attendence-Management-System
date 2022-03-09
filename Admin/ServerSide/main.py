@@ -60,9 +60,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
-# print(select.totalPresentCount("aryaid101"))
-print(select.getCourseDuration("BCA"))
-
+# print(select.totalPresentCount("aryaid502"))
 # # data = select.showAdminTable()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
