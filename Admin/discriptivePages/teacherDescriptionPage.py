@@ -8,9 +8,8 @@ from ServerSide.SelectOperation import SelectOperation
 from ServerSide.UpdateOperation import UpdateOperation
 
 class TeacherDisPage():
-    def __init__(self, parent, p2, id, username):
+    def __init__(self, parent, id, username):
         self.parent = parent
-        self.p2 = p2
         self.username = username
         self.id = id
         self.closePng = ImageTk.PhotoImage(
@@ -145,8 +144,6 @@ class TeacherDisPage():
                 else:
                     messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
                 self.destroy()
-                from teacherPanelFrame.teacherListPage import TeacherListPage
-                TeacherListPage(self.p2, self.parent).draw()
 
         deleteProBut = Button(self.teacherFrame, bd=0, bg="white", activebackground="white", image=self.deleteProfilePng,
                             command=lambda :deleteProfile(self.id, self.username))

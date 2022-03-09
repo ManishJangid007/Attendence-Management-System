@@ -3,6 +3,7 @@ from PIL import ImageTk, Image
 from Scrollbar import scrollbar
 import tkinter as tk
 import datetime
+from tkinter import messagebox
 from discriptivePages.teacherDescriptionPage import TeacherDisPage
 from ServerSide.SelectOperation import SelectOperation
 
@@ -37,7 +38,15 @@ class TeacherListPage():
         date.grid(row=0, columnspan=3, padx=100)
 
         def view(id, username):
-            TeacherDisPage(self.grandParent, self.parent, id, username).draw()
+            try:
+                len(SelectOperation().getTeacherProfile(id))
+                res = True
+            except:
+                res = False
+            if res:
+                TeacherDisPage(self.grandParent, id, username).draw()
+            else:
+                messagebox.showerror(title="User Not Found", message="User Not Exist")
 
         def drawTile(row, username, name, id):
             tile = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.tilePng)
