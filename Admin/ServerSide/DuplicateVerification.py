@@ -22,3 +22,18 @@ class DuplicateVerification():
 
         return self.msg
 
+    def dublicateCourse(self, name):
+        try:
+            query = "SELECT name FROM Courses WHERE name = %s"
+            value = [name]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            if data:
+                self.msg = False
+            else:
+                self.msg = True
+        except:
+            self.msg = False
+
+        return self.msg
+
