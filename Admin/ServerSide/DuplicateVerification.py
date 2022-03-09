@@ -1,10 +1,24 @@
 from Connection import Connection
 
-class DuplicateVerification:
+class DuplicateVerification():
     def __init__(self):
-        obj = Connection
+        obj = Connection()
         self.conn = obj.connect()
-        self.cut = self.conn.cursor()
+        self.cur = self.conn.cursor()
+        self.msg = True
 
-    def verifyTeacherUserName(self):
-        query 
+    def duplicateTeacher(self, user_name):
+        try:
+            query = "SELECT user_name FROM Teachers WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            if data:
+                self.msg = False
+            else:
+                self.msg = True
+        except:
+            self.msg = False
+
+        return self.msg
+

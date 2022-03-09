@@ -41,8 +41,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            return self.data
 
     def getTeacherBasicInfo(self):
         try:
