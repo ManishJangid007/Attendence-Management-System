@@ -47,6 +47,10 @@ class UpdateOperation():
             query = "UPDATE Subjects set teacher_id = NULL WHERE teacher_id = %s"
             value = [teacher_id]
             self.cur.execute(query, value)
+            self.conn.commit()
+            query = "UPDATE Attendance set teacher_id = NULL WHERE teacher_id = %s"
+            self.cur.execute(query, value)
+            self.conn.commit()
             query = "DELETE FROM Teachers where teacher_id = %s"
             self.cur.execute(query, value)
             self.msg = True
@@ -55,6 +59,17 @@ class UpdateOperation():
             print(e)
             self.msg = False
             self.conn.rollback()
+        return self.msg
+
+    def updateTeacher(self, teacher_id, name, email, phone_no):
+        try:
+            query = "UPDATE Teachers SET name = %s, email = %s, phone_no = %s WHERE teacher_id = %s"
+            value = [name, email, phone_no, teacher_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            self.msg = True
+        except:
+            self.msg = False
         return self.msg
 
     def deleteCourse(self, course_id):
