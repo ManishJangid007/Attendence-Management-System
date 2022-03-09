@@ -3,6 +3,8 @@ import tkinter as tk
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 from discriptivePages.courseDiscriptionPage import CourseDisPage
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class CourseListPage():
     def __init__(self, parent, grand_parent):
@@ -28,19 +30,7 @@ class CourseListPage():
         )
 
     def draw(self):
-        rawData = [["BCA", 3],
-                   ["BBA", 3],
-                   ["MBA", 2],
-                   ["MCA", 2],
-                   ["PGDCA", 2],
-                   ["Fashion Designing", 1],
-                   ["Interior Designing", 4],
-                   ["B.Com", 3],
-                   ["M.Com", 2],
-                   ["B.Tech", 3],
-                   ["M.Tech", 5],
-                   ["Hotel Management", 3],
-                   ["Akajsbkjb Ajsdbhskjbv, aihsgfshjkdb", 4]]
+        rawData = SelectOperation().getCourse()
 
         self.frame = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
         self.frame.place(x=0, y=0)
@@ -64,12 +54,12 @@ class CourseListPage():
         def view(course, year):
             CourseDisPage(self.grand_parent, course, year).draw()
 
-        def deleteCourse(course):
-            print(course)
+        def deleteCourse(cid):
+            UpdateOperation().deleteCourse(cid)
             self.frame.destroy()
             self.draw()
 
-        def drawCard(row, col, course, year):
+        def drawCard(row, col, course, year, cid):
             c = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.cardPng)
             c.photo = self.cardPng
             c.grid(rowspan=4, row=row, column=col, padx=25, pady=5)
@@ -84,7 +74,7 @@ class CourseListPage():
             b.photo = self.viewButPng
             b.grid(row=row+2, column=col)
 
-            d = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.deleteCoursePng, command=lambda : deleteCourse(course))
+            d = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.deleteCoursePng, command=lambda : deleteCourse(cid))
             d.photo = self.deleteCoursePng
             d.grid(row=row+3, column=col, pady=10)
 
@@ -92,7 +82,7 @@ class CourseListPage():
         row = 0
         col = 0
         for data in rawData:
-            drawCard(row, col, data[0], data[1])
+            drawCard(row, col, data[0], data[1], data[2])
             col += 1
             if col > 2:
                 col = 0
