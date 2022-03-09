@@ -36,7 +36,7 @@ class SelectOperation():
 
     def getTeacherProfile(self, teacher_id):
         try:
-            query = "SELECT * FROM Teachers WHERE teacher_id = %s"
+            query = "SELECT name, email_id, phone_no  FROM Teachers WHERE teacher_id = %s"
             value = [teacher_id]
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
@@ -49,6 +49,16 @@ class SelectOperation():
             self.cur.execute("SELECT user_name, name, teacher_id FROM Teachers")
             self.data = self.cur.fetchall()
             self.data.pop(0)
+            return self.data
+        except Exception as e:
+            print(e)
+
+    def getTeacherSubjects(self, teacher_id):
+        try:
+            query = "SELECT subject_id, name FROM Subjects WHERE teacher_id = %s"
+            value = [teacher_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchall()
             return self.data
         except Exception as e:
             print(e)
@@ -284,11 +294,15 @@ class SelectOperation():
 
             start_date = date(date.today().year - 1, 6, 1)
             end_date = date.today()
+
+            self.cur.execute("SHOW TABLES")
+            result = self.cur.fetchall()
             for subject in subject_id:
                 total_present = 0
                 row = []
                 row.append(self.getSubjectName(subject[0]))
                 for single_date in daterange(start_date, end_date):
+                    self.cur.execute("USE amsx505")
                     day = single_date.strftime("%Y-%m-%d")
                     query = "SELECT present FROM Attendance WHERE student_id = %s AND date = %s AND course_id =  %s AND subject_id = %s AND year = %s"
                     value = [student_id, day, course_id, subject[0], year]
@@ -303,13 +317,19 @@ class SelectOperation():
                             for c in delete:
                                 day = day.replace(c, '')
                             day = 'd' + day
-                            query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
-                            value = [student_id, course_id, subject[0], year]
-                            self.cur.execute(query, value)
-                            data = self.cur.fetchone()
-                            if data:
-                                if data[0].upper() == "YES":
-                                    total_present += 1
+                            self.cur.execute("USE backupamsx505")
+                            for i in range(0, len(result)):
+                                print(day)
+                                if result[i][0] == day:
+                                    query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(day=day)
+                                    value = [student_id, course_id, subject[0], year]
+                                    self.cur.execute(query, value)
+                                    data = self.cur.fetchone()
+                                    if data:
+                                        if data[0].upper() == "YES":
+                                            total_present += 1
+                                else:
+                                    pass
                         except Exception as e:
                             print(e)
 
