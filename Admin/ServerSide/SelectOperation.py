@@ -90,6 +90,40 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def getCourseId(self, course_name):
+        try:
+            query = "SELECT course_id FROM Courses WHERE name = %s"
+            value = [course_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except Exception as e:
+            print(e)
+            return self.data
+
+    def checkExistenceCourse(self, course_name):
+        try:
+            query = "SELECT * FROM Courses WHERE name = %s"
+            value = [course_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            if self.data:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def getCourseDuration(self, course_name):
+        try:
+            query = "SELECT course_duration FROM Courses WHERE name = %s"
+            value = [course_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            return self.data
+
     def showSubjectTable(self):
         try:
             self.cur.execute("SELECT * FROM Subjects")

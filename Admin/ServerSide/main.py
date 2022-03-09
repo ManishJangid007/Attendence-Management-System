@@ -58,8 +58,10 @@ insert = InsertOperations()
 # else:
 #     print("Attendance record doesn't inserted")
 
+# print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
 # print(select.totalPresentCount("aryaid101"))
+print(select.getCourseDuration("BCA"))
 
 # # data = select.showAdminTable()
 # # for x in data:
@@ -133,4 +135,4 @@ backup = EssentialFunction()
 
 dv = DuplicateVerification()
 # print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
-print(dv.dublicateCourse("BCAA"))
+# print(dv.dublicateCourse("BCAA"))
