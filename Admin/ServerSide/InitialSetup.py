@@ -18,7 +18,7 @@ class InitialSetup():
             self.cur.execute(
                 "CREATE TABLE Admins(admin_id int AUTO_INCREMENT PRIMARY KEY, user_name varchar(255), password varchar(255), status varchar(255))")
             self.cur.execute(
-                "CREATE TABLE Teachers(teacher_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), email varchar(255), user_name varchar(255), password varchar(255))")
+                "CREATE TABLE Teachers(teacher_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255),phone_no varchar(50), email varchar(255), user_name varchar(255), password varchar(255))")
             self.cur.execute(
                 "CREATE TABLE Courses(course_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), course_duration int(50))")
             self.cur.execute(
@@ -46,7 +46,7 @@ class InitialSetup():
         self.cur.execute(
             "INSERT INTO Teachers(name, email, user_name, password) VALUES ('ALL', 'aicte@gmail.com', 'aryabhatta@ajmer', '12345')")
         self.cur.execute(
-            "INSERT INTO Courses(name) values ('ALL')")
+            "INSERT INTO Courses(name, course_duration) values ('ALL', 0)")
         self.cur.execute(
             "INSERT INTO Subjects(name, year, course_id, teacher_id) values ('ALL', 0, 1, 1)")
         self.con.commit()
