@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 from ServerSide.InsertOperations import InsertOperations
 from tkinter import messagebox
+from ServerSide.DuplicateVerification import DuplicateVerification
 
 class AddTeacherPage():
     def __init__(self, parent):
@@ -122,7 +123,10 @@ class AddTeacherPage():
             if len(username) < 4 or len(username) > 12:
                 validate = False
                 error2.config(text="*username character's should be(4-12)")
-            # verify duplicate username
+
+            if DuplicateVerification().duplicateTeacher(username) == False:
+                validate = False
+                error2.config(text="*user already exist")
 
             if len(email) < 5:
                 validate = False

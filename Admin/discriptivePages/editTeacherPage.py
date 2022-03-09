@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from ServerSide.UpdateOperation import UpdateOperation
 
 class EditTeacherPage():
     def __init__(self, parent, tid, username, name, email, phone):
@@ -68,7 +69,7 @@ class EditTeacherPage():
         phoneEntry.insert(0, str(self.phone))
 
         def updateInfo(id, name, email, phone):
-            pass
+            UpdateOperation().updateTeacher(id, name, email, phone)
 
 
         updateBut = Button(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.updateInfoPng, command=lambda :updateInfo(self.tid, nameEntry.get(), emailEntry.get(), phoneEntry.get()))

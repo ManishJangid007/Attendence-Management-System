@@ -1,4 +1,4 @@
-from Connection import Connection
+from ServerSide.Connection import Connection
 
 class DuplicateVerification():
     def __init__(self):
