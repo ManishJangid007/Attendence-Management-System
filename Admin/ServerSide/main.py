@@ -86,7 +86,7 @@ select = SelectOperation()
 
 # print(select.verifyAdmin("admin@aryabhatta", "12345"))
 
-print(select.getTeacherSubjects(5))
+# print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
 # if update.deleteAdmin(1):
@@ -121,6 +121,7 @@ update = UpdateOperation()
 #
 # createTable("Google")
 
+update.removeTeacherFromSubject(2)
 backup = EssentialFunction()
 # if backup.backupAttendance():
 #     print("Backup Table is created Successfully")
