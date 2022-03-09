@@ -36,7 +36,7 @@ class SelectOperation():
 
     def getTeacherProfile(self, teacher_id):
         try:
-            query = "SELECT name, email_id, phone_no  FROM Teachers WHERE teacher_id = %s"
+            query = "SELECT name, email, phone_no  FROM Teachers WHERE teacher_id = %s"
             value = [teacher_id]
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()

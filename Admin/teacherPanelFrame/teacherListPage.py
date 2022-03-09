@@ -4,6 +4,7 @@ from Scrollbar import scrollbar
 import tkinter as tk
 import datetime
 from discriptivePages.teacherDescriptionPage import TeacherDisPage
+from ServerSide.SelectOperation import SelectOperation
 
 class TeacherListPage():
     def __init__(self, parent, grandParent):
@@ -35,10 +36,10 @@ class TeacherListPage():
                      font=(self.font, 12, 'normal'))
         date.grid(row=0, columnspan=3, padx=100)
 
-        def view(username):
-            TeacherDisPage(self.grandParent, username).draw()
+        def view(id, username):
+            TeacherDisPage(self.grandParent, id, username).draw()
 
-        def drawTile(row, username, name):
+        def drawTile(row, username, name, id):
             tile = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.tilePng)
             tile.photo = self.tilePng
             tile.grid(row=row, columnspan=3, pady=10, padx=20)
@@ -52,14 +53,15 @@ class TeacherListPage():
             l2.grid(row=row, column=1)
 
             b2 = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
-                        image=self.profilePng, command=lambda : view(username))
+                        image=self.profilePng, command=lambda : view(id, username))
             b2.photo = self.profilePng
             b2.grid(row=row, column=2, padx=30, sticky="e")
 
+        data = SelectOperation().getTeacherBasicInfo()
+
         row = 1
-        for i in range(0, 101):
-            u = f"UsernameTw{i}"
-            n = f"NameTwentyFive{i}"
-            drawTile(row, u, n)
-            row += 1
+
+        for d in data:
+            drawTile(row, d[0], d[1], d[2])
+            row+=1
 

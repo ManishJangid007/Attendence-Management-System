@@ -4,11 +4,13 @@ from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 from tkinter import messagebox
 from discriptivePages.editTeacherPage import EditTeacherPage
+from ServerSide.SelectOperation import SelectOperation
 
 class TeacherDisPage():
-    def __init__(self, parent, username):
+    def __init__(self, parent, id, username):
         self.parent = parent
         self.username = username
+        self.id = id
         self.closePng = ImageTk.PhotoImage(
             Image.open(
                 "Assets/Discription_Pages_Assets/buttons/close.png"
@@ -49,7 +51,7 @@ class TeacherDisPage():
         self.teacherFrame = Frame(self.parent, bd=0, bg="white", height=650, width=1080)
         self.teacherFrame.place(x=0, y=0)
 
-        rawData = ["Teacher's Full Name", "Email1997LongEmail@gmail.com", "8619771079"]
+        rawData = SelectOperation().getTeacherProfile(self.id)
 
         usernameLabel = Label(self.teacherFrame, bd=0, bg="white", text=self.username, fg=self.orangePrimColor, font=(self.font, 30, 'normal'))
         usernameLabel.place(x=80, y=9)
@@ -99,36 +101,35 @@ class TeacherDisPage():
                            font=(self.font, 25, 'normal'), justify="right")
         subLabel.grid(row=6, column=0, pady=20, columnspan=3)
 
-        rawSubject = ["C++",
-                      "Java",
-                      "Java Script",
-                      "C",
-                      "Computer Graphics",
-                      "DBMS",
-                      "Python",
-                      "Interior Designing"]
+        rawSubject = SelectOperation().getTeacherSubjects(self.id)
 
-        def un_assign(subject):
-            print(subject)
+        def un_assign(subject_id):
+            print(subject_id)
             self.refresh()
 
-        def drawSubject(row, sn, subject):
+        def drawSubject(row, sn, subject_id, subject):
             s = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=f"{sn}.", font=(self.font, 20, 'normal'))
             s.grid(row=row, column=0, pady=10)
 
             sub = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=subject, font=(self.font, 20, 'normal'))
             sub.grid(row=row, column=1, pady=10)
 
-            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.unassignPng, command=lambda:un_assign(subject))
+            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.unassignPng, command=lambda:un_assign(subject_id))
             b.photo = self.unassignPng
             b.grid(row=row, column=2, pady=10)
 
-        row=7
-        sn=1
-        for data in rawSubject:
-            drawSubject(row, sn, data)
-            row+=1
-            sn+=1
+        if len(rawSubject) > 0:
+            row=7
+            sn=1
+            for data in rawSubject:
+                drawSubject(row, sn, data[0], data[1])
+                row+=1
+                sn+=1
+        else:
+            notLabel = Label(content_frame, bd=0, bg="white", fg="black",
+                             text="It's Empty Here !",
+                             font=(self.font, 25, 'normal'), justify="right")
+            notLabel.grid(row=7, column=0, pady=20, columnspan=3)
 
         def deleteProfile(username):
             # it returns true and false

@@ -1,5 +1,7 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from ServerSide.InsertOperations import InsertOperations
+from tkinter import messagebox
 
 class AddTeacherPage():
     def __init__(self, parent):
@@ -87,6 +89,14 @@ class AddTeacherPage():
                        font=(self.font, 10, 'normal'))
         error6.place(x=412, y=336)
 
+        def clear_fields():
+            nameEntry.delete(0, END)
+            usernameEntry.delete(0, END)
+            emailEntry.delete(0, END)
+            passwordEntry.delete(0, END)
+            phoneEntry.delete(0, END)
+            confirmPassEntry.delete(0, END)
+
         def clear_error():
             error1.config(text="")  # name
             error2.config(text="")  # username
@@ -145,9 +155,14 @@ class AddTeacherPage():
                 error6.config(text="*don't leave this field blank")
 
             if validate:
-                # fire your query here!
                 clear_error()
-                print("Done!")
+                ins = InsertOperations()
+                res = ins.insertTeacher(name=name, user_name=username, password=password, phone_no=phone, email=email)
+                if res:
+                    messagebox.showinfo(title="Added Successfully", message=f"New Teacher Added Successfully '{username}'")
+                    clear_fields()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong")
 
         addButton = Button(self.parent, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
                            bd=0, image=self.addPng, command=add_fun)
