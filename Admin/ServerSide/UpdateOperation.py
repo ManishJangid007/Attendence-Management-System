@@ -44,8 +44,10 @@ class UpdateOperation():
 
     def deleteTeacher(self, teacher_id):
         try:
-            query = "DELETE FROM Teachers where teacher_id = %s"
+            query = "UPDATE Subjects set teacher_id = NULL WHERE teacher_id = %s"
             value = [teacher_id]
+            self.cur.execute(query, value)
+            query = "DELETE FROM Teachers where teacher_id = %s"
             self.cur.execute(query, value)
             self.msg = True
             self.conn.commit()
