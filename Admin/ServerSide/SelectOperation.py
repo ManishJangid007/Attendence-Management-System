@@ -114,6 +114,16 @@ class SelectOperation():
         except:
             return False
 
+    def getCourseDuration(self, course_name):
+        try:
+            query = "SELECT course_duration FROM Courses WHERE name = %s"
+            value = [course_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            return self.data
+
     def showSubjectTable(self):
         try:
             self.cur.execute("SELECT * FROM Subjects")
