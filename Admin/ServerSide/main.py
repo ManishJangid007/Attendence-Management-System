@@ -65,8 +65,7 @@ select = SelectOperation()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
 
-print(select.getTeacherAccordingToCourse("1", "MCA"))
-
+# print(select.getTeacherAccordingToCourse("2", "MCA"))
 # print("Today's report")
 # data = select.todayAttendance()
 # print(data)
@@ -93,6 +92,7 @@ print(select.getTeacherAccordingToCourse("1", "MCA"))
 # print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
+# print(update.deleteSubject("BCA", "3", "C++"))
 # update.deleteCourse(8)
 # if update.deleteAdmin(1):
 #     print("Admin is deleted")
