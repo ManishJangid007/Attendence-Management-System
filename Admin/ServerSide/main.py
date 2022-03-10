@@ -133,4 +133,4 @@ backup = EssentialFunction()
 
 dv = DuplicateVerification()
 # print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
-# print(dv.dublicateCourse("BCAA"))
+# print(dv.dublicateCourse("BCA"))
