@@ -83,7 +83,8 @@ class SelectOperation():
             for i in range(0, len(data)):
                 teacher_name = self.getTeacherName(data[i][1])
                 if teacher_name is None:
-                    teacher_name = 'Not Assigned'
+                    teacher_name = "Not Assigned"
+                    
                 data[i] = list(data[i])
                 data[i].pop(1)
                 data[i].append(teacher_name)
@@ -168,8 +169,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data[0]
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getSubjectCount(self, course_id):   # return subject count
         try:
@@ -178,8 +179,20 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
+
+    def getSubject_id(self, subject_name, course_id, year):
+        try:
+            query = "SELECT Subject_id FROM Subjects WHERE name = %s AND year = %s AND course_id = %s"
+            value = [subject_name, year, course_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
+
 
     def getStudentProfile(self, student_id):   # return Student Profile
         try:
