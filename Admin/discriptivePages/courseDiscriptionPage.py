@@ -1,8 +1,11 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 from discriptivePages.assignTeacher import AssignTeacherPage
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class CourseDisPage():
     def __init__(self, parent, course, year):
@@ -70,9 +73,9 @@ class CourseDisPage():
             AssignTeacherPage(self.courseFrame, course, year, subject).draw()
 
         def deleteSubject(subject):
-            print(subject)
-            self.destroy()
-            self.draw()
+            if messagebox.askyesno(title="Warning !", message="This action can't be undone this will affect your data, Are You Sure"):
+                self.destroy()
+                self.draw()
 
         def drawSubject(row, sn, subject, teacher, year):
             s = Label(content_frame, text=f"{sn}.", bd=0, bg="white", fg="black", font=(self.font, 20, 'normal'))
@@ -114,14 +117,7 @@ class CourseDisPage():
             l = Label(content_frame, text=f"{year}{eff} Year", bd=0, bg=self.textColor, fg="white", font=(self.font, 25, 'normal'))
             l.grid(row=r, columnspan=5, padx=500, pady=10)
 
-            rawSubject = [["C++", "Rajkumar Sir"],
-                          ["Java", "Prakash Sir"],
-                          ["Java Script", "Krati Ma'am"],
-                          ["C", "Kirti Ma'am"],
-                          ["Computer Graphics", "Savita Ma'am"],
-                          ["DBMS", "Nisha Ma'am"],
-                          ["Python", "Kirti Ma'am"],
-                          ["Interior Designing", "Not Assingned"]]
+            rawSubject = SelectOperation().getTeacherAccordingToCourse(year, self.course)
 
             global row
 

@@ -114,9 +114,6 @@ class EditTeacherPage():
             if validate:
                 if UpdateOperation().updateTeacher(id, name, email, phone):
                     messagebox.showinfo(title="Success", message="Information Updated :)")
-                    nameEntry.delete(0, END)
-                    emailEntry.delete(0, END)
-                    phoneEntry.delete(0, END)
                 else:
                     messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 

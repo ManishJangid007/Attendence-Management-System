@@ -82,6 +82,8 @@ class SelectOperation():
             data = self.cur.fetchall()
             for i in range(0, len(data)):
                 teacher_name = self.getTeacherName(data[i][1])
+                if teacher_name is None:
+                    teacher_name = 'Not Assigned'
                 data[i] = list(data[i])
                 data[i].pop(1)
                 data[i].append(teacher_name)
