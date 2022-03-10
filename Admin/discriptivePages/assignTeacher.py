@@ -2,7 +2,9 @@ from tkinter import *
 from PIL import ImageTk, Image
 import tkinter as tk
 from Scrollbar import scrollbar
+from tkinter import messagebox
 from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class AssignTeacherPage():
     def __init__(self, parent, course, year, subject):
@@ -63,14 +65,13 @@ class AssignTeacherPage():
 
         rawTeacherList = SelectOperation().getTeacherBasicInfo()
 
-        def assign(tid):
-            print(self.course)
-            print(self.year)
-            print(self.subject)
-            print(tid)
-            self.parent.destroy()
-            self.destroy()
-
+        def assign(tid, teacher_name):
+            if UpdateOperation().assignTeacher(self.course, self.year, self.subject, tid):
+                messagebox.showinfo(title="Success", message=f"{self.subject} is assigned to {teacher_name}")
+                self.parent.destroy()
+                self.destroy()
+            else:
+                messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
         def drawTile(row, sn, username, teacher_name, tid):
             s = Label(content_frame, bd=0, bg="white", fg="black", text=f"{sn}.", font=(self.font, 20, 'normal'))
@@ -82,7 +83,7 @@ class AssignTeacherPage():
             n = Label(content_frame, bd=0, bg="white", fg="black", text=teacher_name, font=(self.font, 20, 'normal'))
             n.grid(row=row, column=2, pady=10)
 
-            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.assignPng, command=lambda:assign(tid))
+            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.assignPng, command=lambda:assign(tid, teacher_name))
             b.photo = self.assignPng
             b.grid(row=row, column=3, pady=10)
 
