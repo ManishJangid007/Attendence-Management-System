@@ -1,4 +1,7 @@
-from ServerSide.Connection import Connection
+
+from Connection import Connection
+from SelectOperation import SelectOperation
+
 
 class DuplicateVerification():
     def __init__(self):
@@ -36,4 +39,18 @@ class DuplicateVerification():
             self.msg = False
 
         return self.msg
+
+    def duplicateSubject(self, course_name, year, subject_name):
+        try:
+            course_id = SelectOperation().getCourseId(course_name)
+            query = "SELECT * FROM Subjects WHERE name = %s AND year = %s AND course_id = %s"
+            value = [subject_name, year, course_id]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            if data:
+                return True
+            else:
+                return False
+        except:
+            return False
 
