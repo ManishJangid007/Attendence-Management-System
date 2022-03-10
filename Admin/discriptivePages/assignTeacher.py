@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 import tkinter as tk
 from Scrollbar import scrollbar
+from ServerSide.SelectOperation import SelectOperation
 
 class AssignTeacherPage():
     def __init__(self, parent, course, year, subject):
@@ -60,25 +61,18 @@ class AssignTeacherPage():
 
         canvas.place(x=0, y=120)
 
-        rawTeacherList = [["Username", "Rajkumar Sir"],
-                          ["Username", "Prakash Sir"],
-                          ["Username", "Krati Ma'am"],
-                          ["Username", "Kirti Ma'am"],
-                          ["Username", "Savita Ma'am"],
-                          ["Username", "Nisha Ma'am"],
-                          ["Username", "Kirti Ma'am"],
-                          ["Username", "Leena Ma'am"]]
+        rawTeacherList = SelectOperation().getTeacherBasicInfo()
 
-        def assign(teacher_username):
+        def assign(tid):
             print(self.course)
             print(self.year)
             print(self.subject)
-            print(teacher_username)
+            print(tid)
             self.parent.destroy()
             self.destroy()
 
 
-        def drawTile(row, sn, username, teacher_name):
+        def drawTile(row, sn, username, teacher_name, tid):
             s = Label(content_frame, bd=0, bg="white", fg="black", text=f"{sn}.", font=(self.font, 20, 'normal'))
             s.grid(row=row, column=0, pady=10)
 
@@ -88,7 +82,7 @@ class AssignTeacherPage():
             n = Label(content_frame, bd=0, bg="white", fg="black", text=teacher_name, font=(self.font, 20, 'normal'))
             n.grid(row=row, column=2, pady=10)
 
-            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.assignPng, command=lambda:assign(username))
+            b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.assignPng, command=lambda:assign(tid))
             b.photo = self.assignPng
             b.grid(row=row, column=3, pady=10)
 
@@ -99,7 +93,7 @@ class AssignTeacherPage():
         row = 0
         sn = 1
         for data in rawTeacherList:
-            drawTile(row, sn, f"{data[0]}{sn}", data[1])
+            drawTile(row, sn, data[0], data[1], data[2])
             row += 2
             sn += 1
 

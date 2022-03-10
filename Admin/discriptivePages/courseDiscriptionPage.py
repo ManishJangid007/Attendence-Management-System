@@ -72,10 +72,12 @@ class CourseDisPage():
         def assignTeacher(course, year, subject):
             AssignTeacherPage(self.courseFrame, course, year, subject).draw()
 
-        def deleteSubject(subject):
+        def deleteSubject(year, subject):
             if messagebox.askyesno(title="Warning !", message="This action can't be undone this will affect your data, Are You Sure"):
-                self.destroy()
-                self.draw()
+                if UpdateOperation().deleteSubject(self.course, str(year), subject):
+                    self.destroy()
+                    self.draw()
+                    messagebox.showinfo(title="Success", message="Subject Deleted Successfully !")
 
         def drawSubject(row, sn, subject, teacher, year):
             s = Label(content_frame, text=f"{sn}.", bd=0, bg="white", fg="black", font=(self.font, 20, 'normal'))
@@ -87,7 +89,7 @@ class CourseDisPage():
             l2 = Label(content_frame, text=teacher, bd=0, bg="white", fg="black", font=(self.font, 20, 'normal'))
             l2.grid(row=row, column=2, pady=10)
 
-            r = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.deletePng, command=lambda: deleteSubject(subject))
+            r = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.deletePng, command=lambda: deleteSubject(year, subject))
             r.photo = self.deletePng
             r.grid(row=row, column=3, pady=10)
 

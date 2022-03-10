@@ -181,6 +181,16 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def getSubject_id(self, subject_name, course_id, year):
+        try:
+            query = "SELECT Subject_id FROM Subjects WHERE name = %s AND year = %s AND course_id = %s"
+            value = [subject_name, year, course_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
     def getStudentProfile(self, student_id):   # return Student Profile
         try:
             query = "SELECT * FROM Students WHERE student_id = %s"
