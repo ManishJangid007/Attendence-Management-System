@@ -94,6 +94,7 @@ select = SelectOperation()
 update = UpdateOperation()
 # print(update.deleteSubject("BCA", "3", "C++"))
 # update.deleteCourse(8)
+# print(update.assignTeacher("BCA", "1", "C++", 14))
 # if update.deleteAdmin(1):
 #     print("Admin is deleted")
 # else:

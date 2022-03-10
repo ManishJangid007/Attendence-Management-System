@@ -72,6 +72,18 @@ class UpdateOperation():
             self.msg = False
         return self.msg
 
+    def assignTeacher(self, course_name, year, subject_name, teacher_id):
+        try:
+            course_id = SelectOperation().getCourseId(course_name)
+            subject_id = SelectOperation().getSubject_id(subject_name, course_id, year)
+            query = "UPDATE Subjects set teacher_id = %s WHERE subject_id = %s"
+            value = [teacher_id, subject_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return True
+        except:
+            return False
+
     def deleteCourse(self, course_id):
         try:
             query = "DELETE FROM Subjects WHERE course_id = %s"
