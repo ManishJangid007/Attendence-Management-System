@@ -1,4 +1,4 @@
-from Connection import Connection
+from ServerSide.Connection import Connection
 from datetime import date, timedelta
 
 
@@ -84,6 +84,7 @@ class SelectOperation():
                 teacher_name = self.getTeacherName(data[i][1])
                 if teacher_name is None:
                     teacher_name = "Not Assigned"
+                    
                 data[i] = list(data[i])
                 data[i].pop(1)
                 data[i].append(teacher_name)
