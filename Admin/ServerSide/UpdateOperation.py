@@ -94,15 +94,19 @@ class UpdateOperation():
             self.conn.rollback()
         return self.msg
 
-    def deleteSubject(self, subject_id):
+    def deleteSubject(self, course_name, course_year, subject_name):
         try:
-            query = "DELETE FROM Subjects where subject_id = %s"
+            course_id = SelectOperation().getCourseId(course_name)
+            subject_id = SelectOperation().getSubject_id(subject_name, course_id, course_year)
+            query = "UPDATE Attendance set subject_id = NULL WHERE subject_id = %s"
             value = [subject_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            query = "DELETE FROM Subjects where subject_id = %s"
             self.cur.execute(query, value)
             self.msg = True
             self.conn.commit()
-        except Exception as e:
-            print(e)
+        except:
             self.msg = False
             self.conn.rollback()
         return self.msg
