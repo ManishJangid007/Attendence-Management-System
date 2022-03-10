@@ -63,7 +63,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getCourse(self):
+    def getCourse(self):  # return course_name and course Duration
         try:
             self.cur.execute("SELECT name, course_duration, course_id FROM Courses")
             self.data = self.cur.fetchall()
@@ -72,7 +72,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getCourseCount(self):
+    def getCourseCount(self):  # return course count
         try:
             self.cur.execute("SELECT COUNT(*) FROM Courses")
             self.data = self.cur.fetchone()
@@ -80,7 +80,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getCourseName(self, course_id):
+    def getCourseName(self, course_id):  # return course name
         try:
             query = "SELECT name FROM Courses WHERE course_id = %s"
             value = [course_id]
@@ -90,7 +90,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getCourseId(self, course_name):
+    def getCourseId(self, course_name):  # return course id
         try:
             query = "SELECT course_id FROM Courses WHERE name = %s"
             value = [course_name]
@@ -101,7 +101,7 @@ class SelectOperation():
             print(e)
             return self.data
 
-    def checkExistenceCourse(self, course_name):
+    def checkExistenceCourse(self, course_name):    # check course Exist or not
         try:
             query = "SELECT * FROM Courses WHERE name = %s"
             value = [course_name]
@@ -114,7 +114,7 @@ class SelectOperation():
         except:
             return False
 
-    def getCourseDuration(self, course_name):
+    def getCourseDuration(self, course_name):  # get Specific course Duration
         try:
             query = "SELECT course_duration FROM Courses WHERE name = %s"
             value = [course_name]
@@ -132,7 +132,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getSubjectName(self, subject_id):
+    def getSubjectName(self, subject_id):  # return subject name
         try:
             query = "SELECT name FROM Subjects WHERE subject_id = %s"
             value = [subject_id]
@@ -142,7 +142,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getSubjectCount(self, course_id):
+    def getSubjectCount(self, course_id):   # return subject count
         try:
             query = "SELECT COUNT(DISTINCT year) FROM subjects WHERE course_id = %s"
             value = [course_id]
@@ -152,7 +152,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getStudentProfile(self, student_id):
+    def getStudentProfile(self, student_id):   # return Student Profile
         try:
             query = "SELECT * FROM Students WHERE student_id = %s"
             value = [student_id]
@@ -236,7 +236,7 @@ class SelectOperation():
         data.pop(0)
         return data
 
-    def yesterdayAttendance(self):
+    def yesterdayAttendance(self):   # return Previous Day Attendance
         def returnPresent(student_id):
             try:
                 query = "SELECT * FROM attendance WHERE student_id = %s AND date = DATE_SUB(CURDATE(), INTERVAL 1 DAY)"
@@ -270,7 +270,7 @@ class SelectOperation():
         data.pop(0)
         return data
 
-    def searchAttendance(self, date, course_id, year, subject_id):
+    def searchAttendance(self, date, course_id, year, subject_id):  # return present of search Student of a particular date
         try:
             query = "SELECT student_id from Attendance where date =  %s AND course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'"
             value = [date, course_id, year, subject_id]
@@ -306,7 +306,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def totalPresentCount(self, student_id):
+    def totalPresentCount(self, student_id):  # return total count of student of a year
         try:
             record = []
             query = "SELECT course_id FROM Students WHERE student_id = %s"
