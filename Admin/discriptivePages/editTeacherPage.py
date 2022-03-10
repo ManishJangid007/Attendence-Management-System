@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import messagebox
 from ServerSide.UpdateOperation import UpdateOperation
 
 class EditTeacherPage():
@@ -68,9 +69,56 @@ class EditTeacherPage():
         phoneEntry.place(x=401.5, y=377)
         phoneEntry.insert(0, str(self.phone))
 
-        def updateInfo(id, name, email, phone):
-            UpdateOperation().updateTeacher(id, name, email, phone)
+        error1 = Label(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, text="", fg="red",
+                           font=(self.font, 15, 'normal'))
+        error1.place(x=415, y=230)
 
+        error2 = Label(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, text="", fg="red",
+                       font=(self.font, 15, 'normal'))
+        error2.place(x=415, y=325)
+
+        error3 = Label(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, text="", fg="red",
+                       font=(self.font, 15, 'normal'))
+        error3.place(x=415, y=420)
+
+        def clear_error():
+            error1.config(text="")
+            error2.config(text="")
+            error3.config(text="")
+
+        def updateInfo(id, name, email, phone):
+            clear_error()
+            validate = True
+            if len(name) < 4 or len(name) > 25:
+                validate = False
+                error1.config(text="*name character's should be(4-25)")
+
+            if len(email) < 5:
+                validate = False
+                error2.config(text="*enter valid email")
+
+            if len(phone) == 10:
+                num = list(phone)
+                for d in num:
+                    asa = ord(d)
+                    for i in range(47, 59):
+                        if asa == i:
+                            break
+                        elif i > 57:
+                            validate = False
+                            error3.config(text="*enter valid number")
+            else:
+                validate = False
+                error3.config(text="*enter valid number")
+
+            if validate:
+                if UpdateOperation().updateTeacher(id, name, email, phone):
+                    messagebox.showinfo(title="Success", message="Information Updated :)")
+                    nameEntry.delete(0, END)
+                    emailEntry.delete(0, END)
+                    phoneEntry.delete(0, END)
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
         updateBut = Button(self.editTeacherFrame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.updateInfoPng, command=lambda :updateInfo(self.tid, nameEntry.get(), emailEntry.get(), phoneEntry.get()))
         updateBut.photo = self.updateInfoPng

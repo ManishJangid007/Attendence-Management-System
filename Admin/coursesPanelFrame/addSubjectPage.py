@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 from ServerSide.SelectOperation import SelectOperation
 from ServerSide.InsertOperations import InsertOperations
+from ServerSide.DuplicateVerification import DuplicateVerification
 from tkinter import messagebox
 
 class AddSubjectPage():
@@ -148,10 +149,39 @@ class AddSubjectPage():
             col += 1
 
         def add(course, year, subject):
-            if InsertOperations().insertSubjects(subject, year, course):
-                messagebox.showinfo(title="Success", message="Subject Added Successful")
-            else:
-                messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
+
+            validate = True
+            if len(course) == 0:
+                validate  = False
+
+            if year == 0:
+                validate = False
+
+            if len(subject) < 2 or len(subject) > 25:
+                validate = False
+
+            if SelectOperation().checkExistenceCourse(course) == False:
+                validate = False
+                messagebox.showerror(title="Not Found", message="Course Not Found")
+
+            try:
+                cd = SelectOperation().getCourseDuration(course)
+                if year < 1 or year > cd:
+                    validate = False
+                    messagebox.showerror(title="Not Found", message=f"{course} only has {cd} years")
+            except:
+                pass
+
+            if DuplicateVerification().duplicateSubject(course, str(year), subject):
+                validate = False
+                messagebox.showerror(title="Duplicate Entry", message=f"{subject} already exist in {course} {year}")
+
+            if validate:
+                if InsertOperations().insertSubjects(subject, year, course):
+                    messagebox.showinfo(title="Success", message="Subject Added Successful")
+                    newSubjectEntry.delete(0, END)
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
         addBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
                         image=self.addPng, command=lambda : add(courseEntry.get(), int(yearEntry.get()), newSubjectEntry.get()))
