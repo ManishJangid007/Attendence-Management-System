@@ -65,6 +65,8 @@ select = SelectOperation()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
 
+print(select.getTeacherAccordingToCourse("1", "MCA"))
+
 # print("Today's report")
 # data = select.todayAttendance()
 # print(data)
@@ -134,3 +136,4 @@ backup = EssentialFunction()
 dv = DuplicateVerification()
 # print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
 # print(dv.duplicateCourse("BCA"))
+# print(dv.duplicateSubject("BCA", "2", "c++"))
