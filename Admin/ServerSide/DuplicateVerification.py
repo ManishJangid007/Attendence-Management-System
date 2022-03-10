@@ -1,5 +1,7 @@
+
 from Connection import Connection
 from SelectOperation import SelectOperation
+
 
 class DuplicateVerification():
     def __init__(self):
