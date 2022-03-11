@@ -1,6 +1,5 @@
 from Connection import Connection
-from datetime import date, timedelta
-
+from datetime import date, timedelta, datetime
 
 class EssentialFunction():
     def __init__(self):
@@ -32,3 +31,20 @@ class EssentialFunction():
                 return False
         except Exception as e:
             print(e)
+
+    def updateAge(self, dob, student_id):
+        try:
+            temp = dob.split('-')
+            dd = temp[0]
+            mm = temp[1]
+            yyyy = temp[2]
+            dob = date(int(yyyy), int(mm), int(dd))
+            today = date.today()
+            age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+            query = "UPDATE Students set age = %s WHERE Student_id = %s"
+            value = [age, student_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return age
+        except:
+            pass

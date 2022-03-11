@@ -6,6 +6,7 @@ from UpdateOperation import UpdateOperation
 from RawData import RawData
 from EssentialFunction import EssentialFunction
 from DuplicateVerification import DuplicateVerification
+from datetime import date
 
 obj = Connection()
 conn = obj.connect()
@@ -47,11 +48,11 @@ insert = InsertOperations()
 #     else:
 #         print("Subject record doesn't inserted")
 
-# for i in raw.student_data:
-#     if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11], i[12], i[13]):
-#         print("Students record inserted successful")
-#     else:
-#         print("Students record doesn't inserted")
+for i in raw.student_data:
+    if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11]):
+        print("Students record inserted successful")
+    else:
+        print("Students record doesn't inserted")
 
 # if insert.insertAttendance(6, "1", 7, 16):
 #     print("Attendance record inserted successful")
@@ -60,7 +61,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
-# print(select.totalPresentCount("aryaid502"))
+# print(select.totalPresentCount("aryaid101"))
 # # data = select.showAdminTable()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
@@ -128,13 +129,15 @@ update = UpdateOperation()
 # createTable("Google")
 
 # update.deleteTeacher(7)
-backup = EssentialFunction()
-# if backup.backupAttendance():
+es = EssentialFunction()
+# if es.backupAttendance():
 #     print("Backup Table is created Successfully")
 # else:
 #     print("Table isn't created")
+# print(es.updateAge("22-07-2002", "aryaid101"))
 
 dv = DuplicateVerification()
 # print(dv.duplicateTeacher("xyz@gmaiasdal.com"))
 # print(dv.duplicateCourse("BCA"))
 # print(dv.duplicateSubject("BCA", "2", "c++"))
+# print(dv.duplicateStudent_id("aryaid109"))

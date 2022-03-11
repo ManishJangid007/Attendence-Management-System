@@ -411,7 +411,6 @@ class SelectOperation():
                 row.append(total_present)
                 record.append(row)
 
-            self.cur.execute("USE amsx505")
             return record
         except Exception as e:
             print(e)

@@ -52,3 +52,15 @@ class DuplicateVerification():
         except:
             return False
 
+    def duplicateStudent_id(self, student_id):
+        try:
+            query = "SELECT Student_id FROM Students WHERE Student_id = %s"
+            value = [student_id]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            if data:
+                return True
+            else:
+                return False
+        except:
+            pass
