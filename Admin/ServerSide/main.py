@@ -48,11 +48,11 @@ insert = InsertOperations()
 #     else:
 #         print("Subject record doesn't inserted")
 
-for i in raw.student_data:
-    if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11]):
-        print("Students record inserted successful")
-    else:
-        print("Students record doesn't inserted")
+# for i in raw.student_data:
+#     if insert.insertStudents(i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7], i[8], i[9], i[10], i[11]):
+#         print("Students record inserted successful")
+#     else:
+#         print("Students record doesn't inserted")
 
 # if insert.insertAttendance(6, "1", 7, 16):
 #     print("Attendance record inserted successful")
@@ -61,6 +61,7 @@ for i in raw.student_data:
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
+# print(select.getStudentBasicInfo("BCA", "1"))
 # print(select.totalPresentCount("aryaid101"))
 # # data = select.showAdminTable()
 # # for x in data:

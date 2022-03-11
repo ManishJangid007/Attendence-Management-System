@@ -1,7 +1,7 @@
 from Connection import Connection
 from SelectOperation import SelectOperation
 from EssentialFunction import EssentialFunction
-from  datetime import date
+from datetime import date
 
 class InsertOperations():
     def __init__(self):
@@ -68,7 +68,7 @@ class InsertOperations():
             course_id = SelectOperation().getCourseId(course_name)
             cd = int(SelectOperation().getCourseDuration(course_name))
             current_year = date.today().year
-            graduation_year = int(current_year) + (cd-int(year))
+            graduation_year = int(current_year) + (cd-int(year)) + 1
             session = f"{current_year} - {graduation_year}"
             query = "INSERT INTO Students(student_id, f_name, l_name, father_name, mother_name, gender, dob, phone_number, email, year, session, course_id, added_by) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             value = [student_id, f_name, l_name, father_name, mother_name, gender, dob, phone_number, email, year, session, course_id, added_by]

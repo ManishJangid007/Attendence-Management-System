@@ -91,7 +91,6 @@ class SelectOperation():
         except:
             pass
 
-
     def getCourse(self):  # return course_name and course Duration
         try:
             self.cur.execute("SELECT name, course_duration, course_id FROM Courses")
@@ -130,7 +129,7 @@ class SelectOperation():
             print(e)
             return self.data
 
-    def checkExistenceCourse(self, course_name):    # check course Exist or not
+    def checkExistenceCourse(self, course_name):  # check course Exist or not
         try:
             query = "SELECT * FROM Courses WHERE name = %s"
             value = [course_name]
@@ -171,7 +170,7 @@ class SelectOperation():
         except:
             pass
 
-    def getSubjectCount(self, course_id):   # return subject count
+    def getSubjectCount(self, course_id):  # return subject count
         try:
             query = "SELECT COUNT(DISTINCT year) FROM subjects WHERE course_id = %s"
             value = [course_id]
@@ -191,9 +190,7 @@ class SelectOperation():
         except:
             pass
 
-
-
-    def getStudentProfile(self, student_id):   # return Student Profile
+    def getStudentProfile(self, student_id):  # return Student Profile
         try:
             query = "SELECT * FROM Students WHERE student_id = %s"
             value = [student_id]
@@ -203,9 +200,12 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def getStudentBasicInfo(self):
+    def getStudentBasicInfo(self, course_name, year):
         try:
-            self.cur.execute("SELECT student_id, CONCAT(f_name,' ',l_name) AS Name FROM Students")
+            course_id = SelectOperation().getCourseId(course_name)
+            query = "SELECT student_id, f_name, l_name FROM Students WHERE course_id = %s AND year = %s"
+            value = [course_id, year]
+            self.cur.execute(query, value)
             self.data = self.cur.fetchall()
             return self.data
         except Exception as e:
@@ -277,7 +277,7 @@ class SelectOperation():
         data.pop(0)
         return data
 
-    def yesterdayAttendance(self):   # return Previous Day Attendance
+    def yesterdayAttendance(self):  # return Previous Day Attendance
         def returnPresent(student_id):
             try:
                 query = "SELECT * FROM attendance WHERE student_id = %s AND date = DATE_SUB(CURDATE(), INTERVAL 1 DAY)"
@@ -311,7 +311,8 @@ class SelectOperation():
         data.pop(0)
         return data
 
-    def searchAttendance(self, date, course_id, year, subject_id):  # return present of search Student of a particular date
+    def searchAttendance(self, date, course_id, year,
+                         subject_id):  # return present of search Student of a particular date
         try:
             query = "SELECT student_id from Attendance where date =  %s AND course_id = %s AND year = %s AND subject_id = %s AND present = 'YES'"
             value = [date, course_id, year, subject_id]
