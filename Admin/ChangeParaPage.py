@@ -1,11 +1,12 @@
 from tkinter import *
 from PIL import ImageTk, Image
-from Connection import *
+from ServerSide.Connection import *
 
 class ParaPage():
-    def __init__(self, root, parent):
+    def __init__(self, root, parent, destroy_Parent = True):
         self.root = root
         self.parent = parent
+        self.destroy_Parent = destroy_Parent
         #assets
         self.ccp_backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Error_Page_Assets/connectbg.png"))
         self.cancelButtonPng = ImageTk.PhotoImage(Image.open("Assets/Error_Page_Assets/Button/cancel.png"))
@@ -79,7 +80,8 @@ class ParaPage():
 
             conn = Connection()
             if conn.check():
-                self.parent.destroy()
+                if self.destroy_Parent:
+                    self.parent.destroy()
                 self.destroy()
             else:
                 set_message(message="{ Can't Connect \n to the Network }", x=770, y=320)

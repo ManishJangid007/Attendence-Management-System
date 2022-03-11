@@ -1,4 +1,4 @@
-from Connection import Connection
+from ServerSide.Connection import Connection
 from datetime import date, timedelta
 
 
@@ -83,7 +83,7 @@ class SelectOperation():
             for i in range(0, len(data)):
                 teacher_name = self.getTeacherName(data[i][1])
                 if teacher_name is None:
-                    teacher_name = "Not Assigned"
+                    teacher_name = 'Not Assigned'
                 data[i] = list(data[i])
                 data[i].pop(1)
                 data[i].append(teacher_name)
@@ -168,8 +168,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data[0]
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     def getSubjectCount(self, course_id):   # return subject count
         try:
@@ -178,8 +178,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     def getSubject_id(self, subject_name, course_id, year):
         try:
@@ -190,8 +190,6 @@ class SelectOperation():
             return self.data[0]
         except:
             pass
-
-
 
     def getStudentProfile(self, student_id):   # return Student Profile
         try:
