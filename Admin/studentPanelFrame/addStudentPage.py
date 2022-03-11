@@ -140,6 +140,22 @@ class AddStudentPage():
             courseLabel.config(fg="black", text="Course")
             yearLabel.config(fg="black", text="Year")
 
+        def clear_fields():
+            studentIdEntry.delete(0, END)
+            studentIdEntry.insert(0, "AryaID")
+            firstNameEntry.delete(0, END)
+            lastNameEntry.delete(0, END)
+            fatherNameEntry.delete(0, END)
+            motherNameEntry.delete(0, END)
+            genderEntry.delete(0, END)
+            dayEntry.delete(0, END)
+            monthEntry.delete(0, END)
+            dobYearEntry.delete(0, END)
+            emailEntry.delete(0, END)
+            phoneEntry.delete(0, END)
+            courseEntry.delete(0, END)
+            yearEntry.delete(0, END)
+
         def add():
             clear_errors()
             validate = True
@@ -326,8 +342,9 @@ class AddStudentPage():
                     yearLabel.config(fg="red", text="Year (Not Valid)")
 
             if validate:
-                # fire your query here!
+                dob = f"{dob_day}-{dob_month}-{dob_year}"
                 clear_errors()
+                clear_fields()
                 print("Done!")
 
 
