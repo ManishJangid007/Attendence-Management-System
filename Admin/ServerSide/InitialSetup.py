@@ -24,7 +24,7 @@ class InitialSetup():
             self.cur.execute(
                 "CREATE TABLE Subjects(subject_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255), year varchar(100), course_id int(50), teacher_id int(50), FOREIGN KEY (course_id) REFERENCES Courses(course_id), FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id))")
             self.cur.execute(
-                "CREATE TABLE Students(student_id varchar(255) NOT NULL PRIMARY KEY, f_name varchar(255), l_name varchar(255), father_name varchar(255), mother_name varchar(255), gender varchar(10), dob varchar(255), age int(20), phone_number varchar(255), email varchar(255), year varchar(100), session varchar(100), course_id int(50), added_by varchar(255),FOREIGN KEY(course_id) REFERENCES Courses(course_id))")
+                "CREATE TABLE Students(student_id varchar(255) NOT NULL PRIMARY KEY, f_name varchar(255), l_name varchar(255), father_name varchar(255), mother_name varchar(255), gender varchar(255), dob varchar(255), age int(20), phone_number varchar(255), email varchar(255), year varchar(100), session varchar(100), course_id int(50), added_by varchar(255),FOREIGN KEY(course_id) REFERENCES Courses(course_id))")
             self.cur.execute(
                 "CREATE TABLE Attendance(date varchar(255), student_id varchar(255), present varchar(10), absent varchar(10), year varchar(255), subject_id int(50), course_id int(50), teacher_id int(50), FOREIGN KEY(student_id) REFERENCES Students(student_id), FOREIGN KEY(subject_id) REFERENCES Subjects(subject_id), FOREIGN KEY(course_id) REFERENCES Courses(course_id), FOREIGN KEY(teacher_id) REFERENCES Teachers(teacher_id))")
             self.cur.execute(
