@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 from Scrollbar import scrollbar
 from tkinter import messagebox
 from discriptivePages.editStudentPage import EditStudentPage
+from ServerSide.SelectOperation import SelectOperation
 
 class StudentDesPage():
     def __init__(self, parent, aryaId):
@@ -67,9 +68,9 @@ class StudentDesPage():
 
         canvas.place(x=0, y=70)
 
-        rawData = ["Firstname", "Lastname", "Fathername", "Mothername", "M", "2001-01-11", "8619771079", "Email1997@gmail.com", "BCA", "1"]
+        rawData = SelectOperation().getStudentProfile(self.aryaId)
 
-        nameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Name : {rawData[0]} {rawData[1]}",
+        nameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Name : {rawData[1]} {rawData[2]}",
                           font=(self.font, 25, 'normal'), justify="right")
         nameLabel.grid(row=0, column=0, pady=20)
 
@@ -77,7 +78,7 @@ class StudentDesPage():
         divider.photo = self.dividerPng
         divider.grid(row=1, column=0, padx=350)
 
-        fatherNameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Father Name : {rawData[2]}",
+        fatherNameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Father Name : {rawData[3]}",
                           font=(self.font, 25, 'normal'), justify="right")
         fatherNameLabel.grid(row=2, column=0, pady=20)
 
@@ -85,7 +86,7 @@ class StudentDesPage():
         divider1.photo = self.dividerPng
         divider1.grid(row=3, column=0, padx=350)
 
-        motherNameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Mother Name : {rawData[3]}",
+        motherNameLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Mother Name : {rawData[4]}",
                                 font=(self.font, 25, 'normal'), justify="right")
         motherNameLabel.grid(row=4, column=0, pady=20)
 
@@ -93,15 +94,7 @@ class StudentDesPage():
         divider2.photo = self.dividerPng
         divider2.grid(row=5, column=0, padx=350)
 
-        gender = ""
-        if rawData[4] == "M":
-            gender = "Male"
-        elif rawData[4] == "F":
-            gender = "Female"
-        elif rawData[4] == "T":
-            gender = "Trans"
-
-        genderLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Gender : {gender}",
+        genderLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Gender : {rawData[5]}",
                                 font=(self.font, 25, 'normal'), justify="right")
         genderLabel.grid(row=6, column=0, pady=20)
 
@@ -109,7 +102,7 @@ class StudentDesPage():
         divider3.photo = self.dividerPng
         divider3.grid(row=7, column=0, padx=350)
 
-        dobLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Date of Birth : {rawData[5]}",
+        dobLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Date of Birth : {rawData[6]}",
                             font=(self.font, 25, 'normal'), justify="right")
         dobLabel.grid(row=8, column=0, pady=20)
 
@@ -117,46 +110,62 @@ class StudentDesPage():
         divider4.photo = self.dividerPng
         divider4.grid(row=9, column=0, padx=350)
 
-        phoneLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Phone No. : {rawData[6]}",
+        ageLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Age : {rawData[7]}",
                          font=(self.font, 25, 'normal'), justify="right")
-        phoneLabel.grid(row=10, column=0, pady=20)
+        ageLabel.grid(row=10, column=0, pady=20)
+
+        divider7 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
+        divider7.photo = self.dividerPng
+        divider7.grid(row=11, column=0, padx=350)
+
+        phoneLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Phone No. : {rawData[8]}",
+                         font=(self.font, 25, 'normal'), justify="right")
+        phoneLabel.grid(row=12, column=0, pady=20)
 
         divider5 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
         divider5.photo = self.dividerPng
-        divider5.grid(row=11, column=0, padx=350)
+        divider5.grid(row=13, column=0, padx=350)
 
-        emailLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Email : {rawData[7]}",
+        emailLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Email : {rawData[9]}",
                            font=(self.font, 25, 'normal'), justify="right")
-        emailLabel.grid(row=12, column=0, pady=20)
-
-        divider6 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
-        divider6.photo = self.dividerPng
-        divider6.grid(row=13, column=0, padx=350)
-
-        eff = ""
-        if int(rawData[9]) == 1:
-            eff = "st"
-        elif int(rawData[9]) == 2:
-            eff = "nd"
-        elif int(rawData[9]) == 3:
-            eff = "rd"
-        elif int(rawData[9]) >= 4:
-            eff = "th"
-
-        courseLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Course : {rawData[8]} {rawData[9]}{eff}",
-                           font=(self.font, 25, 'normal'), justify="right")
-        courseLabel.grid(row=14, column=0, pady=20)
+        emailLabel.grid(row=14, column=0, pady=20)
 
         divider6 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
         divider6.photo = self.dividerPng
         divider6.grid(row=15, column=0, padx=350)
+
+        sessionLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Session : {rawData[11]}",
+                           font=(self.font, 25, 'normal'), justify="right")
+        sessionLabel.grid(row=16, column=0, pady=20)
+
+        divider8 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
+        divider8.photo = self.dividerPng
+        divider8.grid(row=17, column=0, padx=350)
+
+        eff = ""
+        if int(rawData[10]) == 1:
+            eff = "st"
+        elif int(rawData[10]) == 2:
+            eff = "nd"
+        elif int(rawData[10]) == 3:
+            eff = "rd"
+        elif int(rawData[10]) >= 4:
+            eff = "th"
+
+        courseLabel = Label(content_frame, bd=0, bg="white", fg="black", text=f"Course : {SelectOperation().getCourseName(rawData[12])} {rawData[10]}{eff} Year",
+                           font=(self.font, 25, 'normal'), justify="right")
+        courseLabel.grid(row=18, column=0, pady=20)
+
+        divider6 = Label(content_frame, bd=0, bg="white", image=self.dividerPng)
+        divider6.photo = self.dividerPng
+        divider6.grid(row=19, column=0, padx=350)
 
         def generateReport(id):
             print(id)
 
         generateReportBut = Button(content_frame, bd=0, bg="white", image=self.generateReportPng, command=lambda : generateReport(self.aryaId))
         generateReportBut.photo = self.generateReportPng
-        generateReportBut.grid(row=16, column=0, pady=20)
+        generateReportBut.grid(row=20, column=0, pady=20)
 
         def deleteProfile(aid):
             # it returns true and false

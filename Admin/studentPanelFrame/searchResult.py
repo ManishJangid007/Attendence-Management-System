@@ -2,7 +2,10 @@ from tkinter import *
 import tkinter as tk
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
+from tkinter import messagebox
 from discriptivePages.studentDescriptionPage import StudentDesPage
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class SearchResultPage():
     def __init__(self, parent, grandParent, course, year):
@@ -48,9 +51,13 @@ class SearchResultPage():
         canvas.place(x=0, y=50)
 
         def deleteStudent(id):
-            print(id)
-            self.searchResultFrame.destroy()
-            self.draw()
+            if messagebox.askyesno(title="Warning", message="This action can't be undone and you will lose all the data related to this student"):
+                if UpdateOperation().deleteStudent(id):
+                    self.searchResultFrame.destroy()
+                    self.draw()
+                    messagebox.showinfo(title="Success", message="Student Deleted Successfully")
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong")
 
         def view(id):
             StudentDesPage(self.grandParent, id).draw()
@@ -79,16 +86,21 @@ class SearchResultPage():
             d.photo = self.deletePng
             d.grid(row=row + 4, column=col, pady=15)
 
+        rawData = SelectOperation().getStudentBasicInfo(self.course, self.year)
 
-        row = 0
-        col = 0
-        for i in range(0, 10):
-            drawCard(row, col, f"aryaid{i}", "firstname", "lastname")
-            col += 1
-            if col > 2:
-                col = 0
-            if col == 0:
-                row += 5
+        if len(rawData) > 0:
+            row = 0
+            col = 0
+            for data in rawData:
+                drawCard(row, col, data[0], data[1], data[2])
+                col += 1
+                if col > 2:
+                    col = 0
+                if col == 0:
+                    row += 5
+        else:
+            empty = Label(content_frame, bd=0, bg=self.ligBluePrimColor, fg="black", text="It's Empty Here", font=(self.font, 30, 'normal'))
+            empty.grid(row=0, column=0, pady=10, padx=100)
 
         def back():
             self.destroy()
