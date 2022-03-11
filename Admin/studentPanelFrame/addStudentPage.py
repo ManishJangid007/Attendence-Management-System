@@ -2,9 +2,14 @@ from tkinter import *
 from PIL import ImageTk, Image
 import datetime
 from daysOnMonth import daysOfMonth
+from tkinter import messagebox
+from ServerSide.DuplicateVerification import DuplicateVerification
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.InsertOperations import InsertOperations
 
 class AddStudentPage():
-    def __init__(self, parent):
+    def __init__(self, parent, user):
+        self.user = user
         self.parent = parent
         self.backgroundPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/background.png"))
         self.addPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/buttons/add.png"))
@@ -179,6 +184,11 @@ class AddStudentPage():
                     studentIdLabel.config(fg="red", text="Student ID (Field Blank)")
                 else:
                     studentIdLabel.config(fg="red", text="Student ID (Length 4-14)")
+            else:
+                if DuplicateVerification().duplicateStudent_id(student_id):
+                    validate = False
+                    studentIdLabel.config(fg="red", text="Student ID (Already Exist)")
+
 
             if len(first_name) <= 2 or len(first_name) > 19:
                 validate = False
@@ -209,7 +219,12 @@ class AddStudentPage():
                     motherNameLabel.config(fg="red", text="Mother's Name (Length 3-24)")
 
             if gender == "m" or gender == "M" or gender == "f" or gender == "F" or gender == "t" or gender == "T":
-                pass
+                if gender == "m" or gender == "M":
+                    gender = "Male"
+                if gender == "f" or gender == "F":
+                    gender = "Female"
+                if gender == "t" or gender == "T":
+                    gender = "Transgender"
             else:
                 validate = False
                 genderLabel.config(fg="red")
@@ -318,6 +333,11 @@ class AddStudentPage():
             if len(course) == 0:
                 validate = False
                 courseLabel.config(fg="red", text="Course (Field Blank)")
+            else:
+                if SelectOperation().checkExistenceCourse(course) == False:
+                    validate = False
+                    courseLabel.config(fg="red", text="Course (Not Found)")
+
 
             yearValid = False
             if len(year) > 0:
@@ -340,12 +360,22 @@ class AddStudentPage():
                 if int(year) < 1 or int(year) > 6:
                     validate = False
                     yearLabel.config(fg="red", text="Year (Not Valid)")
+                else:
+                    try:
+                        if int(year) > SelectOperation().getCourseDuration(course):
+                            validate = False
+                            yearLabel.config(fg="red", text="Year (Year Not Valid)")
+                    except:
+                        pass
 
             if validate:
                 dob = f"{dob_day}-{dob_month}-{dob_year}"
                 clear_errors()
-                clear_fields()
-                print("Done!")
+                if InsertOperations().insertStudents(student_id, first_name, last_name, father_name, mother_name, gender, dob, phone_no, email, year, course, self.user):
+                    messagebox.showinfo(title="Success", message="Student Added Successful")
+                    clear_fields()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
 
         addButton = Button(self.parent, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,

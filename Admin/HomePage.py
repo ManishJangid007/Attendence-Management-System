@@ -456,7 +456,7 @@ class HomePage():
         self.add_student_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.add_student_frame.place(x=323, y=103)
 
-        AddStudentPage(self.add_student_frame).draw()
+        AddStudentPage(self.add_student_frame, self.username).draw()
 
     def destroy_add_student_main_panel(self):
         self.add_student_frame.destroy()

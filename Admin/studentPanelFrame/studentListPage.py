@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
 from studentPanelFrame.searchResult import SearchResultPage
+from ServerSide.SelectOperation import SelectOperation
+from tkinter import messagebox
 
 class StudentListPage():
     def __init__(self, parent, grandParent):
@@ -23,18 +25,7 @@ class StudentListPage():
         searchbar.photo = self.searchbarPng
         searchbar.place(x=48, y=35)
 
-        rawData = [["BCA", 3],
-                   ["BBA", 3],
-                   ["MBA", 2],
-                   ["MCA", 2],
-                   ["PGDCA", 2],
-                   ["Fashion Designing", 1],
-                   ["Interior Designing", 4],
-                   ["B.Com", 3],
-                   ["M.Com", 2],
-                   ["B.Tech", 3],
-                   ["M.Tech", 5],
-                   ["Hotel Management", 3]]
+        rawData = SelectOperation().getCourse()
 
         courseLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg="white", text="Course :",
                             font=(self.font, 25, 'normal'))
@@ -150,8 +141,26 @@ class StudentListPage():
                 col = 0
             col += 1
 
-        def search(parent, grandParent,course, year):
-            SearchResultPage(parent, self.grandParent, course, year).draw()
+        def search(parent, grandParent, course, year):
+            validate = True
+            if len(course) == 0:
+                validate = False
+                messagebox.showerror(title="Wrong Info", message="Please Select Correct Options")
+            else:
+                if SelectOperation().checkExistenceCourse(course) == False:
+                    validate = False
+                    messagebox.showerror(title="Wrong Info", message="Please Select Correct Options")
+                else:
+                    if year < 1:
+                        validate = False
+                        messagebox.showerror(title="Wrong Info", message="Please Select Correct Options")
+                    else:
+                        if year > SelectOperation().getCourseDuration(course):
+                            validate = False
+                            messagebox.showerror(title="Wrong Info", message="Please Select Correct Options")
+
+            if validate:
+                SearchResultPage(parent, grandParent, course, year).draw()
 
         searchBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.searchButPng, command=lambda : search(self.parent, self.grandParent,courseEntry.get(), int(yearEntry.get())))
         searchBut.photo = self.searchButPng
