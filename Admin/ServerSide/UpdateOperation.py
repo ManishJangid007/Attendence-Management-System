@@ -137,13 +137,15 @@ class UpdateOperation():
 
     def deleteStudent(self, student_id):
         try:
-            query = "DELETE FROM Students where student_id = %s"
+            query = "DELETE FROM Attendance WHERE student_id = %s"
             value = [student_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            query = "DELETE FROM Students where student_id = %s"
             self.cur.execute(query, value)
             self.msg = True
             self.conn.commit()
-        except Exception as e:
-            print(e)
+        except:
             self.msg = False
             self.conn.rollback()
         return self.msg
