@@ -91,12 +91,17 @@ class AssignTeacherPage():
             d.photo = self.dividerPng
             d.grid(row=row+1, columnspan=4, padx=10, pady=10)
 
-        row = 0
-        sn = 1
-        for data in rawTeacherList:
-            drawTile(row, sn, data[0], data[1], data[2])
-            row += 2
-            sn += 1
+        if len(rawTeacherList) > 0:
+            row = 0
+            sn = 1
+            for data in rawTeacherList:
+                drawTile(row, sn, data[0], data[1], data[2])
+                row += 2
+                sn += 1
+        else:
+            l = Label(content_frame, bg="white", bd=0, fg="Black",
+                      text="There Are No Teacher Available\n To Assign this Subject\n Create One on Teacher's Panel", font=(self.font, 25, 'normal'))
+            l.grid(row=0, column=0, padx=250, pady=10)
 
         def back():
             self.destroy()

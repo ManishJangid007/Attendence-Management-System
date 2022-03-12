@@ -84,13 +84,17 @@ class CourseListPage():
             d.photo = self.deleteCoursePng
             d.grid(row=row+3, column=col, pady=10)
 
-
-        row = 0
-        col = 0
-        for data in rawData:
-            drawCard(row, col, data[0], data[1], data[2])
-            col += 1
-            if col > 2:
-                col = 0
-                row += 4
+        if len(rawData) > 0:
+            row = 0
+            col = 0
+            for data in rawData:
+                drawCard(row, col, data[0], data[1], data[2])
+                col += 1
+                if col > 2:
+                    col = 0
+                    row += 4
+        else:
+            l = Label(content_frame, bg=self.ligBluePrimColor, bd=0, fg="Black",
+                      text="Please Add Some Courses First !", font=(self.font, 25, 'normal'))
+            l.grid(row=0, column=0, padx=150, pady=10)
 

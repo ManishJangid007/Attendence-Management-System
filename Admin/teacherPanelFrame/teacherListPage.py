@@ -70,7 +70,11 @@ class TeacherListPage():
 
         row = 1
 
-        for d in data:
-            drawTile(row, d[0], d[1], d[2])
-            row+=1
-
+        if len(data) > 0:
+            for d in data:
+                drawTile(row, d[0], d[1], d[2])
+                row+=1
+        else:
+            empty = Label(content_frame, bd=0, bg=self.ligBluePrimColor, fg="black", text="It's Empty Here !",
+                       font=(self.font, 25, 'normal'))
+            empty.grid(row=row, column=0, padx=250, pady=20)

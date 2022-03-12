@@ -6,6 +6,7 @@ from PIL import ImageTk, Image
 from discriptivePages.assignTeacher import AssignTeacherPage
 from ServerSide.SelectOperation import SelectOperation
 from ServerSide.UpdateOperation import UpdateOperation
+from ReturnEff import eff
 
 class CourseDisPage():
     def __init__(self, parent, course, year):
@@ -125,10 +126,15 @@ class CourseDisPage():
 
             row+=1
             sn = 1
-            for data in rawSubject:
-                drawSubject(row, sn, data[0], data[1], year)
-                sn += 1
-                row+=2
+            if len(rawSubject) > 0:
+                for data in rawSubject:
+                    drawSubject(row, sn, data[0], data[1], year)
+                    sn += 1
+                    row+=2
+            else:
+                l = Label(content_frame, bg="white", bd=0, fg="black",
+                          text=f"Please Add Some Subject in {year}{eff} Year", font=(self.font, 17, 'normal'))
+                l.grid(row=row, columnspan=5, pady=10)
 
         for i in range(1, self.year+1):
             drawYear(row, i)

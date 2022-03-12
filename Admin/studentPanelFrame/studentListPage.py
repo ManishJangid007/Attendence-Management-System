@@ -130,16 +130,20 @@ class StudentListPage():
                     col += 1
                     initial1 += 1
 
-        row = 0
-        col = 0
-        initial = 0
-        for d in rawData:
-            drawCourse(row, col, d, initial)
-            initial += 1
-            if col == 3:
-                row += 1
-                col = 0
-            col += 1
+        if len(rawData) > 0:
+            row = 0
+            col = 0
+            initial = 0
+            for d in rawData:
+                drawCourse(row, col, d, initial)
+                initial += 1
+                if col == 3:
+                    row += 1
+                    col = 0
+                col += 1
+        else:
+            l = Label(cFrame, bg=self.ligBluePrimColor, bd=0, fg=self.menuNonActive, text="Please Add Some Courses First !", font=(self.font, 17, 'normal'))
+            l.grid(row=0, column=0, padx=150, pady=10)
 
         def search(parent, grandParent, course, year):
             validate = True
@@ -162,6 +166,10 @@ class StudentListPage():
             if validate:
                 SearchResultPage(parent, grandParent, course, year).draw()
 
-        searchBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.searchButPng, command=lambda : search(self.parent, self.grandParent,courseEntry.get(), int(yearEntry.get())))
-        searchBut.photo = self.searchButPng
-        searchBut.place(x=620, y=48)
+        self.searchBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.searchButPng, command=lambda : search(self.parent, self.grandParent,courseEntry.get(), int(yearEntry.get())))
+        self.searchBut.photo = self.searchButPng
+        self.searchBut.place(x=620, y=48)
+
+        if len(rawData) <= 0:
+            self.searchBut.config(state="disabled")
+

@@ -137,16 +137,21 @@ class AddSubjectPage():
                     col += 1
                     initial1 += 1
 
-        row = 0
-        col = 0
-        initial = 0
-        for d in rawData:
-            drawCourse(row, col, d, initial)
-            initial += 1
-            if col == 3:
-                row += 1
-                col = 0
-            col += 1
+        if len(rawData) > 0:
+            row = 0
+            col = 0
+            initial = 0
+            for d in rawData:
+                drawCourse(row, col, d, initial)
+                initial += 1
+                if col == 3:
+                    row += 1
+                    col = 0
+                col += 1
+        else:
+            l = Label(cFrame, bg=self.ligBluePrimColor, bd=0, fg=self.menuNonActive,
+                      text="Please Add Some Courses First !", font=(self.font, 17, 'normal'))
+            l.grid(row=0, column=0, padx=150, pady=10)
 
         def add(course, year, subject):
 
@@ -187,3 +192,6 @@ class AddSubjectPage():
                         image=self.addPng, command=lambda : add(courseEntry.get(), int(yearEntry.get()), newSubjectEntry.get()))
         addBut.photo = self.addPng
         addBut.place(x=607, y=88)
+
+        if len(rawData) <= 0:
+            addBut.config(state="disabled")
