@@ -14,6 +14,11 @@ class CourseListPage():
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.font = "Bahnschrift"
+        self.emptyPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/empty01.png"
+            )
+        )
         self.viewButPng = ImageTk.PhotoImage(
             Image.open(
                 "Assets/Home_Page_Assets/coursepanel/buttons/view.png"
@@ -96,5 +101,9 @@ class CourseListPage():
         else:
             l = Label(content_frame, bg=self.ligBluePrimColor, bd=0, fg="Black",
                       text="Please Add Some Courses First !", font=(self.font, 25, 'normal'))
-            l.grid(row=0, column=0, padx=150, pady=10)
+            l.grid(row=0, column=0, pady=20)
+
+            l2 = Label(content_frame, bg=self.ligBluePrimColor, bd=0, image=self.emptyPng)
+            l2.photo = self.emptyPng
+            l2.grid(row=1, column=0, padx=100, pady=50)
 

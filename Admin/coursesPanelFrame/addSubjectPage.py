@@ -11,6 +11,11 @@ class AddSubjectPage():
         self.tilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/coursepanel/backgroundTile.png"))
         self.addPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/coursepanel/buttons/add.png"))
         self.dividerPng = ImageTk.PhotoImage(Image.open("Assets/horizontalDivider.png"))
+        self.emptyPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/empty03.png"
+            )
+        )
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.font = "Bahnschrift"
@@ -153,33 +158,38 @@ class AddSubjectPage():
                       text="Please Add Some Courses First !", font=(self.font, 17, 'normal'))
             l.grid(row=0, column=0, padx=150, pady=10)
 
+            l2 = Label(cFrame, bg=self.ligBluePrimColor, bd=0, image=self.emptyPng)
+            l2.photo = self.emptyPng
+            l2.grid(row=1, column=0, pady=5)
+
         def add(course, year, subject):
 
             validate = True
             if len(course) == 0:
-                validate  = False
-
-            if year == 0:
                 validate = False
-
-            if len(subject) < 2 or len(subject) > 25:
-                validate = False
-
-            if SelectOperation().checkExistenceCourse(course) == False:
-                validate = False
-                messagebox.showerror(title="Not Found", message="Course Not Found")
-
-            try:
-                cd = SelectOperation().getCourseDuration(course)
-                if year < 1 or year > cd:
+                messagebox.showerror(title="Wrong Entry", message="Enter Course Name")
+            else:
+                if SelectOperation().checkExistenceCourse(course) == False:
                     validate = False
-                    messagebox.showerror(title="Not Found", message=f"{course} only has {cd} years")
-            except:
-                pass
-
-            if DuplicateVerification().duplicateSubject(course, str(year), subject):
-                validate = False
-                messagebox.showerror(title="Duplicate Entry", message=f"{subject} already exist in {course} {year}")
+                    messagebox.showerror(title="Not Found", message="Course Not Found")
+                else:
+                    if year == 0:
+                        validate = False
+                        messagebox.showerror(title="Wrong Entry", message="Enter Correct year")
+                    else:
+                        cd = SelectOperation().getCourseDuration(course)
+                        if year < 1 or year > cd:
+                            validate = False
+                            messagebox.showerror(title="Not Found", message=f"{course} only has {cd} years")
+                        else:
+                            if len(subject) < 1 or len(subject) > 25:
+                                validate = False
+                                messagebox.showerror(title="Wrong Entry", message=f"Enter Subject Name (length 1-25)")
+                            else:
+                                if DuplicateVerification().duplicateSubject(course, str(year), subject):
+                                    validate = False
+                                    messagebox.showerror(title="Duplicate Entry",
+                                                         message=f"{subject} already exist in {course} {year}")
 
             if validate:
                 if InsertOperations().insertSubjects(subject, year, course):

@@ -40,19 +40,26 @@ class AddCoursePage():
 
         def add():
             course = cNEntry.get()
-            year = int(cDEntry.get())
-
             validate = True
-
-            if DuplicateVerification().dublicateCourse(course) == False:
-                validate = False
-                messagebox.showerror(title="Duplicate Entry", message="Course Already Exist !")
+            year = 0
 
             if len(course) < 2 or len(course) > 25:
                 validate = False
+                messagebox.showerror(title="Wrong Entry", message="Enter Correct Course Name (length 2-25)")
+            else:
+                if DuplicateVerification().dublicateCourse(course) == False:
+                    validate = False
+                    messagebox.showerror(title="Duplicate Entry", message="Course Already Exist !")
+                else:
+                    try:
+                        year = int(cDEntry.get())
+                        if year < 1 or year > 6:
+                            validate = False
+                            messagebox.showerror(title="Wrong Entry", message="Please Enter Correct Year")
+                    except:
+                        validate = False
+                        messagebox.showerror(title="Wrong Entry", message="Please Enter Correct Year")
 
-            if year < 1 or year > 6:
-                validate = False
 
             if validate:
                 if InsertOperations().insertCourses(course, year):

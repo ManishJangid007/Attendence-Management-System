@@ -13,6 +13,11 @@ class TeacherListPage():
         self.grandParent = grandParent
         self.tilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/teacherpanel/tile.png"))
         self.profilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/teacherpanel/buttons/profile.png"))
+        self.emptyPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/empty02.png"
+            )
+        )
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.font = "Bahnschrift"
@@ -77,4 +82,8 @@ class TeacherListPage():
         else:
             empty = Label(content_frame, bd=0, bg=self.ligBluePrimColor, fg="black", text="It's Empty Here !",
                        font=(self.font, 25, 'normal'))
-            empty.grid(row=row, column=0, padx=250, pady=20)
+            empty.grid(row=1, column=0, pady=20)
+
+            l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=self.emptyPng)
+            l.photo = self.emptyPng
+            l.grid(row=2, column=0, padx=80, pady=20)

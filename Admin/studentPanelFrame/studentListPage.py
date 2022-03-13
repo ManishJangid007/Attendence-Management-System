@@ -16,6 +16,11 @@ class StudentListPage():
         self.searchbarPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/searchbar.png"))
         self.searchButPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/studentpanel/buttons/search.png"))
         self.dividerPng = ImageTk.PhotoImage(Image.open("Assets/horizontalDivider.png"))
+        self.emptyPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/empty03.png"
+            )
+        )
         self.cArray = [Label()]
         self.yArray = [Label()]
         self.sYArray = [Label()]
@@ -144,6 +149,10 @@ class StudentListPage():
         else:
             l = Label(cFrame, bg=self.ligBluePrimColor, bd=0, fg=self.menuNonActive, text="Please Add Some Courses First !", font=(self.font, 17, 'normal'))
             l.grid(row=0, column=0, padx=150, pady=10)
+
+            l2 = Label(cFrame, bg=self.ligBluePrimColor, bd=0, image=self.emptyPng)
+            l2.photo = self.emptyPng
+            l2.grid(row=1, column=0, pady=5)
 
         def search(parent, grandParent, course, year):
             validate = True
