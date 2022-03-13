@@ -67,11 +67,46 @@ class AccountPage():
                                  font=(self.font, 19, 'normal'))
         passwordEntry.place(x=457, y=250)
 
-        changePassButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.cPassPng)
+        error01 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
+        error01.place(x=84, y=160)
+        error02 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
+        error02.place(x=84, y=290)
+        error03 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
+        error03.place(x=84, y=423)
+
+        error11 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
+        error11.place(x=457, y=160)
+        error12 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
+        error12.place(x=457, y=288)
+
+        def clear_errors():
+            error01.config(text="")
+            error02.config(text="")
+            error03.config(text="")
+            error11.config(text="")
+            error12.config(text="")
+
+        def clear_errors0():
+            error01.config(text="")
+            error02.config(text="")
+            error03.config(text="")
+
+        def clear_errors1():
+            error11.config(text="")
+            error12.config(text="")
+
+        def change_password():
+            clear_errors0()
+
+
+        changePassButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.cPassPng, command=change_password)
         changePassButt.photo = self.cPassPng
         changePassButt.place(x=108, y=455)
 
+        def change_username():
+            clear_errors1()
+
         changeUserButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
-                                image=self.cUserPng)
+                                image=self.cUserPng, command=change_username)
         changeUserButt.photo = self.cUserPng
         changeUserButt.place(x=480, y=318)
