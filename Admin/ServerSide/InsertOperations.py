@@ -10,10 +10,10 @@ class InsertOperations():
         self.con = self.obj.connect()
         self.msg = None
 
-    def insertAdmin(self, user_name, password, status):
+    def insertAdmin(self, user_name, password, status='M', is_block='N'):
         try:
-            query = "INSERT INTO Admins(user_name, password, status) VALUES(%s, %s, %s)"
-            value = [user_name, password, status]
+            query = "INSERT INTO Admins(user_name, password, status, is_block) VALUES(%s, %s, %s, %s)"
+            value = [user_name, password, status, is_block]
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True

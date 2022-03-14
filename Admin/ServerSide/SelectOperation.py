@@ -34,6 +34,19 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def checkExistenceOfAdmin(self, user_name):
+        try:
+            query = "SELECT user_name FROM admins WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            if self.data:
+                return True
+            else:
+                return False
+        except:
+            pass
+
     def isBlocked(self, user_name):
         try:
             query = "SELECT is_Block FROM admins WHERE user_name = %s"
