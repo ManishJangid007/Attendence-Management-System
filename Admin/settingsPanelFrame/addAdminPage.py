@@ -1,5 +1,8 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import messagebox
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.InsertOperations import InsertOperations
 
 class AddAdminPage():
     def __init__(self, parent):
@@ -28,7 +31,7 @@ class AddAdminPage():
         passwordLabel.place(x=290, y=182)
 
         passwordEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                              font=(self.font, 19, 'normal'))
+                              font=(self.font, 19, 'normal'), show="*")
         passwordEntry.place(x=273, y=239)
 
         passwordLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg=self.textColor, text="Confirm Password",
@@ -36,9 +39,43 @@ class AddAdminPage():
         passwordLabel.place(x=225, y=310)
 
         cPasswordEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                              font=(self.font, 19, 'normal'))
+                              font=(self.font, 19, 'normal'), show="*")
         cPasswordEntry.place(x=273, y=368)
 
-        createBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.createPng)
+        def clear_fields():
+            usernameEntry.delete(0, END)
+            passwordEntry.delete(0, END)
+            cPasswordEntry.delete(0, END)
+
+        def create():
+            username = usernameEntry.get()
+            password = passwordEntry.get()
+            confirm_password = cPasswordEntry.get()
+            validate = True
+
+            if len(username) < 2 or len(username) > 20:
+                validate = False
+                messagebox.showerror(title="Wrong Entry", message="Enter Correct Course Name")
+            else:
+                if SelectOperation().checkExistenceOfAdmin(username):
+                    validate = False
+                    messagebox.showerror(title="Wrong Entry", message="User Already Exist !")
+                else:
+                    if len(password) < 8 or len(password) > 18:
+                        validate = False
+                        messagebox.showerror(title="Wrong Entry", message="Enter Password Length (8-18)")
+                    else:
+                        if password != confirm_password:
+                            validate = False
+                            messagebox.showerror(title="Wrong Entry", message="Password Not Match !")
+
+            if validate:
+                if InsertOperations().insertAdmin(username, password):
+                    messagebox.showinfo(title="Success", message="Admin Added Successfully !")
+                    clear_fields()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
+
+        createBut = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.createPng, command=create)
         createBut.photo = self.createPng
         createBut.place(x=332, y=445)
