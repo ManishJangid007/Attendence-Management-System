@@ -17,8 +17,7 @@ class InsertOperations():
             self.cur.execute(query, value)
             self.con.commit()
             self.msg = True
-        except Exception as e:
-            print(e)
+        except:
             self.msg = False
             self.con.rollback()
         return self.msg

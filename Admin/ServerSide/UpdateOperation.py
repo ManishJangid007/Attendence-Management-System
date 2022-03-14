@@ -32,6 +32,26 @@ class UpdateOperation():
         except:
             return False
 
+    def updateAdminUserName(self, old_user_name, new_user_name):
+        try:
+            query = "UPDATE Admins set user_name = %s WHERE user_name = %s"
+            value = [new_user_name, old_user_name]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return True
+        except:
+            return False
+
+    def updateAdminPassword(self, user_name, new_password):
+        try:
+            query = "UPDATE Admins set password = %s WHERE user_name = %s"
+            value = [new_password, user_name]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return True
+        except:
+            return False
+
     def unBlockAdmin(self, user_name):
         try:
             query = "UPDATE Admins set is_block = 'N' WHERE user_name = %s"
