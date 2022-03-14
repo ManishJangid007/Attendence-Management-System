@@ -1,6 +1,6 @@
 from LoginPage import *
 from ErrorPage import *
-from Connection import *
+from ServerSide.Connection import *
 from tkinter import *
 
 root = Tk()

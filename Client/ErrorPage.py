@@ -1,7 +1,7 @@
 from ChangeParaPage import *
 from tkinter import *
 from PIL import ImageTk, Image
-from Connection import *
+from ServerSide.Connection import *
 
 class ErrorPage():
     def __init__(self, root, message="Can't Reach to the Server", parameterOption=False):
