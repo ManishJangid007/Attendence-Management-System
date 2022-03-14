@@ -23,17 +23,37 @@ class UpdateOperation():
         except:
             return False
 
-    def deleteAdmin(self, admin_id):
+    def blockAdmin(self, user_name):
         try:
-            query = "SELECT status from Admins where admin_id = %s"
-            value = [admin_id]
+            query = "UPDATE Admins set is_block = 'Y' WHERE user_name = %s"
+            value = [user_name]
             self.cur.execute(query, value)
-            self.data = self.cur.fetchall()
-            if self.data[0][0].upper() == "HIGH":
+            self.conn.commit()
+            return True
+        except:
+            return False
+
+    def unBlockAdmin(self, user_name):
+        try:
+            query = "UPDATE Admins set is_block = 'N' WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            return True
+        except:
+            return False
+
+    def deleteAdmin(self, user_name):
+        try:
+            query = "SELECT status from Admins where user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            if self.data[0].upper() == "H":
                 self.msg = False
             else:
-                query = "DELETE FROM Admins where admin_id = %s"
-                value = [admin_id]
+                query = "DELETE FROM Admins where user_name = %s"
+                value = [user_name]
                 self.cur.execute(query, value)
                 self.msg = True
                 self.conn.commit()
