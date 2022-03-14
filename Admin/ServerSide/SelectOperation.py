@@ -34,6 +34,32 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+    def isBlocked(self, user_name):
+        try:
+            query = "SELECT is_Block FROM admins WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            if self.data[0] == 'Y' or self.data[0] == 'y':
+                return True
+            else:
+                return False
+        except:
+            pass
+
+    def isPriorityHigh(self, user_name):
+        try:
+            query = "SELECT status FROM admins WHERE user_name =  %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            if self.data[0].upper() == "H":
+                return True
+            else:
+                return False
+        except:
+            pass
+
     def getTeacherProfile(self, teacher_id):
         try:
             query = "SELECT name, email, phone_no  FROM Teachers WHERE teacher_id = %s"

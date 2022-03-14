@@ -15,7 +15,7 @@ class InitialSetup():
             self.cur.execute(
                 "USE amsx505")
             self.cur.execute(
-                "CREATE TABLE Admins(admin_id int AUTO_INCREMENT PRIMARY KEY, user_name varchar(255), password varchar(255), status varchar(255))")
+                "CREATE TABLE Admins(admin_id int AUTO_INCREMENT PRIMARY KEY, user_name varchar(255), password varchar(255), status varchar(255), is_block varchar(255))")
             self.cur.execute(
                 "CREATE TABLE Teachers(teacher_id int AUTO_INCREMENT PRIMARY KEY, name varchar(255),phone_no varchar(50), email varchar(255), user_name varchar(255), password varchar(255))")
             self.cur.execute(
