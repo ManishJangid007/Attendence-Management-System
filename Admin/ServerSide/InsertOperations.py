@@ -1,7 +1,7 @@
-from EssentialFunction import EssentialFunction
+from ServerSide.EssentialFunction import EssentialFunction
 from datetime import date
-from SelectOperation import SelectOperation
-from Connection import Connection
+from ServerSide.SelectOperation import SelectOperation
+from ServerSide.Connection import Connection
 
 class InsertOperations():
     def __init__(self):

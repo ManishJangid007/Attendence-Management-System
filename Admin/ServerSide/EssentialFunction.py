@@ -1,4 +1,4 @@
-from Connection import Connection
+from ServerSide.Connection import Connection
 from datetime import date, timedelta, datetime
 
 class EssentialFunction():
