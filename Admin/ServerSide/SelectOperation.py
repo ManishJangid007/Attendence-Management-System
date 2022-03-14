@@ -1,4 +1,4 @@
-from ServerSide.Connection import Connection
+from Connection import Connection
 from datetime import date, timedelta
 
 

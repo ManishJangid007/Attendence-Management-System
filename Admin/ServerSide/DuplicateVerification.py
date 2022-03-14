@@ -1,6 +1,6 @@
 
-from ServerSide.Connection import Connection
-from ServerSide.SelectOperation import SelectOperation
+from Connection import Connection
+from SelectOperation import SelectOperation
 
 
 class DuplicateVerification():

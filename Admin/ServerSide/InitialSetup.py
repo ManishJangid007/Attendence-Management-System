@@ -1,4 +1,4 @@
-from ServerSide.Connection import Connection
+from Connection import Connection
 
 class InitialSetup():
     def __init__(self):

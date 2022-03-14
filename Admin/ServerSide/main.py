@@ -1,11 +1,11 @@
-from ServerSide.Connection import Connection
-from ServerSide.InitialSetup import InitialSetup
-from ServerSide.InsertOperations import InsertOperations
-from ServerSide.SelectOperation import SelectOperation
-from ServerSide.UpdateOperation import UpdateOperation
-from ServerSide.RawData import RawData
-from ServerSide.EssentialFunction import EssentialFunction
-from ServerSide.DuplicateVerification import DuplicateVerification
+from Connection import Connection
+from InitialSetup import InitialSetup
+from InsertOperations import InsertOperations
+from SelectOperation import SelectOperation
+from UpdateOperation import UpdateOperation
+from RawData import RawData
+from EssentialFunction import EssentialFunction
+from DuplicateVerification import DuplicateVerification
 
 obj = Connection()
 conn = obj.connect()
@@ -99,7 +99,7 @@ select = SelectOperation()
 # print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
-# print(update.updateAdminUserName("b", "f"))
+print(update.updateAdminUserName("b", "f"))
 # print(update.deleteAdmin("admin@aryabhatta"))
 # print(update.blockAdmin("leena"))
 # print(update.updateStudent("aryaid101", "Ram", "Sharma", 'xyz', 'abc', 'male', '22-07-1995',  'xxxxxxxxxx', 'fhg@gmail.com', '1', "BCA"))
