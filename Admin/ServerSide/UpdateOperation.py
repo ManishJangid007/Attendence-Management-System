@@ -1,6 +1,7 @@
+from ServerSide.EssentialFunction import EssentialFunction
+from datetime import date
 from ServerSide.Connection import Connection
 from ServerSide.SelectOperation import SelectOperation
-
 
 class UpdateOperation():
     def __init__(self):
@@ -148,6 +149,25 @@ class UpdateOperation():
         except:
             self.msg = False
             self.conn.rollback()
+        return self.msg
+
+    def updateStudent(self, student_id, f_name, l_name, father_name, mother_name, gender, dob, phone_number, email, year, course_name):
+        try:
+            course_id = SelectOperation().getCourseId(course_name)
+            cd = int(SelectOperation().getCourseDuration(course_name))
+            current_year = date.today().year
+            graduation_year = int(current_year) + (cd - int(year)) + 1
+            session = f"{current_year} - {graduation_year}"
+            query = "UPDATE Students set f_name = %s, l_name = %s, father_name = %s, mother_name = %s, gender = %s, dob = %s, phone_number = %s, email = %s, year = %s, session = %s, course_id = %s WHERE student_id = %s"
+            value = [f_name, l_name, father_name, mother_name, gender, dob, phone_number, email, year, session, course_id, student_id]
+            self.cur.execute(query, value)
+            self.conn.commit()
+            EssentialFunction().updateAge(dob, student_id)
+            self.msg = True
+        except Exception as e:
+            print(e)
+            self.conn.rollback()
+            self.msg = False
         return self.msg
 
     def presentOfStudent(self, student_id, subject_id):

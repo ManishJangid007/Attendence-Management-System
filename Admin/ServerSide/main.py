@@ -6,7 +6,6 @@ from UpdateOperation import UpdateOperation
 from RawData import RawData
 from EssentialFunction import EssentialFunction
 from DuplicateVerification import DuplicateVerification
-from datetime import date
 
 obj = Connection()
 conn = obj.connect()
@@ -61,6 +60,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
+# print(select.getStudentProfile("aryaid101"))
 # print(select.getStudentBasicInfo("BCA", "1"))
 # print(select.totalPresentCount("aryaid101"))
 # # data = select.showAdminTable()
@@ -96,6 +96,7 @@ select = SelectOperation()
 # print(select.getTeacherSubjects(5))
 
 update = UpdateOperation()
+# print(update.updateStudent("aryaid101", "Ram", "Sharma", 'xyz', 'abc', 'male', '22-07-1995',  'xxxxxxxxxx', 'fhg@gmail.com', '1', "BCA"))
 # print(update.deleteStudent("aryaid302"))
 # print(update.deleteSubject("BCA", "3", "C++"))
 # update.deleteCourse(8)
