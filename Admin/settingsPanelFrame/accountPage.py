@@ -1,9 +1,11 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from ServerSide.SelectOperation import SelectOperation
 
 class AccountPage():
-    def __init__(self, parent):
+    def __init__(self, parent, username):
         self.parent = parent
+        self.username = username
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.textColor = "#0F4189"
@@ -95,9 +97,45 @@ class AccountPage():
             error11.config(text="")
             error12.config(text="")
 
+        def clear_fields0():
+            oldPassEntry.delete(0, END)
+            newPassEntry.delete(0, END)
+            confirmPassEntry.delete(0, END)
+
+        def clear_fields1():
+            newUsernameEntry.delete(0, END)
+            passwordEntry.delete(0, END)
+
         def change_password():
             clear_errors0()
+            old_password = oldPassEntry.get()
+            new_password = newPassEntry.get()
+            confirm_password = confirmPassEntry.get()
 
+            validate = True
+
+            if len(old_password) < 1:
+                validate = False
+                error01.config(text="Field Blank")
+
+            if SelectOperation().verifyAdmin(self.username, old_password) == False:
+                validate = False
+                error01.config(text="Incorrect Password")
+
+            if len(new_password) < 8 or len(new_password) > 18:
+                validate = False
+                error02.config(text="Enter Password Length (8-18)")
+            else:
+                if new_password == old_password:
+                    validate = False
+                    error02.config(text="New Password Cannot Be Same")
+
+            if confirm_password != new_password:
+                validate = False
+                error03.config(text="Password Not Match !")
+
+            if validate:
+                clear_errors0()
 
         changePassButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.cPassPng, command=change_password)
         changePassButt.photo = self.cPassPng
@@ -105,6 +143,29 @@ class AccountPage():
 
         def change_username():
             clear_errors1()
+            new_username = newUsernameEntry.get()
+            password = passwordEntry.get()
+            validate = True
+
+            if len(new_username) < 2 or len(new_username) > 20:
+                validate = False
+                error11.config(text="Field Blank Length (2-20)")
+
+            if new_username == self.username:
+                validate = False
+                error11.config(text="Username Cannot Be Same")
+
+            if len(password) < 1:
+                validate = False
+                error12.config(text="Field Blank")
+            else:
+                if SelectOperation().verifyAdmin(self.username, password):
+                    validate = False
+                    error12.config(text="Incorrect Password !")
+
+            if validate:
+                clear_errors1()
+
 
         changeUserButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
                                 image=self.cUserPng, command=change_username)

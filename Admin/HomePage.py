@@ -514,7 +514,7 @@ class HomePage():
         self.account_frame = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.account_frame.place(x=323, y=103)
 
-        AccountPage(self.account_frame).draw()
+        AccountPage(self.account_frame, self.username).draw()
 
     def destroy_account_main_panel(self):
         self.account_frame.destroy()
