@@ -229,6 +229,18 @@ class SelectOperation():
         except:
             pass
 
+    def getSubjectAccordingToYear(self, course_name, year):
+        try:
+            course_id = self.getCourseId(course_name)
+            query = "SELECT name From Subjects WHERE course_id = %s AND year = %s"
+            value = [course_id, year]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchall()
+            return self.data
+        except:
+            pass
+
+
     def getStudentProfile(self, student_id):   # return Student Profile
 
         try:

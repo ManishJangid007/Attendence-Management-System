@@ -1,11 +1,11 @@
-from ServerSide.Connection import Connection
-from ServerSide.InitialSetup import InitialSetup
-from ServerSide.InsertOperations import InsertOperations
-from ServerSide.SelectOperation import SelectOperation
-from ServerSide.UpdateOperation import UpdateOperation
-from ServerSide.RawData import RawData
-from ServerSide.EssentialFunction import EssentialFunction
-from ServerSide.DuplicateVerification import DuplicateVerification
+from Connection import Connection
+from InitialSetup import InitialSetup
+from InsertOperations import InsertOperations
+from SelectOperation import SelectOperation
+from UpdateOperation import UpdateOperation
+from RawData import RawData
+from EssentialFunction import EssentialFunction
+from DuplicateVerification import DuplicateVerification
 
 obj = Connection()
 conn = obj.connect()
@@ -60,6 +60,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
+print(select.getSubjectAccordingToYear("BCA", "1"))
 # print(select.checkExistenceOfAdmin("leeena"))
 # print(select.isPriorityHigh("admin@aryabhatta"))
 # print(select.showAdmins())

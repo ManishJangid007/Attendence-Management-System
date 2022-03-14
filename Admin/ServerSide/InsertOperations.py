@@ -1,5 +1,5 @@
 from ServerSide.EssentialFunction import EssentialFunction
-from  datetime import date
+from datetime import date
 from ServerSide.SelectOperation import SelectOperation
 from ServerSide.Connection import Connection
 
