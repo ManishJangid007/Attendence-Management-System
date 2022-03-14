@@ -1,6 +1,7 @@
 from LoginPage import *
 from ErrorPage import *
 from ServerSide.Connection import *
+from SplashScreen import SplashScreen
 from tkinter import *
 
 root = Tk()
@@ -12,14 +13,20 @@ root.iconbitmap("Assets/icon.ico")
 
 conn = Connection()
 
-if conn.check():
-    if conn.check_database():
-        LoginPage(root).draw()
+Sp = SplashScreen(root)
+Sp.draw()
+
+def start():
+    if conn.check():
+        if conn.check_database():
+            LoginPage(root).draw()
+        else:
+            LoginPage(root).draw()
+            ErrorPage(root=root, message="Database Not Found")
     else:
         LoginPage(root).draw()
-        ErrorPage(root=root, message="Database Not Found")
-else:
-    LoginPage(root).draw()
-    ErrorPage(root, parameterOption=True).draw()
+        ErrorPage(root, parameterOption=True).draw()
+
+root.after(2000, start)
 
 root.mainloop()
