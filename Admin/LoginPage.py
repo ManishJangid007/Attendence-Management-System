@@ -75,9 +75,15 @@ class LoginPage():
                     userName = self.unEntry.get()
                     password = self.passEntry.get()
                     if SelectOperation().verifyAdmin(userName, password):
-                        self.unEntry.delete(0, END)
-                        self.passEntry.delete(0, END)
-                        HomePage(self.root, userName).draw()
+                        if SelectOperation().isBlocked(userName):
+                            self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
+                                                    text="*Your Account is Temporarily Blocked", bd=0, bg="white",
+                                                    font=(self.font, 10, "normal"))
+                            self.errorLabel.place(x=122, y=455)
+                        else:
+                            self.unEntry.delete(0, END)
+                            self.passEntry.delete(0, END)
+                            HomePage(self.root, userName).draw()
                     else:
                         self.errorLabel = Label(self.login_page_frame, fg=self.errorColor,
                                                 text="*Invalid username & password", bd=0, bg="white",
