@@ -1,8 +1,8 @@
-from SetupPage import *
+from setupPages.SetupPage import SetupPage
 from tkinter import *
-from Admin.LoginPage import LoginPage
-from Admin.Connection import *
-from Admin.HomePage import *
+from LoginPage import LoginPage
+from ServerSide.Connection import *
+from SplashScreen import SplashScreen
 
 root = Tk()
 root.title("Attendence Manager")
@@ -11,11 +11,16 @@ root.geometry("1080x650")
 root.resizable(False, False)
 root.iconbitmap("Assets/icon.ico")
 
-HomePage(root, "username").draw()
+Sp = SplashScreen(root)
+Sp.draw()
 
-# if Connection().check_database():
-#     LoginPage(root).draw()
-# else:
-#     SetupPage(root).draw()
+def start():
+    if Connection().check_database():
+        LoginPage(root).draw()
+    else:
+        SetupPage(root).draw()
+    Sp.destroy()
+
+root.after(2000, start)
 
 root.mainloop()

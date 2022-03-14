@@ -1,8 +1,7 @@
-from Connection import Connection
-from SelectOperation import SelectOperation
-from EssentialFunction import EssentialFunction
+from ServerSide.EssentialFunction import EssentialFunction
 from datetime import date
-
+from ServerSide.Connection import Connection
+from ServerSide.SelectOperation import SelectOperation
 
 class UpdateOperation():
     def __init__(self):
