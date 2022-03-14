@@ -60,6 +60,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
+# print(select.checkExistenceOfAdmin("leeena"))
 # print(select.isPriorityHigh("admin@aryabhatta"))
 # print(select.showAdmins())
 # print(select.getStudentProfile("aryaid101"))
