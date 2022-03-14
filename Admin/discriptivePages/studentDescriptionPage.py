@@ -5,6 +5,7 @@ from Scrollbar import scrollbar
 from tkinter import messagebox
 from discriptivePages.editStudentPage import EditStudentPage
 from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class StudentDesPage():
     def __init__(self, parent, aryaId):
@@ -167,29 +168,19 @@ class StudentDesPage():
         generateReportBut.photo = self.generateReportPng
         generateReportBut.grid(row=20, column=0, pady=20)
 
-        def deleteProfile(aid):
-            # it returns true and false
-            if messagebox.askyesno(title="Warning !", message=f"Are you sure,\n you want to delete student = '{aid}'"):
-                self.destroy()
-
-        deleteProBut = Button(self.studentFrame, bd=0, bg="white", activebackground="white", image=self.deleteProfilePng,
-                            command=lambda :deleteProfile(self.aryaId))
-        deleteProBut.photo = self.deleteProfilePng
-        deleteProBut.place(x=920, y=20)
-
         def edit(id):
             EditStudentPage(self.studentFrame, id).draw()
 
         editBut = Button(self.studentFrame, bd=0, bg="white", activebackground="white", image=self.editPng, command=lambda :edit(self.aryaId))
         editBut.photo = self.editPng
-        editBut.place(x=835, y=20)
+        editBut.place(x=950, y=20)
 
         def refresh():
             self.refresh()
 
         refreshBut = Button(self.studentFrame, bd=0, bg="white", activebackground="white", image=self.refreshPng, command=refresh)
         refreshBut.photo = self.refreshPng
-        refreshBut.place(x=735, y=20)
+        refreshBut.place(x=850, y=20)
 
         def close():
             self.destroy()

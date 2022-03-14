@@ -3,6 +3,8 @@ from PIL import ImageTk, Image
 import datetime
 from daysOnMonth import daysOfMonth
 from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
+from tkinter import messagebox
 
 class EditStudentPage():
     def __init__(self, parent, aryaId):
@@ -39,8 +41,7 @@ class EditStudentPage():
         card.photo = self.cardPng
         card.place(x=53, y=78)
 
-        rawData = ["Firstname", "Lastname", "Fathername", "Mothername", "M", "2001-11-10", "8619771079",
-                   "Email1997@gmail.com", "BCA", "1"]
+        rawData = SelectOperation().getStudentProfile(self.aryaId)
 
         firstNameLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="First Name :",
                                font=(self.font, 20, 'normal'))
@@ -49,9 +50,9 @@ class EditStudentPage():
         firstNameEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                                font=(self.font, 21, 'normal'))
         firstNameEntry.place(x=299.5, y=128)
-        firstNameEntry.insert(0, rawData[0])
+        firstNameEntry.insert(0, rawData[1])
 
-        rawDobData = rawData[5]
+        rawDobData = rawData[6]
         dobData = rawDobData.split("-")
 
         dobLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="DOB :",
@@ -65,7 +66,7 @@ class EditStudentPage():
         dayEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=3, justify="center",
                          font=(self.font, 20, 'normal'))
         dayEntry.place(x=740, y=129)
-        dayEntry.insert(0, dobData[2])
+        dayEntry.insert(0, dobData[0])
 
         mLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="M",
                        font=(self.font, 14, 'normal'))
@@ -83,7 +84,7 @@ class EditStudentPage():
         dobYearEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=5, justify="center",
                              font=(self.font, 20, 'normal'))
         dobYearEntry.place(x=907.5, y=129)
-        dobYearEntry.insert(0, dobData[0])
+        dobYearEntry.insert(0, dobData[2])
 
         lastNameLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Last Name :",
                                font=(self.font, 20, 'normal'))
@@ -92,7 +93,7 @@ class EditStudentPage():
         lastNameEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                                font=(self.font, 21, 'normal'))
         lastNameEntry.place(x=299.5, y=203)
-        lastNameEntry.insert(0, rawData[1])
+        lastNameEntry.insert(0, rawData[2])
 
         emailLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Email :",
                               font=(self.font, 20, 'normal'))
@@ -101,7 +102,7 @@ class EditStudentPage():
         emailEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                               font=(self.font, 21, 'normal'))
         emailEntry.place(x=742, y=203)
-        emailEntry.insert(0, rawData[7])
+        emailEntry.insert(0, rawData[9])
 
         fatherNameLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Father's Name :",
                               font=(self.font, 20, 'normal'))
@@ -110,7 +111,7 @@ class EditStudentPage():
         fatherNameEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                               font=(self.font, 21, 'normal'))
         fatherNameEntry.place(x=299.5, y=278)
-        fatherNameEntry.insert(0, rawData[2])
+        fatherNameEntry.insert(0, rawData[3])
 
         phoneLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Phone No. :",
                                 font=(self.font, 20, 'normal'))
@@ -119,7 +120,7 @@ class EditStudentPage():
         phoneEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                            font=(self.font, 21, 'normal'))
         phoneEntry.place(x=742, y=278)
-        phoneEntry.insert(0, rawData[6])
+        phoneEntry.insert(0, rawData[8])
 
         motherNameLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Mother's Name :",
                                 font=(self.font, 20, 'normal'))
@@ -128,7 +129,7 @@ class EditStudentPage():
         motherNameEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                                 font=(self.font, 21, 'normal'))
         motherNameEntry.place(x=299.5, y=353)
-        motherNameEntry.insert(0, rawData[3])
+        motherNameEntry.insert(0, rawData[4])
 
         courseLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Course :",
                                 font=(self.font, 20, 'normal'))
@@ -137,7 +138,7 @@ class EditStudentPage():
         courseEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                            font=(self.font, 21, 'normal'))
         courseEntry.place(x=742, y=353)
-        courseEntry.insert(0, rawData[8])
+        courseEntry.insert(0, SelectOperation().getCourseName(rawData[12]))
 
         genderLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Gender :",
                                 font=(self.font, 20, 'normal'))
@@ -146,7 +147,7 @@ class EditStudentPage():
         genderEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                                 font=(self.font, 21, 'normal'))
         genderEntry.place(x=299.5, y=428)
-        genderEntry.insert(0, rawData[4])
+        genderEntry.insert(0, rawData[5])
 
         yearLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Year :",
                             font=(self.font, 20, 'normal'))
@@ -155,7 +156,7 @@ class EditStudentPage():
         yearEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                             font=(self.font, 21, 'normal'))
         yearEntry.place(x=742, y=428)
-        yearEntry.insert(0, rawData[9])
+        yearEntry.insert(0, rawData[10])
 
         error1 = Label(self.editStudentFrame, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
         error1.place(x=300, y=167)
@@ -395,8 +396,10 @@ class EditStudentPage():
             if validate:
                 dob = f"{dob_day}-{dob_month}-{dob_year}"
                 clear_error()
-                print("Done")
-                #fire your update query here!
+                if UpdateOperation().updateStudent(self.aryaId, first_name, last_name, father_name, mother_name, gender, dob, phone_no, email, year, course):
+                    messagebox.showinfo(title="Success", message="Info. Updated Successfully")
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
 
         updateBut = Button(self.editStudentFrame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
