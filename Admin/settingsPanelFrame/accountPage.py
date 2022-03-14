@@ -1,11 +1,14 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from tkinter import messagebox
 from ServerSide.SelectOperation import SelectOperation
+from ServerSide.UpdateOperation import UpdateOperation
 
 class AccountPage():
-    def __init__(self, parent, username):
+    def __init__(self, parent, grandParent, username):
         self.parent = parent
         self.username = username
+        self.grandParent  = grandParent
         self.ligBluePrimColor = "#F2F8FF"
         self.bluePrimColor = "#87A0C4"
         self.textColor = "#0F4189"
@@ -34,7 +37,7 @@ class AccountPage():
         oldPassLabel.place(x=71.5, y=62)
 
         oldPassEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                              font=(self.font, 19, 'normal'))
+                              font=(self.font, 19, 'normal'), show="*")
         oldPassEntry.place(x=84, y=118)
 
         newPassLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg=self.textColor, text="New Password",
@@ -42,7 +45,7 @@ class AccountPage():
         newPassLabel.place(x=64, y=192)
 
         newPassEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                             font=(self.font, 19, 'normal'))
+                             font=(self.font, 19, 'normal'), show="*")
         newPassEntry.place(x=84, y=250)
 
         confirmPassLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg=self.textColor, text="Confirm Password",
@@ -50,7 +53,7 @@ class AccountPage():
         confirmPassLabel.place(x=40, y=328)
 
         confirmPassEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                             font=(self.font, 19, 'normal'))
+                             font=(self.font, 19, 'normal'), show="*")
         confirmPassEntry.place(x=84, y=386)
 
         newUsernameLabel = Label(self.parent, bd=0, bg=self.bluePrimColor, fg=self.textColor, text="New Username",
@@ -66,7 +69,7 @@ class AccountPage():
         passwordLabel.place(x=473, y=192)
 
         passwordEntry = Entry(self.parent, bg=self.ligBluePrimColor, bd=0, width=13, justify="center",
-                                 font=(self.font, 19, 'normal'))
+                                 font=(self.font, 19, 'normal'), show="*")
         passwordEntry.place(x=457, y=250)
 
         error01 = Label(self.parent, bg=self.bluePrimColor, fg="red", text="", font=(self.font, 14, 'normal'))
@@ -136,6 +139,12 @@ class AccountPage():
 
             if validate:
                 clear_errors0()
+                if UpdateOperation().updateAdminPassword(self.username, new_password):
+                    clear_fields0()
+                    messagebox.showinfo(title="Success", message="Password Changed Successfully !\nYou Have to Login Again")
+                    self.grandParent.destroy()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
         changePassButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.cPassPng, command=change_password)
         changePassButt.photo = self.cPassPng
@@ -159,12 +168,18 @@ class AccountPage():
                 validate = False
                 error12.config(text="Field Blank")
             else:
-                if SelectOperation().verifyAdmin(self.username, password):
+                if SelectOperation().verifyAdmin(self.username, password) == False:
                     validate = False
                     error12.config(text="Incorrect Password !")
 
             if validate:
                 clear_errors1()
+                if UpdateOperation().updateAdminUserName(self.username, new_username):
+                    clear_fields1()
+                    messagebox.showinfo(title="Success", message="Username Changed Successfully !,\nYou Have to Login Again")
+                    self.grandParent.destroy()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong")
 
 
         changeUserButt = Button(self.parent, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor,
