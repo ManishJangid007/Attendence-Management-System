@@ -211,6 +211,7 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
+
     def getStudentName(self, student_id):
         try:
             query = "SELECT f_name, l_name from Students where student_id = %s"
