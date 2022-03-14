@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from attendancePanelFrame.searchPanelFrames.step2 import SearchStep2
 from Scrollbar import scrollbar
+from ServerSide.SelectOperation import SelectOperation
 
 class SearchStep1():
     def __init__(self, parent, grandParent, day, month, year):
@@ -35,8 +36,7 @@ class SearchStep1():
                                 bd=0, font=(self.font, 25, "normal"))
         courseLabel.place(x=410, y=50)
 
-        rawDataC = ["BCA", "BBA", "PGDCA", "MCA", "MBA", "Fashion Desining", "Interior Desining", "BA", "BCOM", "BSC"]
-        rawDataCourse = [["BCA", 3], ["BBA", 3], ["PGDCA", 2], ["MBA", 2], ["Fashion Designing", 1], ["Interior Designing", 1], ["BA", 3], ["BCOM", 3], ["BSC", 3]]
+        rawDataCourse = SelectOperation().getCourse()
 
         canvas = tk.Canvas(self.step1, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
                                highlightthickness=0)

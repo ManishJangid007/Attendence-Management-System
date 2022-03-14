@@ -70,10 +70,6 @@ class SearchStep2():
 
         def back2():
             self.destroy()
-            # self.parentScroll.redraw()
-            # self.parentScroll.redraw()
-            #from Admin.searchPanelFrames.step1 import SearchStep1
-            #SearchStep1(parent=self.parent, grandParent=self.grandParent, day=self.day, month=self.month, year=self.year)
 
         backButt = Button(self.step2, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
                               image=backButtPng, command=back2)
