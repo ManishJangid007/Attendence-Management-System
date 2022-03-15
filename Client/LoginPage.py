@@ -1,7 +1,9 @@
 from ErrorPage import *
 from tkinter import *
 from PIL import ImageTk, Image
-from Connection import *
+from ServerSide.Connection import *
+from ServerSide.SelectOperation import SelectOperation
+from HomePage import HomePage
 
 class LoginPage():
     def __init__(self, root):
@@ -54,8 +56,10 @@ class LoginPage():
                         pass
                     userName = self.unEntry.get()
                     password = self.passEntry.get()
-                    if len(userName) > 0 and len(password) > 0:
-                        self.login_page_frame.destroy()
+                    if SelectOperation().verifyTeacher(userName, password):
+                        HomePage(self.root, userName).draw()
+                        self.unEntry.delete(0, END)
+                        self.passEntry.delete(0, END)
                     else:
                         self.errorLabel = Label(self.login_page_frame, fg=self.errorColor, text="*Invalid username & password", bd=0, bg=self.backgroundColor, font=(self.font, 10, "normal"))
                         self.errorLabel.place(x=794, y=452)
