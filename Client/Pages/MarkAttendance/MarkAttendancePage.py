@@ -5,6 +5,7 @@ from Eff import Eff
 import datetime
 from PIL import ImageTk, Image
 from ServerSide.SelectOperation import SelectOperation
+from tkinter import messagebox
 
 class MarkAttendancePage():
     def __init__(self, parent, data, username):
@@ -17,6 +18,11 @@ class MarkAttendancePage():
         self.presentPng = ImageTk.PhotoImage(
             Image.open(
                 "Assets/Home_Page_Assets/mark_attandance/Buttons/present.png"
+            )
+        )
+        self.absentAllPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/mark_attandance/Buttons/absentall.png"
             )
         )
         self.undoPng = ImageTk.PhotoImage(
@@ -81,11 +87,20 @@ class MarkAttendancePage():
 
         presentStudent = []
 
-        def present():
-            pass
+        def updateCount():
+            countLabel.config(text=f"{len(presentStudent)} / {data_length}")
 
-        def undo():
-            pass
+        def present(aid, undoButton, presentButton):
+            presentStudent.append(aid)
+            undoButton.config(state="active")
+            presentButton.config(state="disabled")
+            updateCount()
+
+        def undo(aid, undoButton, presentButton):
+            presentStudent.remove(aid)
+            undoButton.config(state="disabled")
+            presentButton.config(state="active")
+            updateCount()
 
         def draw_tile(row, data):
             t = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=tilePng)
@@ -99,16 +114,15 @@ class MarkAttendancePage():
                         font=(self.font, 15, 'normal'))
             name.grid(row=row, column=1)
 
-            ab = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.presentPng)
+            ub = Button()
+
+            ab = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.presentPng, command=lambda: present(data[0], ub, ab))
             ab.photo = self.presentPng
             ab.grid(row=row, column=2)
 
-            ub = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.undoPng, state="disabled")
+            ub = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.undoPng, state="disabled", command=lambda: undo(data[0], ub, ab))
             ub.photo = self.undoPng
             ub.grid(row=row, column=3)
-
-            self.ab = ab
-            self.ub = ub
 
         if data_length > 0:
             row=0
@@ -118,8 +132,20 @@ class MarkAttendancePage():
 
             countLabel.config(text=f"0 / {data_length}")
 
+            presentAllButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+                                image=self.absentAllPng)
+            presentAllButt.photo = self.absentAllPng
+            presentAllButt.place(x=425, y=475)
+
+            def submit():
+                if len(presentStudent) > 0:
+                    teacher_id = SelectOperation().getTeacherId(self.username)
+                    print(presentStudent)
+                else:
+                    messagebox.showerror(title="No Data", message="Mark Attendance First !")
+
             submitButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
-                              image=self.submitPng)
+                              image=self.submitPng, command=submit)
             submitButt.photo = self.submitPng
             submitButt.place(x=590, y=475)
 
