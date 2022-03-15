@@ -38,6 +38,35 @@ class SelectOperation():
             value = [teacher_id]
             self.cur.execute(query, value)
             result = self.cur.fetchall()
-            print(result)
-        except Exception as e:
-            print(e)
+            data = []
+            for i in range(0, len(result)):
+                temp = []
+                temp.append(self.getSubjectName(result[i][0]))
+                temp.append(self.getCourseName(result[i][1]))
+                temp.append(result[i][2])
+                temp.append(result[i][0])
+                temp.append(result[i][1])
+                data.append(temp)
+            return data
+        except:
+            pass
+
+    def getCourseName(self, course_id):  # return course name
+        try:
+            query = "SELECT name FROM Courses WHERE course_id = %s"
+            value = [course_id]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            return data[0]
+        except:
+            pass
+
+    def getSubjectName(self, subject_id):  # return subject name
+        try:
+            query = "SELECT name FROM Subjects WHERE subject_id = %s"
+            value = [subject_id]
+            self.cur.execute(query, value)
+            data = self.cur.fetchone()
+            return data[0]
+        except:
+            pass
