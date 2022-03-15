@@ -132,18 +132,26 @@ class MarkAttendancePage():
                 row+=1
 
             countLabel.config(text=f"0 / {data_length}")
+            teacher_id = SelectOperation().getTeacherId(self.username)
+
+            def absentAll():
+                if InsertOperation().setAbsentAll(rawData, self.data[4], self.data[2], teacher_id, self.data[3]):
+                    messagebox.showinfo(title="Success", message="Absent Marked Successfully !")
+                    self.destroy()
+                else:
+                    messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
 
             absentAllButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
-                                image=self.absentAllPng)
+                                image=self.absentAllPng, command=absentAll)
             absentAllButt.photo = self.absentAllPng
             absentAllButt.place(x=425, y=475)
 
             def submit():
                 if len(presentStudent) > 0:
-                    teacher_id = SelectOperation().getTeacherId(self.username)
                     print(presentStudent)
                     if InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3]):
                         messagebox.showinfo(title="Success", message="Attendance Submitted Successfully !")
+                        self.destroy()
                     else:
                         messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
                 else:
