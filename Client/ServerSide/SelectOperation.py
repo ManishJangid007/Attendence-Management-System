@@ -1,6 +1,5 @@
 from ServerSide.Connection import Connection
 
-
 class SelectOperation():
     def __init__(self):
         obj = Connection()
