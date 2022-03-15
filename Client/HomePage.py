@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import ImageTk, Image
+from Pages.MarkAttendance.SelectSubjectPage import SelectSubjectPage
 
 class HomePage():
     def __init__(self, root, username):
@@ -18,3 +19,5 @@ class HomePage():
 
         self.mark_attendance_panel = Frame(self.home_page_frame, bg=self.ligBluePrimColor, width=730, height=524)
         self.mark_attendance_panel.place(x=323, y=103)
+
+        SelectSubjectPage(self.mark_attendance_panel).draw()
