@@ -9,15 +9,25 @@ class InsertOperation():
     def insertAttendance(self, total_student, present_student, course_id, year, teacher_id, subject_id):
         try:
             for i in range(0, len(total_student)):
-                for i in range(0, len(present_student)):
-                    print(present_student)
+                present = False
+                for j in range(0, len(present_student)):
+                    if total_student[i][0] == present_student[j]:
+                        query = "INSERT INTO Attendance(date, student_id, present, absent, year, subject_id, course_id, teacher_id) values(" \
+                                "CURRENT_DATE, %s, 'Y', 'N', %s, %s, %s, %s)"
+                        value = [present_student[j], year, subject_id, course_id, teacher_id]
+                        self.cur.execute(query, value)
+                        self.conn.commit()
+                        present = True
+                        break
+                if not present:
+                    query = "INSERT INTO Attendance(date, student_id, present, absent, year, subject_id, course_id, teacher_id) values(" \
+                            "CURRENT_DATE, %s, 'N', 'Y', %s, %s, %s, %s)"
+                    value = [total_student[i][0], year, subject_id, course_id, teacher_id]
+                    self.cur.execute(query, value)
+                    self.conn.commit()
 
-
-            # query = "INSERT INTO attendance(date, student_id, present, absent, year, subject_id, course_id, teacher_id) SELECT CURRENT_DATE, s.student_id, 'Null', 'Null', s.year, ss.subject_id, s.course_id, ss.teacher_id from Students s, Subjects ss WHERE s.course_id = %s AND s.year=%s AND ss.teacher_id = %s AND ss.subject_id = %s"
-            # value = [course_id, year, teacher_id, subject_id]
-            # self.cur.execute(query, value)
-            # self.con.commit()
-            # self.msg = True
+            return True
 
         except Exception as e:
             print(e)
+            return False

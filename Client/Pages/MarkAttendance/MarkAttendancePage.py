@@ -6,6 +6,7 @@ import datetime
 from PIL import ImageTk, Image
 from ServerSide.SelectOperation import SelectOperation
 from tkinter import messagebox
+from ServerSide.InsertOperation import InsertOperation
 
 class MarkAttendancePage():
     def __init__(self, parent, data, username):
@@ -137,10 +138,12 @@ class MarkAttendancePage():
             presentAllButt.photo = self.absentAllPng
             presentAllButt.place(x=425, y=475)
 
+            print(self.data)
             def submit():
                 if len(presentStudent) > 0:
                     teacher_id = SelectOperation().getTeacherId(self.username)
                     print(presentStudent)
+                    InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3])
                 else:
                     messagebox.showerror(title="No Data", message="Mark Attendance First !")
 
