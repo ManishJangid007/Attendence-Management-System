@@ -14,12 +14,11 @@ root.iconbitmap("Assets/icon.ico")
 
 # HomePage(root, "KuchBhi").draw()
 
-conn = Connection()
-
 Sp = SplashScreen(root)
 Sp.draw()
 
 def start():
+    conn = Connection()
     if conn.check():
         if conn.check_database():
             LoginPage(root).draw()
