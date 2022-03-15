@@ -28,6 +28,5 @@ class InsertOperation():
 
             return True
 
-        except Exception as e:
-            print(e)
+        except:
             return False

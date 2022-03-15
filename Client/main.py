@@ -3,7 +3,6 @@ from ErrorPage import *
 from ServerSide.Connection import *
 from SplashScreen import SplashScreen
 from tkinter import *
-from HomePage import HomePage
 
 root = Tk()
 root.title("Attendence Manager")
@@ -11,8 +10,6 @@ root.title("Attendence Manager")
 root.geometry("1080x650")
 root.resizable(False, False)
 root.iconbitmap("Assets/icon.ico")
-
-# HomePage(root, "KuchBhi").draw()
 
 Sp = SplashScreen(root)
 Sp.draw()

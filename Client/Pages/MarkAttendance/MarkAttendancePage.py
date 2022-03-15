@@ -133,17 +133,19 @@ class MarkAttendancePage():
 
             countLabel.config(text=f"0 / {data_length}")
 
-            presentAllButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+            absentAllButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
                                 image=self.absentAllPng)
-            presentAllButt.photo = self.absentAllPng
-            presentAllButt.place(x=425, y=475)
+            absentAllButt.photo = self.absentAllPng
+            absentAllButt.place(x=425, y=475)
 
-            print(self.data)
             def submit():
                 if len(presentStudent) > 0:
                     teacher_id = SelectOperation().getTeacherId(self.username)
                     print(presentStudent)
-                    InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3])
+                    if InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3]):
+                        messagebox.showinfo(title="Success", message="Attendance Submitted Successfully !")
+                    else:
+                        messagebox.showerror(title="Error Occurred", message="Something Went Wrong !")
                 else:
                     messagebox.showerror(title="No Data", message="Mark Attendance First !")
 
