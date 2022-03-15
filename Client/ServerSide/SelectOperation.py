@@ -14,7 +14,10 @@ class SelectOperation():
             self.cur.execute(query, value)
             result = self.cur.fetchone()
             if result:
-                return True
+                if result[3] == user_name and result[4] == password:
+                    return True
+                else:
+                    return False
             else:
                 return False
         except:
