@@ -2,10 +2,12 @@ from tkinter import *
 import tkinter as tk
 from Scrollbar import scrollbar
 import datetime
+from Pages.MarkAttendance.MarkAttendancePage import MarkAttendancePage
 
 class SelectSubjectPage():
-    def __init__(self, parent):
+    def __init__(self, parent, username):
         self.parent = parent
+        self.username = username
         self.ligBluePrimColor = "#F2F8FF"
         self.font = "Bahnschrift"
         self.secondaryTextColor = "#474545"
@@ -25,11 +27,11 @@ class SelectSubjectPage():
 
         selectLabel = Label(self.frame, text="Select a", fg=self.secondaryTextColor, bg=self.ligBluePrimColor,
                             bd=0, font=(self.font, 25, "normal"))
-        selectLabel.place(x=280, y=50)
+        selectLabel.place(x=250, y=50)
 
         subjectLabel = Label(self.frame, text="Subject", fg=self.orangePrimColor, bg=self.ligBluePrimColor,
                             bd=0, font=(self.font, 25, "normal"))
-        subjectLabel.place(x=400, y=50)
+        subjectLabel.place(x=380, y=50)
 
         canvas = tk.Canvas(self.frame, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
                            highlightthickness=0)
@@ -45,3 +47,5 @@ class SelectSubjectPage():
         canvas.configure(yscrollcommand=self.scrol.get().set)
 
         canvas.place(x=0, y=100)
+
+        # MarkAttendancePage(self.parent, "C++", "BCA", "1", self.username).draw()
