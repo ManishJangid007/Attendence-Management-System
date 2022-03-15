@@ -138,7 +138,6 @@ class MarkAttendancePage():
             presentAllButt.photo = self.absentAllPng
             presentAllButt.place(x=425, y=475)
 
-            print(self.data)
             def submit():
                 if len(presentStudent) > 0:
                     teacher_id = SelectOperation().getTeacherId(self.username)
