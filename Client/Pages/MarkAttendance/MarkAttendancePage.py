@@ -4,6 +4,7 @@ import tkinter as tk
 from Eff import Eff
 import datetime
 from PIL import ImageTk, Image
+from ServerSide.SelectOperation import SelectOperation
 
 class MarkAttendancePage():
     def __init__(self, parent, data, username):
@@ -13,6 +14,21 @@ class MarkAttendancePage():
         self.ligBluePrimColor = "#F2F8FF"
         self.font = "Bahnschrift"
         self.bluePrimColor = "#87A0C4"
+        self.presentPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/mark_attandance/Buttons/present.png"
+            )
+        )
+        self.undoPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/mark_attandance/Buttons/undo.png"
+            )
+        )
+        self.submitPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/mark_attandance/Buttons/submit.png"
+            )
+        )
 
     def draw(self):
         self.frame = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
@@ -20,6 +36,9 @@ class MarkAttendancePage():
 
         backButtPng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/Buttons/back.png"))
         tilePng = ImageTk.PhotoImage(Image.open("Assets/Home_Page_Assets/mark_attandance/tile.png"))
+
+        rawData = SelectOperation().getStudentAccordingToYear(self.data[4], self.data[2])
+        data_length = len(rawData)
 
         rawCurrentDate = str(datetime.date.today())
         currentDate = rawCurrentDate.split("-")
@@ -40,12 +59,17 @@ class MarkAttendancePage():
                         font=(self.font, 25, 'normal'), justify="center")
         heading.grid(row=0, column=0, sticky='')
 
-        canvas = tk.Canvas(self.frame, bg=self.ligBluePrimColor, bd=0, width=730, height=420,
+        countLabel = Label(self.frame, bg=self.ligBluePrimColor, bd=0, fg="black",
+                        text="",
+                        font=(self.font, 20, 'normal'), justify="center")
+        countLabel.place(x=20, y=470)
+
+        canvas = tk.Canvas(self.frame, bg=self.ligBluePrimColor, bd=0, width=730, height=360,
                            highlightthickness=0)
 
-        content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=420)
+        content_frame = Frame(canvas, bg=self.ligBluePrimColor, width=730, height=360)
 
-        self.scrol = scrollbar(canvas, canvas)
+        self.scrol = scrollbar(canvas, canvas, height=153)
         self.scrol.draw()
 
         content_frame.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
@@ -55,6 +79,14 @@ class MarkAttendancePage():
 
         canvas.place(x=0, y=100)
 
+        presentStudent = []
+
+        def present():
+            pass
+
+        def undo():
+            pass
+
         def draw_tile(row, data):
             t = Label(content_frame, bd=0, bg=self.ligBluePrimColor, image=tilePng)
             t.photo = tilePng
@@ -63,8 +95,33 @@ class MarkAttendancePage():
             aid = Label(content_frame, bd=0, bg=self.bluePrimColor, fg="black", text=data[0], font=(self.font, 15, 'normal'))
             aid.grid(row=row, column=0)
 
-        draw_tile(0, "")
-        draw_tile(1, "")
+            name = Label(content_frame, bd=0, bg=self.bluePrimColor, fg="black", text=data[1],
+                        font=(self.font, 15, 'normal'))
+            name.grid(row=row, column=1)
+
+            ab = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.presentPng)
+            ab.photo = self.presentPng
+            ab.grid(row=row, column=2)
+
+            ub = Button(content_frame, bd=0, bg=self.bluePrimColor, activebackground=self.bluePrimColor, image=self.undoPng, state="disabled")
+            ub.photo = self.undoPng
+            ub.grid(row=row, column=3)
+
+            self.ab = ab
+            self.ub = ub
+
+        if data_length > 0:
+            row=0
+            for data in rawData:
+                draw_tile(row, data)
+                row+=1
+
+            countLabel.config(text=f"0 / {data_length}")
+
+            submitButt = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+                              image=self.submitPng)
+            submitButt.photo = self.submitPng
+            submitButt.place(x=590, y=475)
 
         def back():
             self.destroy()
