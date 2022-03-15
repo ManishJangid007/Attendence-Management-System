@@ -1,4 +1,5 @@
 from ServerSide.SelectOperation import SelectOperation
 
 select = SelectOperation()
-select.getSubjectAccordingToTeacher("savita")
+# print(select.getSubjectAccordingToTeacher("savita"))
+print(select.getStudentAccordingToYear(2, "1"))

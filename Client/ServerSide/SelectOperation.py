@@ -70,3 +70,15 @@ class SelectOperation():
             return data[0]
         except:
             pass
+
+    def getStudentAccordingToYear(self, course_id, year):
+        try:
+            query = "SELECT student_id, CONCAT(f_name, ' ', l_name) as name FROM Students WHERE year = %s AND course_id = %s"
+            value = [year, course_id]
+            self.cur.execute(query, value)
+            result = self.cur.fetchall()
+            return result
+        except Exception as e:
+            print(e)
+            pass
+
