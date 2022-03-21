@@ -3,6 +3,7 @@ import tkinter as tk
 from Scrollbar import scrollbar
 from PIL import ImageTk, Image
 from tkinter import messagebox
+from ReturnEff import eff
 from discriptivePages.editTeacherPage import EditTeacherPage
 from ServerSide.SelectOperation import SelectOperation
 from ServerSide.UpdateOperation import UpdateOperation
@@ -113,11 +114,11 @@ class TeacherDisPage():
                     messagebox.showerror(title="Error Occurred !", message="Something Went Wrong !")
 
 
-        def drawSubject(row, sn, subject_id, subject):
+        def drawSubject(row, sn, subject_id, subject, course, year):
             s = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=f"{sn}.", font=(self.font, 20, 'normal'))
             s.grid(row=row, column=0, pady=10)
 
-            sub = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=subject, font=(self.font, 20, 'normal'))
+            sub = Label(content_frame, bd=0, bg="white", fg=self.greyColor, text=f"{subject} {course} {year}{eff(int(year))}", font=(self.font, 20, 'normal'))
             sub.grid(row=row, column=1, pady=10)
 
             b = Button(content_frame, bd=0, bg="white", activebackground="white", image=self.unassignPng, command=lambda:un_assign(subject_id))
@@ -128,7 +129,7 @@ class TeacherDisPage():
             row=7
             sn=1
             for data in rawSubject:
-                drawSubject(row, sn, data[0], data[1])
+                drawSubject(row, sn, data[0], data[1], data[2], data[3])
                 row+=1
                 sn+=1
         else:

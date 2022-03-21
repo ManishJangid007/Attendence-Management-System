@@ -320,7 +320,7 @@ class EditStudentPage():
             rawDate = currentDate.split("-")
             currentYear = int(rawDate[0])
             if dobValid:
-                if int(dob_year) >= currentYear - 10 or int(dob_year) < 1950:
+                if int(dob_year) >= currentYear - 16 or int(dob_year) < 1950:
                     validate = False
                     error6.config(text="*Enter Correct DOB")
 
