@@ -413,9 +413,11 @@ class SelectOperation():
         data.pop(0)
         return data
 
-    def searchAttendance(self, date, course_id, year,
-                         subject_id):  # return present of search Student of a particular date
+    def searchAttendance(self, date, course_name, year,
+                         subject_name):  # return present of search Student of a particular date
         try:
+            course_id = self.getCourseId(course_name)
+            subject_id = self.getSubject_id(subject_name, course_id, year)
             query = "SELECT student_id from Attendance where date =  %s AND course_id = %s AND year = %s AND subject_id = %s AND present = 'Y'"
             value = [date, course_id, year, subject_id]
             self.cur.execute(query, value)
