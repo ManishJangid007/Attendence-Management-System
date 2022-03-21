@@ -1,4 +1,5 @@
 from ServerSide.Connection import Connection
+from datetime import date
 
 class SelectOperation():
     def __init__(self):
@@ -83,4 +84,32 @@ class SelectOperation():
         except Exception as e:
             print(e)
             pass
+
+    def checkSubjectAttendance(self, date1, subject_id):
+        try:
+            query = "SELECT * FROM Attendance WHERE subject_id = %s AND date = %s"
+            value = [subject_id, date1]
+            self.cur.execute(query, value)
+            result = self.cur.fetchone()
+            if result:
+                return True
+            else:
+                delete = '-'
+                for i in range(0, len(date1)):
+                    backup_table = date1
+                    if date1 != str(date.today()):
+                        for c in delete:
+                            backup_table = backup_table.replace(c, '')
+                        backup_table = 'd' + backup_table
+                query = "SELECT * FROM backupamsx505.{backup_table} WHERE subject_id = %s".format(backup_table=backup_table)
+                value = [subject_id]
+                self.cur.execute(query, value)
+                result = self.cur.fetchone()
+                if result:
+                    return True
+                else:
+                    return False
+        except:
+            pass
+
 
