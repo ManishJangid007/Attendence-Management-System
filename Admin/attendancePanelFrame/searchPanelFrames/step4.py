@@ -74,12 +74,20 @@ class SearchStep4():
             b.photo = self.profilePng
             b.grid(row=row, column=2, padx=5)
 
-        rawData = SelectOperation().searchAttendance(f"{self.day}-{self.month}-{self.year}", self.course, self.courseYear, self.subject)
+        rawData = SelectOperation().searchAttendance(f"{self.day}-{self.month}-{self.year}", self.course, str(self.courseYear), self.subject)
+        # print(self.day)
+        # print(self.month)
+        # print(self.year)
+        # print(self.course)
+        # print(self.courseYear)
+        # print(self.subject)
+        # print(rawData)
 
-        row = 1
-        for i in rawData:
-            drawTile(row, i[0], i[1])
-            row += 1
+        if len(rawData) > 0:
+            row = 1
+            for i in rawData:
+                drawTile(row, i[0], i[1])
+                row += 1
 
         def back4():
             self.destroy()
