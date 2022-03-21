@@ -75,15 +75,14 @@ select = SelectOperation()
 
 # print(select.getTeacherAccordingToCourse("2", "MCA"))
 # print("Today's report")
-print(select.todayAttendanceReport())
+# print(select.todayAttendanceReport())
 # print(select.getTotalStudentCount())
 # print(select.todayTotalPresentReport())
 # print("Yesterday's Report")
 # data = select.yesterdayAttendance()
 # print(data)
 
-# data = select.searchAttendance("2022-03-04", 2, "1", 2)
-# print(data)
+print(select.searchAttendance("21-03-2022", "BBA", "1", "Principles of Management"))
 
 # data = select.getStudentBasicInfo()
 # print(data)
