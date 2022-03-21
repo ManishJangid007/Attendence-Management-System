@@ -90,8 +90,7 @@ class SelectOperation():
             self.cur.execute(query, value)
             result = self.cur.fetchall()
             return result
-        except Exception as e:
-            print(e)
+        except:
             pass
 
     def checkSubjectAttendance(self, date1, subject_id):
