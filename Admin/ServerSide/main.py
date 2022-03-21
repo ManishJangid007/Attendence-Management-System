@@ -75,7 +75,7 @@ select = SelectOperation()
 
 # print(select.getTeacherAccordingToCourse("2", "MCA"))
 # print("Today's report")
-# print(select.todayAttendanceReport())
+print(select.todayAttendanceReport())
 # print(select.getTotalStudentCount())
 # print(select.todayTotalPresentReport())
 # print("Yesterday's Report")
