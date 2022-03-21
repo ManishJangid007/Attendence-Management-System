@@ -75,9 +75,9 @@ select = SelectOperation()
 
 # print(select.getTeacherAccordingToCourse("2", "MCA"))
 # print("Today's report")
-# data = select.todayAttendance()
-# print(data)
-
+# print(select.todayAttendanceReport())
+# print(select.getTotalStudentCount())
+# print(select.todayTotalPresentReport())
 # print("Yesterday's Report")
 # data = select.yesterdayAttendance()
 # print(data)
@@ -97,7 +97,7 @@ select = SelectOperation()
 
 # print(select.verifyAdmin("admin@aryabhatta", "12345"))
 
-print(select.getTeacherSubjects(13))
+# print(select.getTeacherSubjects(13))
 
 update = UpdateOperation()
 # print(update.updateAdminUserName("b", "f"))

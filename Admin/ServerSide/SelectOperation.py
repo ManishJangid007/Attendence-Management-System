@@ -294,8 +294,17 @@ class SelectOperation():
             data = self.cur.fetchone()
             name = data[0] + " " + data[1]
             return name
-        except Exception as e:
-            print(e)
+        except:
+            pass
+
+    def getTotalStudentCount(self):
+        try:
+            self.cur.execute("SELECT count(*) FROM Students")
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
 
     def showAttendanceTable(self):
         try:
@@ -315,7 +324,15 @@ class SelectOperation():
         except Exception as e:
             print(e)
 
-    def todayAttendance(self):
+    def todayTotalPresentReport(self):
+        try:
+            self.cur.execute("SELECT COUNT(*) FROM Attendance WHERE present = 'Y'")
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
+    def todayAttendanceReport(self):
         def returnPresent(student_id):
             try:
                 query = "SELECT * FROM attendance WHERE student_id = %s"
@@ -323,23 +340,23 @@ class SelectOperation():
                 self.cur.execute(query, value)
                 data = self.cur.fetchall()
                 if len(data) > 0:
-                    if data[len(data) - 1][2] == "YES":
+                    if data[len(data) - 1][2] == "Y":
                         return True
                     else:
                         return False
                 else:
                     return False
 
-            except Exception as e:
-                print(e)
+            except:
+                pass
 
         data = []
-        for i in range(1, int(''.join(map(str, self.getCourseCount()))) + 1):
+        for i in self.getCourse():
             temp = []
             present = 0
             total_student = 0
-            temp.append(self.getCourseName(i))
-            for s_id in self.getCourseStudentId(i):
+            temp.append(self.getCourseName(i[2]))
+            for s_id in self.getCourseStudentId(i[2]):
                 total_student += 1
                 if returnPresent(s_id[0]):
                     present += 1
@@ -349,7 +366,6 @@ class SelectOperation():
             temp.append(total_student)
             data.append(temp)
 
-        data.pop(0)
         return data
 
     def yesterdayAttendance(self):  # return Previous Day Attendance
