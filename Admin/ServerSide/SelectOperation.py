@@ -251,6 +251,16 @@ class SelectOperation():
         except:
             pass
 
+    def getSubjectId(self, course_id):
+        try:
+            query = "SELECT subject_Id from Subjects WHERE course_id = %s"
+            value = [course_id]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchall()
+            return self.data
+        except:
+            pass
+
     def getSubjectAccordingToYear(self, course_name, year):
         try:
             course_id = self.getCourseId(course_name)
@@ -333,10 +343,10 @@ class SelectOperation():
             pass
 
     def todayAttendanceReport(self):
-        def returnPresent(student_id):
+        def returnPresent(student_id, subject_id):
             try:
-                query = "SELECT * FROM attendance WHERE student_id = %s"
-                value = [student_id]
+                query = "SELECT * FROM attendance WHERE student_id = %s AND subject_id = %s"
+                value = [student_id, subject_id]
                 self.cur.execute(query, value)
                 data = self.cur.fetchall()
                 if len(data) > 0:
@@ -358,8 +368,9 @@ class SelectOperation():
             temp.append(self.getCourseName(i[2]))
             for s_id in self.getCourseStudentId(i[2]):
                 total_student += 1
-                if returnPresent(s_id[0]):
-                    present += 1
+                for subject in self.getSubjectId(i[2]):
+                    if returnPresent(s_id[0], subject[0]):
+                        present += 1
             absent = total_student - present
             temp.append(present)
             temp.append(absent)
