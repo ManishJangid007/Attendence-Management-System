@@ -1,7 +1,9 @@
 from tkinter import *
 import tkinter as tk
 from Scrollbar import scrollbar
+from PIL import ImageTk, Image
 import datetime
+from tkinter import messagebox
 from ServerSide.SelectOperation import SelectOperation
 from Eff import Eff
 from Pages.MarkAttendance.MarkAttendancePage import MarkAttendancePage
@@ -15,6 +17,11 @@ class SelectSubjectPage():
         self.secondaryTextColor = "#474545"
         self.orangePrimColor = "#FF8C64"
         self.primaryTextColor = "#0F4189"
+        self.refreshButPng = ImageTk.PhotoImage(
+            Image.open(
+                "Assets/Home_Page_Assets/Buttons/refreshbutton.png"
+            )
+        )
 
     def draw(self):
         self.frame = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
@@ -27,6 +34,11 @@ class SelectSubjectPage():
                           bg=self.ligBluePrimColor,
                           bd=0, font=(self.font, 12, "normal"))
         dateLabel.place(x=300, y=15)
+
+        refreshBut = Button(self.frame, bd=0, bg=self.ligBluePrimColor, activebackground=self.ligBluePrimColor,
+                            image=self.refreshButPng, command=self.refresh)
+        refreshBut.photo = self.refreshButPng
+        refreshBut.place(x=620, y=12)
 
         selectLabel = Label(self.frame, text="Select a", fg=self.secondaryTextColor, bg=self.ligBluePrimColor,
                             bd=0, font=(self.font, 25, "normal"))
@@ -54,14 +66,26 @@ class SelectSubjectPage():
         margin = Label(content_frame, bd=0, bg=self.ligBluePrimColor)
         margin.grid(row=0, column=0, padx=370)
 
+        date = f"{currentDate[2]}-{currentDate[1]}-{currentDate[0]}"
         def select(data, username):
-            MarkAttendancePage(self.parent, data, username).draw()
+            if SelectOperation().checkSubjectAttendance(date, data[3]):
+                messagebox.showinfo(title="Already Exist", message="You Already Marked Attendance Successfully")
+            else:
+                MarkAttendancePage(self.parent, data, username).draw()
 
         def drawTile(row, data):
-            l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"'{data[0]}'    {data[1]} {data[2]}{(Eff(int(data[2])).get())} Year", fg=self.primaryTextColor,
-                      font=(self.font, 20, "bold"))
-            l.grid(row=row, column=0, pady=10)
-            l.bind("<Button-1>", lambda e: select(data, self.username))
+            if SelectOperation().checkSubjectAttendance(date, data[3]):
+                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"'{data[0]}'    {data[1]} {data[2]}{(Eff(int(data[2])).get())} Year", fg="#0F9D58",
+                          font=(self.font, 20, "bold"))
+                l.grid(row=row, column=0, pady=10)
+                # l.bind("<Button-1>", lambda e: select(data, self.username))
+            else:
+                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor,
+                          text=f"'{data[0]}'    {data[1]} {data[2]}{(Eff(int(data[2])).get())} Year",
+                          fg=self.primaryTextColor,
+                          font=(self.font, 20, "bold"))
+                l.grid(row=row, column=0, pady=10)
+                l.bind("<Button-1>", lambda e: select(data, self.username))
 
         rawData = SelectOperation().getSubjectAccordingToTeacher(self.username)
 
@@ -76,3 +100,6 @@ class SelectSubjectPage():
                       font=(self.font, 20, "bold"))
             empty.grid(row=1, column=0, padx=10)
 
+    def refresh(self):
+        self.frame.destroy()
+        self.draw()

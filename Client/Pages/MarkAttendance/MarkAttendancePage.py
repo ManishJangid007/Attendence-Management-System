@@ -7,6 +7,7 @@ from PIL import ImageTk, Image
 from ServerSide.SelectOperation import SelectOperation
 from tkinter import messagebox
 from ServerSide.InsertOperation import InsertOperation
+import datetime
 
 class MarkAttendancePage():
     def __init__(self, parent, data, username):
@@ -49,7 +50,6 @@ class MarkAttendancePage():
 
         rawCurrentDate = str(datetime.date.today())
         currentDate = rawCurrentDate.split("-")
-
         dateLabel = Label(self.frame, text=f"Date :- {currentDate[2]}-{currentDate[1]}-{currentDate[0]}", fg="black",
                           bg=self.ligBluePrimColor,
                           bd=0, font=(self.font, 12, "normal"))
@@ -148,8 +148,8 @@ class MarkAttendancePage():
 
             def submit():
                 if len(presentStudent) > 0:
-                    print(presentStudent)
-                    if InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3]):
+                    date = f"{currentDate[2]}-{currentDate[1]}-{currentDate[0]}"
+                    if InsertOperation().insertAttendance(rawData, presentStudent, self.data[4], self.data[2], teacher_id, self.data[3], date):
                         messagebox.showinfo(title="Success", message="Attendance Submitted Successfully !")
                         self.destroy()
                     else:
