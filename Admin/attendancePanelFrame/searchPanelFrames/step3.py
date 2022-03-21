@@ -47,17 +47,20 @@ class SearchStep3():
 
         canvas.place(x=0, y=50)
 
+        margin = Label(content_frame, bg=self.ligBluePrimColor)
+        margin.grid(row=0, column=0, padx=350)
+
         detail = Label(content_frame, bg=self.ligBluePrimColor, text=f"{self.course} {self.courseYear}{self.eff} Year", fg="black", bd=0,
                                    font=(self.font, 20, 'normal'))
-        detail.grid(row=0, column=0, padx=280)
+        detail.grid(row=1, column=0)
 
         def drawButton(data, row):
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
                           font=(self.font, 20, "bold"))
-            l.grid(row=row, column=0, padx=280, pady=20)
+            l.grid(row=row, column=0, pady=20)
             l.bind("<Button-1>", lambda e: SearchStep4(parent=self.parent, grandParent=self.grandParent, day=self.day, month=self.month, year=self.year, course=self.course, courseYear=self.courseYear, eff=self.eff, subject=data).draw())
 
-        row = 1
+        row = 2
         for data in rawData:
             drawButton(data[0], row)
             row += 1

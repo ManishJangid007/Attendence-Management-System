@@ -74,14 +74,15 @@ class SearchStep4():
             b.photo = self.profilePng
             b.grid(row=row, column=2, padx=5)
 
-        rawData = SelectOperation().searchAttendance(f"{self.day}-{self.month}-{self.year}", self.course, str(self.courseYear), self.subject)
-        # print(self.day)
-        # print(self.month)
-        # print(self.year)
-        # print(self.course)
-        # print(self.courseYear)
-        # print(self.subject)
-        # print(rawData)
+        if int(self.month) >= 1 and int(self.month) <= 9:
+            self.month = f"0{self.month}"
+
+        if int(self.day) >=1 and int(self.day) <= 9:
+            self.day = f"0{self.day}"
+
+        date = f"{self.day}-{self.month}-{self.year}"
+
+        rawData = SelectOperation().searchAttendance(date, str(self.course), str(self.courseYear), str(self.subject))
 
         if len(rawData) > 0:
             row = 1
