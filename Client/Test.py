@@ -4,7 +4,7 @@ from ServerSide.InsertOperation import InsertOperation
 select = SelectOperation()
 # print(select.verifyTeacher('S', 's'))
 # print(select.getSubjectAccordingToTeacher("s"))
-print(select.getStudentAccordingToYear(2, "1"))
+# print(select.getStudentAccordingToYear(2, "1"))
 # print(select.checkSubjectAttendance("21-03-2022", 22))
 
 insert = InsertOperation()
