@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 from Scrollbar import scrollbar
 from discriptivePages.studentDescriptionPage import StudentDesPage
+from ServerSide.SelectOperation import SelectOperation
 
 class SearchStep4():
     def __init__(self, parent, grandParent, day, month, year, course, courseYear, eff, subject):
@@ -73,15 +74,12 @@ class SearchStep4():
             b.photo = self.profilePng
             b.grid(row=row, column=2, padx=5)
 
-        row = 1
-        for i in range(1, 101):
-            id = f"AryaId{i}"
-            name = f"Name{i}"
-            drawTile(row, id, name)
-            row += 1
+        rawData = SelectOperation().searchAttendance(f"{self.day}-{self.month}-{self.year}", self.course, self.courseYear, self.subject)
 
-        drawTile(1, "AryaId", "Name")
-        drawTile(2, "AryaId", "Name")
+        row = 1
+        for i in rawData:
+            drawTile(row, i[0], i[1])
+            row += 1
 
         def back4():
             self.destroy()
