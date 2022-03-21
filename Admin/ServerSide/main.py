@@ -60,7 +60,7 @@ insert = InsertOperations()
 
 # print(insert.insertSubjects("DBMS", "2", "BCAA"))
 select = SelectOperation()
-print(select.getSubjectAccordingToYear("BCA", "1"))
+# print(select.getSubjectAccordingToYear("BCA", "1"))
 # print(select.checkExistenceOfAdmin("leeena"))
 # print(select.isPriorityHigh("admin@aryabhatta"))
 # print(select.showAdmins())
@@ -97,7 +97,7 @@ print(select.getSubjectAccordingToYear("BCA", "1"))
 
 # print(select.verifyAdmin("admin@aryabhatta", "12345"))
 
-# print(select.getTeacherSubjects(5))
+print(select.getTeacherSubjects(13))
 
 update = UpdateOperation()
 # print(update.updateAdminUserName("b", "f"))

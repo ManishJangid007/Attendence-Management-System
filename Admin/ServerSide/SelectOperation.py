@@ -105,15 +105,34 @@ class SelectOperation():
         except:
             pass
 
+    def getTeacherNameWithUserName(self, user_name):
+        try:
+            query = "SELECT name FROM Teachers WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
     def getTeacherSubjects(self, teacher_id):
         try:
-            query = "SELECT subject_id, name FROM Subjects WHERE teacher_id = %s"
+            query = "SELECT subject_id, name , course_id, year FROM Subjects WHERE teacher_id = %s"
             value = [teacher_id]
             self.cur.execute(query, value)
             self.data = self.cur.fetchall()
-            return self.data
-        except Exception as e:
-            print(e)
+            print(type(self.data))
+            result = []
+            for i in self.data:
+                temp = list(i)
+                temp[0] = i[0]
+                temp[1] = i[1]
+                temp[2] = self.getCourseName(i[2])
+                temp[3] = i[3]
+                result.append(temp)
+            return result
+        except:
+            pass
 
     def getTeacherAccordingToCourse(self, year, course_name):
         try:
