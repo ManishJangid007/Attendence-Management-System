@@ -58,6 +58,9 @@ class AddSubjectPage():
         cFrame = Frame(self.parent, bg=self.ligBluePrimColor, width=635, height=220)
         cFrame.place(x=50, y=150)
 
+        margin = Label(cFrame, bg=self.ligBluePrimColor)
+        margin.grid(row=0, columnspan=4, padx=300)
+
         divider = Label(self.parent, bg=self.ligBluePrimColor, bd=0, image=self.dividerPng)
         divider.photo = self.dividerPng
         divider.place(x=150, y=390)
@@ -143,7 +146,7 @@ class AddSubjectPage():
                     initial1 += 1
 
         if len(rawData) > 0:
-            row = 0
+            row = 1
             col = 0
             initial = 0
             for d in rawData:
