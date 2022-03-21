@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk
 from Scrollbar import scrollbar
 import datetime
+from ServerSide.SelectOperation import SelectOperation
 
 class TodayReportPage():
     def __init__(self, parent):
@@ -15,13 +16,9 @@ class TodayReportPage():
         horizontalDivider = ImageTk.PhotoImage(file=("Assets/horizontalDivider.png"))
         refreshButPng = ImageTk.PhotoImage(file=("Assets/Home_Page_Assets/todaypanel/refreshbutton.png"))
 
-        rawData = [["BCA", 0, 0, 0],
-                   ["BBA", 0, 0, 0],
-                   ["MBA", 0, 0, 0],
-                   ["MCA", 0, 0, 0],
-                   ["PGDCA", 0, 0, 0]]
+        rawData = SelectOperation().todayAttendanceReport()
 
-        message = Label(self.parent, text="Students : 100/1000",
+        message = Label(self.parent, text=f"Students : {SelectOperation().todayTotalPresentReport()}/{SelectOperation().getTotalStudentCount()}",
                         bg=self.ligBluePrimColor, bd=0, font=(self.font, 15, 'normal'), justify="center")
         message.place(x=290, y=7)
 
