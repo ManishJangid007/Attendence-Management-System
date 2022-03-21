@@ -33,9 +33,18 @@ class SelectOperation():
         except:
             pass
 
+    def getTeacherNameWithUserName(self, user_name):
+        try:
+            query = "SELECT name FROM Teachers WHERE user_name = %s"
+            value = [user_name]
+            self.cur.execute(query, value)
+            self.data = self.cur.fetchone()
+            return self.data[0]
+        except:
+            pass
+
     def getSubjectAccordingToTeacher(self, t_user_name):
         try:
-            #subject name course_name year
             teacher_id = self.getTeacherId(t_user_name)
             query = "SELECT subject_id, course_id, year FROM Subjects WHERE teacher_id = %s"
             value = [teacher_id]
