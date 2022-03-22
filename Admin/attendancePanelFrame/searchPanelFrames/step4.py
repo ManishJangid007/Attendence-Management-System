@@ -74,15 +74,9 @@ class SearchStep4():
             b.photo = self.profilePng
             b.grid(row=row, column=2, padx=5)
 
-        if int(self.month) >= 1 and int(self.month) <= 9:
-            self.month = f"0{self.month}"
-
-        if int(self.day) >=1 and int(self.day) <= 9:
-            self.day = f"0{self.day}"
-
         date = f"{self.day}-{self.month}-{self.year}"
 
-        rawData = SelectOperation().searchAttendance(date, str(self.course), str(self.courseYear), str(self.subject))
+        rawData = SelectOperation().searchAttendance(str(date), str(self.course), str(self.courseYear), str(self.subject))
 
         try:
             if len(rawData) > 0:
