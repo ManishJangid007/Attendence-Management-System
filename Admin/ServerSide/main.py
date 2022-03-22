@@ -78,11 +78,9 @@ select = SelectOperation()
 # print(select.todayAttendanceReport())
 # print(select.getTotalStudentCount())
 # print(select.todayTotalPresentReport())
-# print("Yesterday's Report")
-# data = select.yesterdayAttendance()
-# print(data)
+print(select.yesterdayAttendance())
 
-print(select.searchAttendance("21-03-2022", "BBA", "1", "Principles of Management"))
+# print(select.searchAttendance("21-03-2022", "BBA", "1", "Principles of Management"))
 
 # data = select.getStudentBasicInfo()
 # print(data)
