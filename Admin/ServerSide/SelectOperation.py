@@ -1,5 +1,6 @@
 from ServerSide.Connection import Connection
 from datetime import date, timedelta
+from ServerSide.EssentialFunction import EssentialFunction
 
 
 class SelectOperation():
@@ -23,6 +24,7 @@ class SelectOperation():
 
     def verifyAdmin(self, username, password):
         try:
+            EssentialFunction().backupAttendance()
             query = "SELECT user_name, password FROM Admins where user_name = %s AND password = %s"
             value = [username, password]
             self.cur.execute(query, value)
@@ -416,19 +418,24 @@ class SelectOperation():
     def yesterdayAttendance(self):  # return Previous Day Attendance
         def returnPresent(student_id, yesterday):
             try:
-                query = "SELECT * FROM attendance WHERE student_id = %s AND date = %s"
-                value = [student_id, yesterday]
+                query = "SELECT * FROM backupamsx505.{date} WHERE student_id = %s".format(date=yesterday)
+                value = [student_id]
                 self.cur.execute(query, value)
                 result = self.cur.fetchall()
                 for i in result:
-                    if i[2] == 'Y':
+                    if i[1] == 'Y':
                         return True
-            except:
+            except Exception as e:
+                print(e)
                 pass
 
         data = []
         before_day = str(date.today()-timedelta(days=1)).split('-')
         yesterday = f"{before_day[2]}-{before_day[1]}-{before_day[0]}"
+        delete = '-'
+        for c in delete:
+            yesterday = yesterday.replace(c, '')
+        yesterday = 'd' + yesterday
         for i in self.getCourse():
             temp = []
             present = 0

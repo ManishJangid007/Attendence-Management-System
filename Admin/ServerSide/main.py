@@ -78,9 +78,9 @@ select = SelectOperation()
 # print(select.todayAttendanceReport())
 # print(select.getTotalStudentCount())
 # print(select.todayTotalPresentReport())
-print(select.yesterdayAttendance())
-
-# print(select.searchAttendance("21-03-2022", "BBA", "1", "Principles of Management"))
+# print(select.yesterdayAttendance())
+# print(select.checkSubjectAttendance("22-03-2022", 10))
+# print(select.searchAttendance("22-03-2022", "MCA", "1", "Computer Architecture"))
 
 # data = select.getStudentBasicInfo()
 # print(data)
@@ -139,10 +139,10 @@ update = UpdateOperation()
 
 # update.deleteTeacher(7)
 es = EssentialFunction()
-# if es.backupAttendance():
-#     print("Backup Table is created Successfully")
-# else:
-#     print("Table isn't created")
+if es.backupAttendance():
+    print("Backup Table is created Successfully")
+else:
+    print("Table isn't created")
 # print(es.updateAge("22-07-2002", "aryaid101"))
 
 dv = DuplicateVerification()

@@ -1,4 +1,5 @@
 from ServerSide.Connection import Connection
+from ServerSide.EssentialFunction import EssentialFunction
 from datetime import date
 
 class SelectOperation():
@@ -9,6 +10,7 @@ class SelectOperation():
 
     def verifyTeacher(self, user_name, password):
         try:
+            EssentialFunction().backupAttendance()
             query = "SELECT user_name, password FROM Teachers WHERE user_name = %s AND password = %s"
             value = [user_name, password]
             self.cur.execute(query, value)
