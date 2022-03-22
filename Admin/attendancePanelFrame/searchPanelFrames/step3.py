@@ -55,6 +55,8 @@ class SearchStep3():
         detail.grid(row=1, column=0)
 
         def drawButton(data, row):
+            course_id = SelectOperation().getCourseId(self.course)
+            subject_id = SelectOperation().getSubject_id(data, course_id, self.courseYear)
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
                           font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, pady=20)

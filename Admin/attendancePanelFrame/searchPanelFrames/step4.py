@@ -61,7 +61,7 @@ class SearchStep4():
 
             l1 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=aryaid, fg=self.primaryTextColor,
                           font=(self.font, 20, "normal"))
-            l1.grid(row=row, column=0)
+            l1.grid(row=row, column=0, padx=5)
 
             l2 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=name, fg=self.primaryTextColor,
                           font=(self.font, 20, "normal"))
@@ -84,11 +84,16 @@ class SearchStep4():
 
         rawData = SelectOperation().searchAttendance(date, str(self.course), str(self.courseYear), str(self.subject))
 
-        if len(rawData) > 0:
-            row = 1
-            for i in rawData:
-                drawTile(row, i[0], i[1])
-                row += 1
+        try:
+            if len(rawData) > 0:
+                row = 1
+                for i in rawData:
+                    drawTile(row, i[0], i[1])
+                    row += 1
+            else:
+                pass
+        except:
+            pass
 
         def back4():
             self.destroy()
