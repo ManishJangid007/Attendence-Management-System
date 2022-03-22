@@ -61,7 +61,7 @@ class SearchStep4():
 
             l1 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=aryaid, fg=self.primaryTextColor,
                           font=(self.font, 20, "normal"))
-            l1.grid(row=row, column=0)
+            l1.grid(row=row, column=0, padx=5)
 
             l2 = Label(content_frame, bd=0, bg=self.bluePrimColor, text=name, fg=self.primaryTextColor,
                           font=(self.font, 20, "normal"))
