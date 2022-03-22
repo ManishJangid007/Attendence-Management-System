@@ -144,10 +144,18 @@ class EditStudentPage():
                                 font=(self.font, 20, 'normal'))
         genderLabel.place(x=181, y=426)
 
+        gen = ""
+        if str(rawData[5]).startswith("M") or str(rawData[5]).startswith("m"):
+            gen = "M"
+        elif str(rawData[5]).startswith("F") or str(rawData[5]).startswith("f"):
+            gen = "F"
+        elif str(rawData[5]).startswith("T") or str(rawData[5]).startswith("t"):
+            gen = "T"
+
         genderEntry = Entry(self.editStudentFrame, bg=self.ligBluePrimColor, bd=0, width=16, justify="center",
                                 font=(self.font, 21, 'normal'))
         genderEntry.place(x=299.5, y=428)
-        genderEntry.insert(0, rawData[5])
+        genderEntry.insert(0, gen)
 
         yearLabel = Label(self.editStudentFrame, bd=0, bg=self.bluePrimColor, fg="black", text="Year :",
                             font=(self.font, 20, 'normal'))

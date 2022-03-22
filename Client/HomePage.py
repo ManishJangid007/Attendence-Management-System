@@ -176,7 +176,7 @@ class HomePage():
             self.destroy_all_main_panel()
             self.account_main_panel()
 
-        self.account = Label(self.SidePanel, text="Account Setting's", bg=self.side_panel_color, bd=0,
+        self.account = Label(self.SidePanel, text="Account", bg=self.side_panel_color, bd=0,
                                  fg=self.sidePanelNonActive, font=(self.font, 20, 'normal'))
         self.account.place(x=20, y=435)
         self.account.bind("<Button-1>", lambda e: accountFun())
