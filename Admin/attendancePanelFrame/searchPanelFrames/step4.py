@@ -84,11 +84,16 @@ class SearchStep4():
 
         rawData = SelectOperation().searchAttendance(date, str(self.course), str(self.courseYear), str(self.subject))
 
-        if len(rawData) > 0:
-            row = 1
-            for i in rawData:
-                drawTile(row, i[0], i[1])
-                row += 1
+        try:
+            if len(rawData) > 0:
+                row = 1
+                for i in rawData:
+                    drawTile(row, i[0], i[1])
+                    row += 1
+            else:
+                pass
+        except:
+            pass
 
         def back4():
             self.destroy()
