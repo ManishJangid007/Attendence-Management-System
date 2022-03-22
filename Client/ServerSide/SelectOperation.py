@@ -9,12 +9,12 @@ class SelectOperation():
 
     def verifyTeacher(self, user_name, password):
         try:
-            query = "SELECT * FROM Teachers WHERE user_name = %s AND password = %s"
+            query = "SELECT user_name, password FROM Teachers WHERE user_name = %s AND password = %s"
             value = [user_name, password]
             self.cur.execute(query, value)
             result = self.cur.fetchone()
             if result:
-                if result[3] == user_name and result[4] == password:
+                if result[0] == user_name and result[1] == password:
                     return True
                 else:
                     return False
