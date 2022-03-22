@@ -23,12 +23,12 @@ class SelectOperation():
 
     def verifyAdmin(self, username, password):
         try:
-            query = "SELECT * FROM Admins where user_name = %s AND password = %s"
+            query = "SELECT user_name, password FROM Admins where user_name = %s AND password = %s"
             value = [username, password]
             self.cur.execute(query, value)
             data = self.cur.fetchone()
             if data:
-                if data[1] == username and data[2] == password:
+                if data[0] == username and data[1] == password:
                     return True
                 else:
                     return False
@@ -336,7 +336,7 @@ class SelectOperation():
 
     def todayTotalPresentReport(self):
         try:
-            self.cur.execute("SELECT COUNT(*) FROM Attendance WHERE present = 'Y'")
+            self.cur.execute("SELECT COUNT(DISTINCT student_id) FROM Attendance WHERE present = 'Y'")
             self.data = self.cur.fetchone()
             return self.data[0]
         except:
