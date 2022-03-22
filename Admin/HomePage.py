@@ -1,6 +1,5 @@
 from tkinter import *
 from PIL import ImageTk
-import asyncio
 from teacherPanelFrame.addTeacherPage import AddTeacherPage
 from teacherPanelFrame.teacherListPage import TeacherListPage
 from attendancePanelFrame.searchPage import SearchPage

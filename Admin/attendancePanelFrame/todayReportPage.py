@@ -4,7 +4,6 @@ from PIL import ImageTk
 from Scrollbar import scrollbar
 import datetime
 from ServerSide.SelectOperation import SelectOperation
-import asyncio
 
 class TodayReportPage():
     def __init__(self, parent):
