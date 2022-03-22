@@ -18,6 +18,7 @@ class SearchStep3():
         self.ligBluePrimColor = "#F2F8FF"
         self.font = "Bahnschrift"
         self.primaryTextColor = "#0F4189"
+        self.green = "#0F9D58"
 
     def draw(self):
         self.step3 = Frame(self.parent, bg=self.ligBluePrimColor, width=730, height=524)
@@ -56,11 +57,22 @@ class SearchStep3():
 
         def drawButton(data, row):
             course_id = SelectOperation().getCourseId(self.course)
-            subject_id = SelectOperation().getSubject_id(data, course_id, self.courseYear)
-            l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
+            subject_id = int(SelectOperation().getSubject_id(data, course_id, self.courseYear))
+
+            date = f"{self.day}-{self.month}-{self.year}"
+
+            if SelectOperation().checkSubjectAttendance(date, subject_id):
+                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.green,
+                              font=(self.font, 20, "bold"))
+                l.grid(row=row, column=0, pady=20)
+                l.bind("<Button-1>", lambda e: SearchStep4(parent=self.parent, grandParent=self.grandParent, day=self.day, month=self.month, year=self.year, course=self.course, courseYear=self.courseYear, eff=self.eff, subject=data).draw())
+            else:
+                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data, fg=self.primaryTextColor,
                           font=(self.font, 20, "bold"))
-            l.grid(row=row, column=0, pady=20)
-            l.bind("<Button-1>", lambda e: SearchStep4(parent=self.parent, grandParent=self.grandParent, day=self.day, month=self.month, year=self.year, course=self.course, courseYear=self.courseYear, eff=self.eff, subject=data).draw())
+                l.grid(row=row, column=0, pady=20)
+                # l.bind("<Button-1>",
+                #        lambda e: SearchStep4(parent=self.parent, grandParent=self.grandParent, day=self.day,
+                #                              month=self.month,
 
         row = 2
         for data in rawData:

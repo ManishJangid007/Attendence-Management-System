@@ -53,6 +53,12 @@ class SearchStep1():
 
         canvas.place(x=0, y=100)
 
+        if int(self.month) >= 1 and int(self.month) <= 9:
+            self.month = f"0{self.month}"
+
+        if int(self.day) >= 1 and int(self.day) <= 9:
+            self.day = f"0{self.day}"
+
         def drawButton(data, row):
             l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=data[0], fg=self.primaryTextColor, font=(self.font, 20, "bold"))
             l.grid(row=row, column=0, padx=280, pady=10)

@@ -4,6 +4,7 @@ from PIL import ImageTk
 from Scrollbar import scrollbar
 import datetime
 from datetime import timedelta
+from ServerSide.SelectOperation import SelectOperation
 
 class YesterdayReportPage():
     def __init__(self, parent):
@@ -15,11 +16,13 @@ class YesterdayReportPage():
         textColor = "#0F4189"
         horizontalDivider = ImageTk.PhotoImage(file=("Assets/horizontalDivider.png"))
 
-        rawData = [["BCA", 2002, 3000, 5002],
-                   ["BBA", 2002, 3000, 5002],
-                   ["MBA", 2002, 3000, 5002],
-                   ["MCA", 2002, 3000, 5002],
-                   ["PGDCA", 2002, 3000, 5002]]
+        # rawData = [["BCA", 2002, 3000, 5002],
+        #            ["BBA", 2002, 3000, 5002],
+        #            ["MBA", 2002, 3000, 5002],
+        #            ["MCA", 2002, 3000, 5002],
+        #            ["PGDCA", 2002, 3000, 5002]]
+
+        rawData = SelectOperation().yesterdayAttendance()
 
         canvas = tk.Canvas(self.parent, bg=self.ligBluePrimColor, bd=0, width=730, height=524,
                            highlightthickness=0)

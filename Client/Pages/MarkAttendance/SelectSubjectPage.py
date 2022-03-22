@@ -17,6 +17,7 @@ class SelectSubjectPage():
         self.secondaryTextColor = "#474545"
         self.orangePrimColor = "#FF8C64"
         self.primaryTextColor = "#0F4189"
+        self.green = "#0F9D58"
         self.refreshButPng = ImageTk.PhotoImage(
             Image.open(
                 "Assets/Home_Page_Assets/Buttons/refreshbutton.png"
@@ -75,7 +76,7 @@ class SelectSubjectPage():
 
         def drawTile(row, data):
             if SelectOperation().checkSubjectAttendance(date, data[3]):
-                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"'{data[0]}'    {data[1]} {data[2]}{(Eff(int(data[2])).get())} Year", fg="#0F9D58",
+                l = Label(content_frame, bd=0, bg=self.ligBluePrimColor, text=f"'{data[0]}'    {data[1]} {data[2]}{(Eff(int(data[2])).get())} Year", fg=self.green,
                           font=(self.font, 20, "bold"))
                 l.grid(row=row, column=0, pady=10)
                 # l.bind("<Button-1>", lambda e: select(data, self.username))
