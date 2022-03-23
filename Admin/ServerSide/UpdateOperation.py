@@ -209,31 +209,3 @@ class UpdateOperation():
             self.conn.rollback()
             self.msg = False
         return self.msg
-
-    def presentOfStudent(self, student_id, subject_id):
-        try:
-            query = "UPDATE attendance SET present = 'YES', absent = 'NO' where student_id = %s AND subject_id = %s"
-            value = [student_id, subject_id]
-            self.cur.execute(query, value)
-            self.msg = True
-            self.conn.commit()
-        except Exception as e:
-            print(e)
-            self.msg = False
-        return self.msg
-
-    def absentOfStudent(self, student_id, subject_id):
-        try:
-            query = "UPDATE attendance SET present = 'NO', absent = 'YES' where student_id = %s AND subject_id = %s"
-            value = [student_id, subject_id]
-            self.cur.execute(query, value)
-            self.msg = True
-            self.conn.commit()
-        except Exception as e:
-            print(e)
-            self.msg = False
-        return self.msg
-
-    # def holidayPresent(self, date, course_id):
-    #     try:
-    #         query = "UPDATE "

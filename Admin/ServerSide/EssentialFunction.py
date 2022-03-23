@@ -15,31 +15,35 @@ class EssentialFunction():
             for c in delete:
                 yesterday = yesterday.replace(c, '')
             yesterday = 'd' + yesterday
-            self.cur.execute("SELECT * FROM backupamsx505.{date}".format(date=yesterday))
+            self.cur.execute("SHOW TABLES FROM backupamsx505")
             result = self.cur.fetchone()
             if result:
-                return False
-            else:
-                    today = str(date.today()).split('-')
-                    current_date = f"{today[2]}-{today[1]}-{today[0]}"
-                    self.cur.execute("SELECT DISTINCT(date) FROM Attendance")
-                    table_name = self.cur.fetchall()
-                    if table_name:
-                        delete = '-'
-                        for i in range(0, len(table_name)):
-                            backup_table = table_name[i][0]
-                            if table_name[i][0] != current_date:
-                                for c in delete:
-                                    backup_table = backup_table.replace(c, '')
-                                backup_table = 'd' + backup_table
-                                query = "CREATE TABLE backupamsx505.{backup_table} AS SELECT student_id, present, absent, year, subject_id, course_id, teacher_id FROM Attendance where date = %s".format(backup_table=backup_table)
-                                value = [table_name[i][0]]
-                                self.cur.execute(query, value)
-                                query = "DELETE FROM Attendance WHERE date = %s"
-                                value = [table_name[i][0]]
-                                self.cur.execute(query, value)
-                                self.conn.commit()
-                        return True
+                for i in result:
+                    if i == yesterday:
+                        return False
+
+            today = str(date.today()).split('-')
+            current_date = f"{today[2]}-{today[1]}-{today[0]}"
+            self.cur.execute("SELECT DISTINCT(date) FROM Attendance")
+            table_name = self.cur.fetchall()
+            if table_name:
+                delete = '-'
+                for i in range(0, len(table_name)):
+                    backup_table = table_name[i][0]
+                    if table_name[i][0] != current_date:
+                        for c in delete:
+                            backup_table = backup_table.replace(c, '')
+                        backup_table = 'd' + backup_table
+                        query = "CREATE TABLE backupamsx505.{backup_table} AS SELECT student_id, present, absent, year, subject_id, course_id, teacher_id FROM Attendance where date = %s".format(
+                            backup_table=backup_table)
+                        value = [table_name[i][0]]
+                        self.cur.execute(query, value)
+                        query = "DELETE FROM Attendance WHERE date = %s"
+                        value = [table_name[i][0]]
+                        self.cur.execute(query, value)
+                        self.conn.commit()
+                return True
+
         except:
             pass
 

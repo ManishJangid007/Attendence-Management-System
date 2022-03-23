@@ -11,16 +11,16 @@ class SelectOperation():
             self.con = obj.connect()
             self.data = []
             self.msg = ""
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def showAdmins(self):
         try:
             self.cur.execute("SELECT * FROM Admins")
             self.data = self.cur.fetchall()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def verifyAdmin(self, username, password):
         try:
@@ -36,8 +36,8 @@ class SelectOperation():
                     return False
             else:
                 return False
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def checkExistenceOfAdmin(self, user_name):
         try:
@@ -86,7 +86,7 @@ class SelectOperation():
             self.data = self.cur.fetchone()
             return self.data
         except:
-            return self.data
+            pass
 
     def getTeacherBasicInfo(self):
         try:
@@ -94,8 +94,8 @@ class SelectOperation():
             self.data = self.cur.fetchall()
             self.data.pop(0)
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getTeacherName(self, id):
         try:
@@ -160,16 +160,16 @@ class SelectOperation():
             self.data = self.cur.fetchall()
             self.data.pop(0)
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getCourseCount(self):  # return course count
         try:
             self.cur.execute("SELECT COUNT(*) FROM Courses")
             self.data = self.cur.fetchone()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getCourseName(self, course_id):  # return course name
         try:
@@ -178,8 +178,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data[0]
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getCourseId(self, course_name):  # return course id
         try:
@@ -188,9 +188,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data[0]
-        except Exception as e:
-            print(e)
-            return self.data
+        except:
+            pass
 
     def checkExistenceCourse(self, course_name):  # check course Exist or not
         try:
@@ -311,8 +310,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchone()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def getStudentBasicInfo(self, course_name, year):
         try:
@@ -322,8 +321,8 @@ class SelectOperation():
             self.cur.execute(query, value)
             self.data = self.cur.fetchall()
             return self.data
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
 
     def getStudentName(self, student_id):
@@ -425,8 +424,7 @@ class SelectOperation():
                 for i in result:
                     if i[1] == 'Y':
                         return True
-            except Exception as e:
-                print(e)
+            except:
                 pass
 
         data = []
@@ -438,6 +436,7 @@ class SelectOperation():
         yesterday = 'd' + yesterday
         for i in self.getCourse():
             temp = []
+            absent = 0
             present = 0
             total_student = 0
             temp.append(self.getCourseName(i[2]))
@@ -445,7 +444,8 @@ class SelectOperation():
                 total_student += 1
                 if returnPresent(s_id[0], yesterday):
                     present += 1
-            absent = total_student - present
+                else:
+                    absent += 1
             temp.append(present)
             temp.append(absent)
             temp.append(total_student)
@@ -509,50 +509,29 @@ class SelectOperation():
             self.cur.execute(query, value)
             subject_id = self.cur.fetchall()
 
-            def daterange(start_date, end_date):
-                for n in range(int((end_date - start_date).days)):
-                    yield start_date + timedelta(n)
-
-            start_date = date(date.today().year - 1, 6, 1)
-            end_date = date.today()
-            self.cur.execute("USE backupamsx505")
-            self.cur.execute("SHOW TABLES")
+            self.cur.execute("SHOW TABLES FROM backupamsx505")
             result = self.cur.fetchall()
             for subject in subject_id:
-                self.cur.execute("USE amsx505")
                 total_present = 0
+                total_day = 0
                 row = []
                 row.append(self.getSubjectName(subject[0]))
-                for single_date in daterange(start_date, end_date):
-                    day = single_date.strftime("%Y-%m-%d")
-                    query = "SELECT present FROM Attendance WHERE student_id = %s AND date = %s AND course_id =  %s AND subject_id = %s AND year = %s"
-                    value = [student_id, day, course_id, subject[0], year]
-                    self.cur.execute(query, value)
-                    self.data = self.cur.fetchone()
-                    if self.data:
-                        if self.data[0].upper() == "YES":
-                            total_present += 1
-                    else:
-                        try:
-                            delete = '-'
-                            for c in delete:
-                                day = day.replace(c, '')
-                            day = 'd' + day
-                            for i in range(0, len(result)):
-                                if result[i][0] == day:
-                                    query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s".format(
-                                        day=day)
-                                    value = [student_id, course_id, subject[0], year]
-                                    self.cur.execute(query, value)
-                                    data = self.cur.fetchone()
-                                    if data:
-                                        if data[0].upper() == "YES":
-                                            total_present += 1
-                                            break
-                        except Exception as e:
-                            print(e)
+                try:
+                    for i in result:
+                        total_day += 1
+                        query = "SElECT present FROM backupamsx505.{day} WHERE student_id = %s AND course_id =  %s AND subject_id = %s AND year = %s AND (present = 'Y' OR absent = 'Y')".format(
+                            day=i[0])
+                        value = [student_id, course_id, subject[0], year]
+                        self.cur.execute(query, value)
+                        data = self.cur.fetchone()
+                        if data:
+                            if data[0] == "Y":
+                                total_present += 1
+                except Exception as e:
+                    print(e)
 
                 row.append(total_present)
+                row.append(total_day)
                 record.append(row)
 
             return record

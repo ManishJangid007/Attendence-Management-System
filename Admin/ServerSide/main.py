@@ -66,7 +66,7 @@ select = SelectOperation()
 # print(select.showAdmins())
 # print(select.getStudentProfile("aryaid101"))
 # print(select.getStudentBasicInfo("BCA", "1"))
-# print(select.totalPresentCount("aryaid101"))
+# print(select.totalPresentCount("aryaid502"))
 # # data = select.showAdminTable()
 # # for x in data:
 # #     print("%d %s %s" % (x[0], x[1], x[2]))
@@ -139,10 +139,10 @@ update = UpdateOperation()
 
 # update.deleteTeacher(7)
 es = EssentialFunction()
-if es.backupAttendance():
-    print("Backup Table is created Successfully")
-else:
-    print("Table isn't created")
+# if es.backupAttendance():
+#     print("Backup Table is created Successfully")
+# else:
+#     print("Table isn't created")
 # print(es.updateAge("22-07-2002", "aryaid101"))
 
 dv = DuplicateVerification()

@@ -135,7 +135,9 @@ class MarkAttendancePage():
             teacher_id = SelectOperation().getTeacherId(self.username)
 
             def absentAll():
-                if InsertOperation().setAbsentAll(rawData, self.data[4], self.data[2], teacher_id, self.data[3]):
+                raw_date = str(datetime.date.today()).split('-')
+                today = f"{raw_date[2]}-{raw_date[1]}-{raw_date[0]}"
+                if InsertOperation().setAbsentAll(rawData, self.data[4], self.data[2], teacher_id, self.data[3], today):
                     messagebox.showinfo(title="Success", message="Absent Marked Successfully !")
                     self.destroy()
                 else:

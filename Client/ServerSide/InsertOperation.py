@@ -29,12 +29,12 @@ class InsertOperation():
         except:
             return False
 
-    def setAbsentAll(self, total_student, course_id, year, teacher_id, subject_id):
+    def setAbsentAll(self, total_student, course_id, year, teacher_id, subject_id, date):
         try:
             for i in total_student:
                 query = "INSERT INTO Attendance(date, student_id, present, absent, year, subject_id, course_id, teacher_id) values(" \
-                        "CURRENT_DATE, %s, 'N', 'Y', %s, %s, %s, %s)"
-                value = [i[0], year, subject_id, course_id, teacher_id]
+                        "%s, %s, 'N', 'Y', %s, %s, %s, %s)"
+                value = [date, i[0], year, subject_id, course_id, teacher_id]
                 self.cur.execute(query, value)
                 self.conn.commit()
             return True

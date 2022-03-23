@@ -15,10 +15,12 @@ class EssentialFunction():
             for c in delete:
                 yesterday = yesterday.replace(c, '')
             yesterday = 'd' + yesterday
-            self.cur.execute("SELECT * FROM backupamsx505.{date}".format(date=yesterday))
-            result = self.cur.fetchone()
+            self.cur.execute("SHOW TABLES FROM backupamsx505")
+            result = self.cur.fetchall()
             if result:
-                return False
+                for i in result:
+                    if i[0] == yesterday:
+                        return False
             else:
                 today = str(date.today()).split('-')
                 current_date = f"{today[2]}-{today[1]}-{today[0]}"
@@ -40,6 +42,8 @@ class EssentialFunction():
                             value = [table_name[i][0]]
                             self.cur.execute(query, value)
                             self.conn.commit()
+                        else:
+                            pass
                     return True
         except:
             pass
