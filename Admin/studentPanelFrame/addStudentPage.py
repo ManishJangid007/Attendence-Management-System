@@ -27,7 +27,7 @@ class AddStudentPage():
         studentIdEntry = Entry(self.parent, bg="white", bd=0, width=15, justify="center",
                            font=(self.font, 21, 'normal'))
         studentIdEntry.place(x=241, y=29)
-        studentIdEntry.insert(0, "AryaId")
+        studentIdEntry.insert(0, "AryaID")
 
         firstNameLabel = Label(self.parent, bd=0, bg=self.ligBluePrimColor, fg="black", text="First Name",
                                font=(self.font, 14, 'normal'))
