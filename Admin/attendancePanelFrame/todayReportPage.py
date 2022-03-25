@@ -51,33 +51,37 @@ class TodayReportPage():
                      bg=self.ligBluePrimColor, bd=0, font=(self.font, 15, 'normal'), justify="center")
         date.grid(row=row, columnspan=5, padx=300, pady=10)
 
-        for data in rawData:
-            Label(content_frame, text=data[0], fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 25, 'bold'),
-                  justify="center").grid(row=row + 1, columnspan=5, padx=200, pady=20)
+        if len(rawData) > 0:
+            for data in rawData:
+                Label(content_frame, text=data[0], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 25, 'bold'),
+                      justify="center").grid(row=row + 1, columnspan=5, padx=200, pady=20)
 
-            Label(content_frame, text="Present", fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'),
-                  justify="center").grid(row=row + 2, column=0, pady=12, padx=70)
+                Label(content_frame, text="Present", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'),
+                      justify="center").grid(row=row + 2, column=0, pady=12, padx=70)
 
-            Label(content_frame, text=data[1], fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=0)
+                Label(content_frame, text=data[1], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=0)
 
-            Label(content_frame, text="Absent", fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'),
-                  justify="center").grid(row=row + 2, column=1, padx=70)
+                Label(content_frame, text="Absent", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'),
+                      justify="center").grid(row=row + 2, column=1, padx=70)
 
-            Label(content_frame, text=data[2], fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=1)
+                Label(content_frame, text=data[2], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=1)
 
-            Label(content_frame, text="Total", fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 2, column=2, padx=70)
+                Label(content_frame, text="Total", fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'), justify="center").grid(row=row + 2, column=2, padx=70)
 
-            Label(content_frame, text=data[3], fg=textColor, bg=self.ligBluePrimColor, bd=0,
-                  font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=2)
+                Label(content_frame, text=data[3], fg=textColor, bg=self.ligBluePrimColor, bd=0,
+                      font=(self.font, 20, 'normal'), justify="center").grid(row=row + 3, column=2)
 
-            horizontalbar = Label(content_frame, bg=self.ligBluePrimColor, bd=0, image=horizontalDivider)
-            horizontalbar.photo = horizontalDivider
-            horizontalbar.grid(row=row + 4, columnspan=5, pady=40)
+                horizontalbar = Label(content_frame, bg=self.ligBluePrimColor, bd=0, image=horizontalDivider)
+                horizontalbar.photo = horizontalDivider
+                horizontalbar.grid(row=row + 4, columnspan=5, pady=40)
 
-            row += 4
+                row += 4
+        else:
+            empty = Label(content_frame, text="No Data to Show Here", bg=self.ligBluePrimColor, bd=0, font=(self.font, 20, 'normal'))
+            empty.grid(row=1, columnspan=5)
